@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 15:34:18 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:04:39 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	ft_size(char *input, int *i, int *start)
 {
 	int	quote;
 	int	size;
+	int	token;
 
 	quote = 0;
+	token = -1;
 	size = 0;
-	while (input[*i] && ft_issyntax(input[*i]))
-		*i += 1;
 	while (input[*i])
 	{
 		if (input[*i] == 34 || input[*i] == 39)
@@ -52,13 +52,14 @@ int	ft_size(char *input, int *i, int *start)
 		}
 		if (quote == 0 && ft_issyntax(input[*i]) == PIPE)
 			break ;
-		if (ft_issyntax(input[*i]) == REDIR && !ft_issyntax(input[*i + 1]))
-			size -= 2;
-		if (ft_isspace(input[*i]) && !ft_isspace(input[*i + 1]) && quote == 0)
+		if (ft_istoken(input[*i]))
+			token = ft_istoken(input[*i]);
+		if (ft_isspace(input[*i]) && !ft_isspace(input[*i + 1])
+			&& token != REDIR && quote == 0)
 			size++;
 		*i += 1;
 	}
-	return (ft_end_size(input, i, start, size));
+	return (ft_end_size(input, i, start, size, token));
 }
 
 char	*ft_return_avx(char *input, int *start, int size)
@@ -121,12 +122,11 @@ void	ft_write_cmd(t_elem *cur, char *input, int *start)
 	i = *start;
 	tmp = NULL;
 	size = ft_size(input, &end, start);
-	cur->redirs = NULL;
-	cur->nbr_heredocs = 0;
 	cur->av = ft_calloc(sizeof(char *), (size + 1));
 	if (!cur->av)
 		return ;
-	printf("size == %i\n", size);
+	if (size == 0)
+		cur->av = NULL;
 	size = 0;
 	while (i < end)
 	{
@@ -137,6 +137,4 @@ void	ft_write_cmd(t_elem *cur, char *input, int *start)
 		else
 			cur->av[size++] = ft_write_current_av(input, &i);
 	}
-	printf("size == %i\n", size);
-	ft_manage_av(cur->av, size);
 }

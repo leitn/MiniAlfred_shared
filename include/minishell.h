@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 16:17:49 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:05:47 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef enum s_syntax
 	DOUBLEREDIRRIGHT,
 	PIPE_RD,
 	PIPE_WR,
+	WSPACE,
 }	t_syntax;
 
 typedef struct s_red
@@ -211,8 +212,9 @@ bool		ft_get_input(t_shell *shell);
 /* parser */
 
 t_syntax	ft_issyntax(char c);
+t_syntax	ft_istoken(char c);
 bool		ft_parse(t_shell *shell);
-int			ft_end_size(char *input, int *end, int *start, int size);
+int			ft_end_size(char *input, int *end, int *start, int size, int token);
 void		ft_manage_paths(t_shell *shell);
 
 /* parse_utils1 */
@@ -246,7 +248,7 @@ char		*ft_joinpath(char *s1, char *s2);
 /* parse_utils5 */
 
 t_red	*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i);
-void	ft_manage_av(char **av, int size);
+void	ft_manage_av(char **av);
 void	ft_print_tree(t_head *tree);
 
 

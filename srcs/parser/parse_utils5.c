@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:11:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 15:37:14 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:07:14 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,6 @@ t_red	*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i)
 	return (cur->redirs = new, new);
 }
 
-void	ft_manage_av(char **av, int size)
-{
-	if (size == 0)
-	{
-		printf("i'm in the if\n");
-		av = NULL;
-	}
-	else
-	{
-		printf("i'm in the else\n");
-		av[size] = NULL;
-	}
-}
-
 void	ft_print_tree(t_head *tree)
 {
 	t_elem	*tmp1;
@@ -54,8 +40,11 @@ void	ft_print_tree(t_head *tree)
 	{
 		printf("#### node %i ####\n", i++);
 		j = -1;
-		while (tmp1->av[++j])
-			printf("av[%i] == %s\n", j, tmp1->av[j]);
+		if (tmp1->av)
+		{
+			while (tmp1->av[++j])
+				printf("av[%i] == %s\n", j, tmp1->av[j]);
+		}
 		if (tmp1->redirs)
 		{
 			printf(">>>>> REDIRS\n");

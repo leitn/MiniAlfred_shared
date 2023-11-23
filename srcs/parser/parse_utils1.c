@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:44:23 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 15:33:56 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:05:56 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ bool	ft_write_no(t_elem *cur, char *input, int *i)
 
 void	ft_write_path(t_shell *shell, t_elem *cur)
 {
-	cur->path = NULL;
 	if (!cur->av)
 		return ;
 	if (!access(cur->av[0], F_OK | X_OK))

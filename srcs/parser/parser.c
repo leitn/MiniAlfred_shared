@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 23:58:04 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:05:42 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ t_syntax	ft_issyntax(char c)
 		return (PIPE);
 	if (c == '-')
 		return (OPTION);
+	return (NO);
+}
+
+t_syntax	ft_istoken(char c)
+{
+	static int	tem = 0;
+
+	if (ft_issyntax(c))
+	{
+		tem = 1;
+		return (ft_issyntax(c));
+	}
+	if (ft_isspace(c) && tem == 0)
+		return (WSPACE);
+	tem = 0;
 	return (NO);
 }
 
@@ -56,11 +71,11 @@ bool	ft_parse(t_shell *shell)
 }
 
 /* suite de ft_size dans parse_utils3.c (norme) */
-int	ft_end_size(char *input, int *end, int *start, int size)
+int	ft_end_size(char *input, int *end, int *start, int size, int token)
 {
 	*start = *end;
-	if ((!input[*end] && input[*end - 1] != ' ') || (input[*end] == '|'
-		&& !ft_isspace(input[*end - 1])))
+	if (((!input[*end] && input[*end - 1] != ' ') || (input[*end] == '|'
+		&& !ft_isspace(input[*end - 1]))) && token != REDIR)
 		size++;
 	while (input[*end] && ft_isspace(input[*end - 1]))
 		*end -= 1;
@@ -74,7 +89,8 @@ void	ft_manage_paths(t_shell *shell)
 	tmp = shell->tree->first;
 	while (tmp)
 	{
-		ft_write_path(shell, tmp);
+		if (tmp->av)
+			ft_write_path(shell, tmp);
 		tmp = tmp->next;
 	}
 }
