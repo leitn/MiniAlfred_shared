@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 22:04:29 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:53:45 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@ bool	ft_freestr(char *str)
 	free(str);
 	str = NULL;
 	return (false);
+}
+
+void	ft_free_redirs(t_red *redirs)
+{
+	t_red	*tmp1;
+	t_red	*tmp2;
+
+	tmp1 = redirs;
+	while (tmp1)
+	{
+		tmp2 = tmp1->next;
+		free(tmp1->av);
+		free(tmp1);
+		tmp1 = tmp2;
+	}
 }
 
 void	ft_free_tree(t_head *tree)
@@ -32,7 +47,8 @@ void	ft_free_tree(t_head *tree)
 			ft_free_str_array(tmp1->av);
 		if (tmp1->path)
 			free(tmp1->path);
-/* 		if (tmp1->) */
+		if (tmp1->redirs)
+			ft_free_redirs(tmp1->redirs);
 		free(tmp1);
 		tmp1 = tmp2;
 	}

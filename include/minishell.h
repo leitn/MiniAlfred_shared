@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 22:23:48 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:17:49 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ t_shell		*ft_init_shell(char **env);
 /* init_utils2 */
 
 bool		ft_get_paths(t_env *en, t_bin *bin);
+void		*ft_calloc(size_t nmemb, size_t size);
 void		*ft_realloc(void *ptr, int new_size, int old_size);
 
 
@@ -188,14 +189,19 @@ bool		ft_error(t_error error);
 
 /* lexer */
 
+void		ft_rewrite(t_shell *shell, t_elem *cur, int	index, int *jindex);
 char		*ft_returnenv(char *cmd, int index);
 void		ft_lex(t_shell *shell);
 
-/* lexer_utils */
+/* lexer_utils1 */
 
 char		*ft_removedollard(char *cmd, int size, int index);
 char		*ft_replacedollard(char *cmd, char *env, int size, int *index);
 void		ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex);
+
+/* lexer_utils2 */
+
+void		ft_lex_av(t_shell *shell, t_elem *tmp);
 
 /* main */
 
@@ -326,7 +332,7 @@ char		**ft_split(char const *s, char c);
 
 int			ft_strlen(char *str);
 bool		ft_isspace(char c);
-void		ft_write_double_redir(t_elem *first, char redir);
+bool		ft_ishell(char *input);
 t_syntax	ft_returnredir(char *input, int *i);
 int			ft_nbrlen(int n);
 

@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 21:50:19 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:31:50 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ bool	ft_get_input(t_shell *shell)
 	}
 	if (!shell->input)
 		return (false);
-	add_history(shell->input);
+	if (!ft_ishell(shell->input))
+		add_history(shell->input);
 	return (true);
 }
 

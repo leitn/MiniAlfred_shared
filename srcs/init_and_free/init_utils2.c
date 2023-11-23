@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:10:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/07 20:23:40 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:38:32 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,46 @@ void *ft_memcpy(void *dest, void *src, int new_size, int old_size)
 	return (dest);
 }
 
+void	ft_bzero(void *s, size_t n)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = (char *)s;
+	while (n > 0)
+	{
+		str[i] = '\0';
+		i++;
+		n--;
+	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+
+	if (size != 0 && nmemb > SIZE_MAX / size)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, nmemb * size);
+	return (ptr);
+}
+
 void *ft_realloc(void *ptr, int new_size, int old_size)
 {
 	void *new_ptr;
 
 	if (!ptr)
-		return (malloc(new_size));
+		return (ft_calloc(new_size, 1));
 	if (new_size == 0)
 	{
 		free(ptr);
 		return (NULL);
 	}
-	new_ptr = malloc(new_size);
+	new_ptr = ft_calloc(new_size, 1);
 	if (!new_ptr)
 	{
 		free(ptr);

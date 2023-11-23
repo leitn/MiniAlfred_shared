@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:11:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 22:23:19 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:37:14 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ t_red	*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i)
 {
 	t_red	*new;
 
-	new = malloc(sizeof(t_red));
+	new = ft_calloc(sizeof(t_red), 1);
 	if (!new)
 		return (NULL);
 	new->syn = ft_returnredir(input, i);
 	new->av = ft_write_current_av(input, i);
-	new->next = NULL;
 	if (new->syn == DOUBLEREDIRLEFT)
 		cur->nbr_heredocs++;
 	if (crn)
@@ -32,9 +31,15 @@ t_red	*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i)
 void	ft_manage_av(char **av, int size)
 {
 	if (size == 0)
+	{
+		printf("i'm in the if\n");
 		av = NULL;
+	}
 	else
+	{
+		printf("i'm in the else\n");
 		av[size] = NULL;
+	}
 }
 
 void	ft_print_tree(t_head *tree)

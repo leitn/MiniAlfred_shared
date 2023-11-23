@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:26:48 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 21:13:29 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:29:29 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,18 @@ int	ft_nbrlen(int n)
 		len++;
 	}
 	return (len);
+}
+
+bool	ft_ishell(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '<' && input[i + 1] && input[i + 1] == '<')
+			return (true);
+		i++;
+	}
+	return (false);
 }

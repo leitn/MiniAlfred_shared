@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:11:41 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/22 21:27:49 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:35:26 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*ft_write_word(char *s, char c, char **split)
 
 	i = 0;
 	wrdlen = ft_wordlen(s, c);
-	wrd = malloc(sizeof(char) * (wrdlen + 1));
+	wrd = ft_calloc(sizeof(char), (wrdlen + 1));
 	if (!wrd)
 	{
 		ft_errorfree(split);
@@ -86,7 +86,7 @@ char	**ft_split(char const *s, char c)
 
 	str = (char *)s;
 	wdnb = ft_count_strs(str, c);
-	split = malloc(sizeof(char *) * (wdnb + 1));
+	split = ft_calloc(sizeof(char *), (wdnb + 1));
 	if (!split)
 		return (NULL);
 	i = 0;

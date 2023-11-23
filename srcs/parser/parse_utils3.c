@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 22:26:03 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:34:18 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_return_avx(char *input, int *start, int size)
 	int		i;
 
 	size -= *start;
-	avx = malloc(sizeof(char) * (size + 1));
+	avx = ft_calloc(sizeof(char), (size + 1));
 	if (!avx)
 		return (NULL);
 	size += *start;
@@ -123,7 +123,7 @@ void	ft_write_cmd(t_elem *cur, char *input, int *start)
 	size = ft_size(input, &end, start);
 	cur->redirs = NULL;
 	cur->nbr_heredocs = 0;
-	cur->av = malloc(sizeof(char *) * (size + 1));
+	cur->av = ft_calloc(sizeof(char *), (size + 1));
 	if (!cur->av)
 		return ;
 	printf("size == %i\n", size);

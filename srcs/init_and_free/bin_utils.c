@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:40:37 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/24 15:13:49 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:27:42 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 bool	ft_init_bin(t_shell *shell)
 {
-	shell->bin = malloc(sizeof(t_bin));
+	shell->bin = ft_calloc(sizeof(t_bin), 1);
 	if (!shell->bin)
 		return (false);
 	shell->bin->isempty = true;
-	shell->bin->first = NULL;
 	return (true);
 }
 
@@ -27,7 +26,7 @@ void	ft_add_to_the_bin(void *waste, t_type type, t_bin *bin)
 	t_waste	*collected;
 	t_waste	*tmp;
 
-	collected = malloc(sizeof(t_waste));
+	collected = ft_calloc(sizeof(t_waste), 1);
 	if (!collected)
 		return ;
 	collected->waste = waste;

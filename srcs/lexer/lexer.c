@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/25 02:02:09 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:18:31 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_returnenv(char *cmd, int index)
 			|| cmd[i] == 34 || cmd[i] == '$'))
 		i++;
 	i -= (index + 1);
-	getenvp = malloc(sizeof(char) * i + 1);
+	getenvp = ft_calloc(sizeof(char), i + 1);
 	if (!getenvp)
 		return (NULL);
 	i = 0;
@@ -48,7 +48,7 @@ void	ft_remove_quotes(t_elem *cur, int index, int start, int *end)
 	int		i;
 	int		j;
 
-	new = malloc(sizeof(char) * (ft_strlen(cur->av[index])));
+	new = ft_calloc(sizeof(char), (ft_strlen(cur->av[index])));
 	if (!new)
 		return ;
 	i = 0;
@@ -97,30 +97,14 @@ les remplace par la variable correspondantes. */
 void	ft_lex(t_shell *shell)
 {
 	t_elem	*tmp;
-	int		i;
-	int		j;
 
 	tmp = shell->tree->first;
 	if (!tmp)
 		return ;
-	i = 0;
 	while (tmp)
 	{
-		while (tmp->av[i])
-		{
-			j = 0;
-			while (tmp->av[i][j])
-			{
-				if (tmp->av[i][j] == 34 || tmp->av[i][j] == 39)
-					ft_rewrite(shell, tmp, i, &j);
-				else if (tmp->av[i][j] == '$')
-					ft_rewrite_dollard(shell, tmp, i, &j);
-				else
-					j++;
-			}
-			i++;
-		}
+		if (tmp->av)
+			ft_lex_av(shell, tmp);
 		tmp = tmp->next;
-		i = 0;
 	}
 }

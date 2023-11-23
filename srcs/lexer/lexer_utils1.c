@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   lexer_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:44:25 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/26 21:38:31 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:15:02 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_removedollard(char *cmd, int size, int index)
 	int		i;
 	int		j;
 
-	new = malloc(sizeof(char) * size);
+	new = ft_calloc(sizeof(char), size);
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -54,7 +54,7 @@ char	*ft_replacedollard(char *cmd, char *env, int size, int *index)
 	int		j;
 	int		k;
 
-	new = malloc(sizeof(char) * size);
+	new = ft_calloc(sizeof(char), size);
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -81,7 +81,7 @@ char	*ft_get_status(int	status)
 	int		len;
 
 	len = ft_nbrlen(status);
-	str = malloc(sizeof(char) * (len + 1));
+	str = ft_calloc(sizeof(char), (len + 1));
 	str[len--] = '\0';
 	if (status == 0)
 	{

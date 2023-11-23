@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:26:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/26 21:52:10 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:30:39 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_convert_lvl(int lvl)
 	int		len;
 
 	len = ft_nbrlen(lvl);
-	strlvl = malloc(sizeof(char) * (len + 1));
+	strlvl = ft_calloc(sizeof(char), (len + 1));
 	if (!strlvl)
 		return (NULL);
 	strlvl[len--] = '\0';
@@ -76,7 +76,7 @@ char	*ft_write_shlvl(char *cur_env)
 
 	ft_init_lvl(cur_env, &lvl);
 	strlvl = ft_convert_lvl(lvl);
-	new = malloc(sizeof(char) * (7 + ft_strlen(strlvl)));
+	new = ft_calloc(sizeof(char), (7 + ft_strlen(strlvl)));
 	if (!new)
 		return (NULL);
 	lvl = 0;

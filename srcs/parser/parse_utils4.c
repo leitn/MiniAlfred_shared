@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_simple.c                                      :+:      :+:    :+:   */
+/*   parse_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 01:47:27 by letnitan          #+#    #+#             */
-/*   Updated: 2023/10/25 06:23:37 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:34:46 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strcpy(char *src)
 	char	*dst;
 	int		i;
 
-	dst = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	dst = ft_calloc(sizeof(char), (ft_strlen(src) + 1));
 	if (!dst)
 		return (NULL);
 	i = 0;
@@ -61,7 +61,7 @@ char	*ft_joinpath(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	str = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 2));
 	if (!str)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -80,9 +80,9 @@ char	*init_path(t_shell *shell, t_elem *cur)
 {
 	int		i;
 	char	**cmd_path;
-	
+
 	i = 0;
-	cmd_path = malloc(ft_array_len(shell->env->paths) * (sizeof(char *) + 1));
+	cmd_path = ft_calloc(ft_array_len(shell->env->paths), (sizeof(char *) + 1));
 	if (!cmd_path)
 		return (NULL);
 	ft_add_to_the_bin(cmd_path, STRARR, shell->bin);

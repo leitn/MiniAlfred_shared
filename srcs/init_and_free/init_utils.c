@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:39:24 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/26 21:24:16 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:29:02 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ bool	ft_init_tree(t_shell *shell)
 {
 	t_head	*tree;
 
-	tree = malloc(sizeof(t_head));
+	tree = ft_calloc(sizeof(t_head), 1);
 	if (!tree)
 		return (false);
 	shell->tree = tree;
-	shell->tree->first = NULL;
 	shell->tree->pipe = false;
 	shell->tree->count_pipe = 0;
 	shell->tree->redir = false;
@@ -42,7 +41,7 @@ char	*ft_init_current(char *cur_env)
 
 	if (ft_isshlvl(cur_env))
 		return (ft_write_shlvl(cur_env));
-	new = malloc(sizeof(char) * (ft_strlen(cur_env) + 1));
+	new = ft_calloc(sizeof(char), (ft_strlen(cur_env) + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -62,7 +61,7 @@ bool	ft_init_envp(t_shell *shell, char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	shell->env->envp = malloc(sizeof(char *) * (i + 1));
+	shell->env->envp = ft_calloc(sizeof(char *), (i + 1));
 	if (!shell->env->envp)
 		return (false);
 	i = 0;
@@ -80,14 +79,14 @@ t_shell	*ft_init_shell(char **env)
 {
 	t_shell	*shell;
 
-	shell = malloc(sizeof(t_shell));
+	shell = ft_calloc(sizeof(t_shell), 1);
 	if (!shell)
 		exit(EXIT_FAILURE);
 	shell->isthere = false;
 	shell->input = NULL;
 	if (!ft_init_bin(shell))
 		exit (EXIT_FAILURE);
-	shell->env = malloc(sizeof(t_env) * 1);
+	shell->env = ft_calloc(sizeof(t_env), 1);
 	if (!shell->env)
 		exit (EXIT_FAILURE);
 	if (!ft_init_envp(shell, env) || !ft_get_env_utils(shell->env, shell->bin))

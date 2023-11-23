@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/26 21:08:00 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:26:53 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_getenv(t_env *env, char *target)
 	i = 0;
 	while (env->envp[index][i] != '=')
 		i++;
-	var = malloc(sizeof(char) * (ft_strlen(env->envp[index]) - i + 1));
+	var = ft_calloc(sizeof(char), (ft_strlen(env->envp[index]) - i + 1));
 	if (!var)
 		return (NULL);
 	i++;
@@ -79,7 +79,7 @@ bool	ft_update_var(t_env *env, char *to_update, char *new)
 	index = ft_index(env->envp, to_update);
 	if (index == -1)
 		return (false);
-	new_var = malloc(sizeof(char) * (2 + ft_strlen(to_update) + ft_strlen(new)));
+	new_var = calloc(sizeof(char), (2 + ft_strlen(to_update) + ft_strlen(new)));
 	if (!new_var)
 		return (false);
 	i = 0;
@@ -111,7 +111,7 @@ bool	ft_delete_var(t_shell *shell, char *to_delete)
 	i = 0;
 	while (shell->env->envp[i])
 		i++;
-	new_env = malloc(sizeof(char *) * i);
+	new_env = ft_calloc(sizeof(char *), i);
 	if (!new_env)
 		return (false);
 	i = 0;

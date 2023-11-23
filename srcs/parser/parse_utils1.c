@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:44:23 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 21:09:31 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:33:56 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ bool	ft_write_no(t_elem *cur, char *input, int *i)
 void	ft_write_path(t_shell *shell, t_elem *cur)
 {
 	cur->path = NULL;
+	if (!cur->av)
+		return ;
 	if (!access(cur->av[0], F_OK | X_OK))
 	{
 		cur->path = ft_strcpy(cur->av[0]);
@@ -39,7 +41,7 @@ void	ft_write_path(t_shell *shell, t_elem *cur)
 	}
 	else if (ft_is_a_builtin(cur->av[0]))
 	{
-		cur->path = malloc(sizeof(char) * 1);
+		cur->path = ft_calloc(sizeof(char), 1);
 		if(!cur->path)
 			return ;
 		cur->path[0] = '\0';
@@ -49,7 +51,7 @@ void	ft_write_path(t_shell *shell, t_elem *cur)
 		cur->path = init_path(shell, cur);
 	if (!cur->path)
 	{
-		cur->path = malloc(sizeof(char) * 1);
+		cur->path = ft_calloc(sizeof(char), 1);
 		if(!cur->path)
 			return ;
 		cur->path[0] = '\0';
@@ -64,7 +66,7 @@ bool	ft_write_elem(t_shell *shell, int *i)
 	t_elem	*cur;
 	bool	rtrn;
 
-	cur = malloc(sizeof(t_elem));
+	cur = ft_calloc(sizeof(t_elem), 1);
 	if (!cur)
 		return (false);
 	if (ft_issyntax(shell->input[*i]) == PIPE)

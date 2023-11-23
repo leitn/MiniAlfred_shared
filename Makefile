@@ -6,7 +6,7 @@
 #    By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/22 21:54:18 by hedubois         ###   ########.fr        #
+#    Updated: 2023/11/23 16:16:24 by hedubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS	=	main.c \
 			init_and_free/init_utils.c \
 			init_and_free/init_utils2.c \
 			init_and_free/shlvl_utils.c \
-			lexer/lexer_utils.c \
+			lexer/lexer_utils1.c \
+			lexer/lexer_utils2.c \
 			lexer/lexer.c \
 			parser/fds_utils.c \
 			parser/parse_utils1.c \
