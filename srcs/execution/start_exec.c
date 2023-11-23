@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 16:57:15 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:34:05 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	ft_close_fds(t_shell *shell, t_elem *cur)
 	{
 		while (i <= shell->tree->count_pipe)
 		{
-			printf("\ndans close_fds boucle while pipe\n");
 			if (shell->pipe[i])
 			{
 				close(shell->pipe[i][0]);
@@ -51,7 +50,6 @@ int	ft_close_fds(t_shell *shell, t_elem *cur)
 	}
 	while (cur)
 	{
-		printf("Dans close_fd boucle cur->fd\n");
 		if (cur->fd_rd != 0)
 			close(cur->fd_rd);
 		if (cur->fd_wr != 1)
@@ -91,44 +89,28 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 	return (0);
 }
 
-int	dup_pipe_rd(t_shell *shell, t_elem *cur, int i)
+int	dup_pipe_rd(t_shell *shell, int i)
 {
-	if (shell->pipe[i - 1])
+	if (dup2(shell->pipe[i][0], STDIN_FILENO) == -1)
 	{
-		if (dup2(shell->pipe[i - 1][0], cur->fd_rd) == -1)
-		{
-			ft_putstr_fd("\nErrorDup2 : invalid fd\n", 2);
-			g_error = 155;
-			return (155);
-		}
+		ft_putstr_fd("\nErrorDup2 : invalid fd\n", 2);
+		g_error = 155;
+		return (155);
 	}
-	else
-	{
-		ft_putstr_fd("\nErrorDup2 : pipe error\n", 2);
-		g_error = 156;
-		return (156);
-	}
+	close(shell->pipe[i][0]);
 	return (0);
 }
 
-int	dup_pipe_wr(t_shell *shell, t_elem *cur, int i)
+int	dup_pipe_wr(t_shell *shell, int i)
 {
-	if (shell->pipe[i])
+	if (dup2(shell->pipe[i][1], STDOUT_FILENO) == -1)
 	{
-		if(dup2(shell->pipe[i][1], cur->fd_wr) == -1)
-		{
 
-			ft_putstr_fd("\nErrorDup2 : invalid fd\n", 2);
-			g_error = 155;
-			return (155);
-		}
+		ft_putstr_fd("\nErrorDup2 : invalid fd\n", 2);
+		g_error = 155;
+		return (155);
 	}
-	else
-	{
-		ft_putstr_fd("\nErrorDup2 : pipe error\n", 2);
-		g_error = 156;
-		return (156);
-	}
+	close(shell->pipe[i][1]);
 	return (0);
 }
 
@@ -137,9 +119,9 @@ int	ft_execve (t_shell *shell,t_elem *cur,int i)
 	if (cur->fd_wr !=-2 && cur->fd_rd != -2)
 		dup_no_pipe(shell, cur, i);
 	else if (cur->fd_rd == -2 && shell->tree->count_pipe > 0)
-		dup_pipe_rd(shell, cur, i);
+		dup_pipe_rd(shell, i);
 	else if (cur->fd_wr == -2  && shell->tree->count_pipe > 0)
-		dup_pipe_wr(shell, cur, i);
+		dup_pipe_wr(shell, i);
 	ft_close_fds(shell, cur);
 	if (ft_isbltn(shell, cur, i) == false)
 	{

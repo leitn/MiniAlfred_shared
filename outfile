@@ -1,0 +1,16 @@
+Dans close_fd boucle cur->fd
+total 164
+drwxr-xr-x  6 letnitan 2022_paris   4096 Nov 23 18:15 .
+drwxr-xr-x  5 letnitan 2022_paris   4096 Nov 23 18:09 ..
+drwxr-xr-x 10 letnitan 2022_paris   4096 Nov 23 18:15 bin
+drwxr-xr-x  8 letnitan 2022_paris   4096 Nov 23 18:26 .git
+drwxr-xr-x  2 letnitan 2022_paris   4096 Nov 23 18:09 include
+-rw-r--r--  1 letnitan 2022_paris   2745 Nov 23 18:09 leila2.t
+-rw-r--r--  1 letnitan 2022_paris   2745 Nov 23 18:09 leila3.t
+-rw-r--r--  1 letnitan 2022_paris   2745 Nov 23 18:09 leila.t
+-rw-r--r--  1 letnitan 2022_paris   2769 Nov 23 18:11 Makefile
+-rwxr-xr-x  1 letnitan 2022_paris 112248 Nov 23 18:15 minishell
+-rw-r--r--  1 letnitan 2022_paris     29 Nov 23 18:27 outfile
+-rw-r--r--  1 letnitan 2022_paris   1554 Nov 23 18:09 README.md
+drwxr-xr-x 10 letnitan 2022_paris   4096 Nov 23 18:09 srcs
+-rw-r--r--  1 letnitan 2022_paris    114 Nov 23 18:19 test
