@@ -1,0 +1,12 @@
+Dans close_fd boucle cur->fd
+bin
+include
+leila2.t
+leila3.t
+leila.t
+Makefile
+minishell
+outfile
+README.md
+srcs
+test

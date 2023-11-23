@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+         #
+#    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/23 16:16:24 by hedubois         ###   ########.fr        #
+#    Updated: 2023/11/23 18:11:27 by letnitan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRCS	=	main.c \
 			execution/start_exec.c \
 			execution/exec_nodes.c \
 			execution/exec_pipe.c \
-			execution/redir.c \
 			init_and_free/bin_utils.c \
 			init_and_free/free_utils.c \
 			init_and_free/init_utils.c \
@@ -41,6 +40,7 @@ SRCS	=	main.c \
 			lexer/lexer_utils2.c \
 			lexer/lexer.c \
 			parser/fds_utils.c \
+			parser/redir.c \
 			parser/parse_utils1.c \
 			parser/parse_utils2.c \
 			parser/parse_utils3.c \

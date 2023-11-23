@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 23:31:50 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:14:59 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **env)
 			// 	i++;
 			// }
 			ft_print_tree(shell->tree);
-			/* ft_exec(shell, shell->tree->first); */
+			ft_exec(shell, shell->tree->first);
 		}
 		ft_filter(shell, TREEONLY);
 	}

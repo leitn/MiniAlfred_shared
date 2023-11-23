@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 17:05:47 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:13:13 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,8 +287,12 @@ bool		exec_last_node(t_shell *shell, t_elem *cur, int *fd);
 bool		exec_middle_node(t_shell *shell, t_elem *cur, int i);
 
 /* redir.c */
-int			ft_simpledirright(t_elem *cur);
-int		ft_redir(t_shell *shell,t_elem *cur);
+int			ft_simpledirright(t_elem *tmp, t_red *red);
+int			ft_doubledirright(t_elem *tmp, t_red *red);
+int			ft_simpleleftdir(t_elem *tmp, t_red *red);
+bool		ft_is_eof(char *eof, char *str);
+int			ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs);
+int			ft_redir(t_shell *shell,t_elem *cur);
 
 /** BUILT-IN **/
 
