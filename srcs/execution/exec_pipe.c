@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:10:02 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/24 15:20:19 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:36:52 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ void	ft_init_pipes(t_shell *shell)
 
 int	ft_wait_children(t_shell *shell)
 {
-	int			i;
-	int			error_status;
-	extern int	g_error;
+	int	i;
 
 	i = 0;
 	while (i < shell->tree->count_pipe)
@@ -115,11 +113,8 @@ int	ft_wait_children(t_shell *shell)
 		waitpid(shell->pids[i], NULL, 0);
 		i++;
 	}
-	waitpid(shell->pids[i], &error_status, 0);
+	waitpid(shell->pids[i], &shell->error_status, 0);
 	printf("\nwaited, shell->pids[%i]\n", i);
-	if (WIFEXITED(error_status)) // means it terminated normally
-		g_error = WEXITSTATUS(error_status);
-	else if (WIFSIGNALED(error_status)) // means it terminated because of a signal call
-		g_error = 131; //return value for signal errorI think but check it
-	return (g_error);
+	ft_check_return(shell->error_status);
+	return (0);
 }

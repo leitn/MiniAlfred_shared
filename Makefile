@@ -6,7 +6,7 @@
 #    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/23 18:11:27 by letnitan         ###   ########.fr        #
+#    Updated: 2023/11/24 16:31:00 by letnitan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,9 @@ SRCS	=	main.c \
 			parser/parse_utils4.c \
 			parser/parse_utils5.c \
 			parser/parser.c \
-			signals/signals_utils.c \
+			signals/signals_inparent.c \
+			signals/signals_inchildren.c \
+			signals/signals_inhd.c \
 			utils/diverses_utils.c \
 			utils/error_utils.c \
 			utils/ft_split.c \

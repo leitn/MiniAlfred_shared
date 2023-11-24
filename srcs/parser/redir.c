@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/24 15:58:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:52:55 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ size_t	ft_countchar(int n)
 	return (i);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int n, t_shell *shell)
 {
 	size_t			i;
 	size_t			j;
@@ -155,7 +155,8 @@ char	*ft_itoa(int n)
 	nb = n;
 	str = malloc(sizeof(char) * (i + 1));
 	if (!str)
-		return (0);
+		return (NULL);
+	ft_add_to_the_bin(str, STR, shell->bin);
 	j = 0;
 	if (n < 0)
 	{
@@ -171,18 +172,18 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-int	ft_open_hd(t_elem *cur, int passage_nb)
+int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 {
 	if (cur->hd_name == NULL)
 	{
-		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb));
+		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
 		cur->fd_rd = open(cur->hd_name, O_RDWR | O_CREAT | O_EXCL, 0777);
 		if (cur->fd_rd == -1)
 		{
 			perror("perror : can't open the heredoc");
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = errno, -1);
+			return (g_error = 42, -1);
 		}
 		return (1);
 	}
@@ -199,7 +200,7 @@ int	ft_open_hd(t_elem *cur, int passage_nb)
 			printf("| Error Code : %d \n", errno);
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = errno, -1);
+			return (g_error = 42, -1);
 		}
 	}
 	return (0);
@@ -215,9 +216,12 @@ int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red) // changer pour prendre 
 	if(shell->tree->count_pipe > 0)
 		printf("\nPipes Alert. This is the av[0] cmd of this hd : %s\n", red->av);
 	if (passage_nb <= cur->nbr_heredocs)
-		ft_open_hd(cur, passage_nb);
+		ft_open_hd(cur, passage_nb, shell);
+	printf("\ncur->fd_rd : %i\n", cur->fd_rd);
+	shell->ss = true;
 	while (1)
 	{
+		ft_signals_inhd();
 		line = readline("> ");
 		if (!line)
 			return (1);

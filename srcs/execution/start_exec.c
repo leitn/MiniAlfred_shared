@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 16:13:19 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:42:55 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 	while (cur && i < shell->tree->count_pipe)
 	{
 		i++;
-		ft_signals();
 		shell->pids[i] = fork();
+		ft_signals_inchildren();
 		if (shell->pids[i] == -1)
 		{
 			ft_close_pipes(shell);
@@ -166,11 +166,13 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 	ft_close_fds(shell, shell->tree->first);
 	ft_wait_children(shell);
 	cur = shell->tree->first;
-	cur->hd_name = NULL;
+	// cur->hd_name = NULL;
 	while(cur)
 	{
 		if (cur->hd_name != NULL)
+		{
 			unlink(cur->hd_name);
+		}
 		cur = cur->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 15:23:49 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:26:57 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,15 @@ int	main(int ac, char **av, char **env)
 	g_error = 0;
 	(void)av;
 	shell = ft_init_shell(env);
+	ft_getshell(shell, 1);
 	// ft_print_titl(shell);
 	while (42)
 	{
-		ft_signals();
+		ft_signals_inparent();
 		if (!ft_get_input(shell))
 			break ;
 		if (ft_parse(shell))
 		{
-			// int i = 1;
-			// t_elem *tmp;
-			// int		j;
-			// tmp = shell->tree->first;
-			// while (tmp)
-			// {
-			// 	j = 0;
-			// 	printf("tmp n°%i\n", i);
-			// 	while (tmp->av[j])
-			// 	{
-			// 		printf("av[%i] == %s\n", j, tmp->av[j]);
-			// 		j++;
-			// 	}
-			// 	printf("av[%i] == %s\n", j, tmp->av[j]);
-			// 	printf("before == %i, after == %i\n", tmp->before, tmp->after);
-			// 	printf("current path == %s\n", tmp->path);
-			// 	printf("\nFD->wr == %i, FD->read == %i\n\n", tmp->fd_wr, tmp->fd_rd);
-			// 	tmp = tmp->next;
-			// 	i++;
-			// }
 			ft_print_tree(shell->tree);
 			if (shell->tree->count_pipe <= 0)
 			{

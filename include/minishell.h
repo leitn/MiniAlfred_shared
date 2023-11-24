@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 18:13:13 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:39:54 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ typedef struct s_shell
 	int				pipe[1024][2];
 	int				pids[1024];
 	t_elem			*exec_current;
+	int				error_status;
+	bool			ss;
 }	t_shell;
 
 typedef enum s_filter
@@ -256,10 +258,28 @@ void	ft_print_tree(t_head *tree);
 
 void		ft_manage_fds(t_shell *shell);
 
-/* signals_utils */
+/* signals*/
 
-void		ft_signals(void);
-void		ft_ctrlc(int sig);
+
+/* parent's */
+
+t_shell		*ft_getshell(t_shell *shell, int trigger);
+void		ft_signals_inparent(void);
+void		ft_ctrlc_inparent(int sig);
+
+/* children's */
+
+void		ft_signals_inchildren(void);
+void		ft_ctrlc_inchildren(int sig);
+void		ft_ctrlbs_inchildren(int sig);
+void		ft_check_return(int error_status);
+int			ft_signal_return_handler(int sig);
+
+/* heredocs' */
+void		ft_signals_inhd(void);
+void		ft_ctrlc_inhd(int sig);
+void		ft_ctrlbs_inhd(int sig);
+
 
 /** EXECUTION **/
 
