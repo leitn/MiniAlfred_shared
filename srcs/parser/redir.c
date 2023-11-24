@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/24 17:52:55 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:40:13 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ char	*ft_itoa(int n, t_shell *shell)
 
 int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 {
+	printf("\nIn ft_open_hd\n");
 	if (cur->hd_name == NULL)
 	{
 		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
@@ -191,8 +192,7 @@ int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 	{
 		close(cur->fd_rd);
 		unlink(cur->hd_name);
-		// cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb));
-		cur->hd_name = "tmpfile";
+		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
 		cur->fd_rd = open(cur->hd_name, O_RDWR | O_CREAT | O_EXCL, 0777);
 		if (cur->fd_rd == -1)
 		{
@@ -207,7 +207,7 @@ int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 }
 
 
-int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red) // changer pour prendre en compte les nouvelles listes chainees de redirs
+int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 {
 	char		*line;
 	static int	passage_nb = 0;
@@ -215,10 +215,8 @@ int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red) // changer pour prendre 
 	passage_nb++;
 	if(shell->tree->count_pipe > 0)
 		printf("\nPipes Alert. This is the av[0] cmd of this hd : %s\n", red->av);
-	if (passage_nb <= cur->nbr_heredocs)
-		ft_open_hd(cur, passage_nb, shell);
-	printf("\ncur->fd_rd : %i\n", cur->fd_rd);
-	shell->ss = true;
+	ft_open_hd(cur, passage_nb, shell);
+	// printf("\ncur->fd_rd : %i\npassage_nb == %i\n", cur->fd_rd, passage_nb);
 	while (1)
 	{
 		ft_signals_inhd();

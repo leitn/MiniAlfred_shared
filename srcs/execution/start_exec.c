@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 16:42:55 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:33:45 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 {
-	if (ft_strcmp(cur->av[0], "echo"))
-		return(ft_echo(shell, cur, pid), true);
-	else if (ft_strcmp(cur->av[0], "exit"))
-		return (ft_exit(cur, shell), true);
-	else if (ft_strcmp(cur->av[0], "cd"))
-		return (ft_cd(shell, cur, pid), true);
-	else if (ft_strcmp(cur->av[0], "export"))
-		return (ft_export(shell, cur), true);
-	else if (ft_strcmp(cur->av[0], "unset"))
-		return (ft_unset(shell, cur, pid), true);
-	else if (ft_strcmp(cur->av[0], "env"))
-		return (ft_env(shell, cur, pid), true);
-	else if (ft_strcmp(cur->av[0], "pwd"))
-		return(ft_pwd(shell, cur, pid), true);
+	if (cur->av)
+	{
+		if (ft_strcmp(cur->av[0], "echo"))
+			return(ft_echo(shell, cur, pid), true);
+		else if (ft_strcmp(cur->av[0], "exit"))
+			return (ft_exit(cur, shell), true);
+		else if (ft_strcmp(cur->av[0], "cd"))
+			return (ft_cd(shell, cur, pid), true);
+		else if (ft_strcmp(cur->av[0], "export"))
+			return (ft_export(shell, cur), true);
+		else if (ft_strcmp(cur->av[0], "unset"))
+			return (ft_unset(shell, cur, pid), true);
+		else if (ft_strcmp(cur->av[0], "env"))
+			return (ft_env(shell, cur, pid), true);
+		else if (ft_strcmp(cur->av[0], "pwd"))
+			return(ft_pwd(shell, cur, pid), true);
+	}
 	return (false);
 }
 
@@ -58,7 +61,7 @@ int	ft_close_fds(t_shell *shell, t_elem *cur)
 
 int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 {
-	printf("\nDans dup_no_pipe\n");
+	// printf("\nDans dup_no_pipe\n");
 	i = 0;
 	if (shell->tree->count_pipe > 0)
 	 	ft_close_pipes(shell);
@@ -74,7 +77,7 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 	}
 	if (cur->fd_wr != 1 && cur->fd_wr > 0)
 	{
-		printf("\n DUP2 fd-> == %i et STDOUT\n", cur->fd_wr);
+		// printf("\n DUP2 fd-> == %i et STDOUT\n", cur->fd_wr);
 		if (dup2(cur->fd_wr, STDOUT_FILENO) == -1)
 		{
 			ft_putstr_fd("\nErrorDup2 : invalid fd\n", 2);
@@ -88,8 +91,8 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 
 int	dup_pipe_rd(t_shell *shell, int i)
 {
-	ft_putstr_fd("\n in dup_pipe_rd\n", 2);
-	printf("i == %i\n", i);
+	// ft_putstr_fd("\n in dup_pipe_rd\n", 2);
+	// printf("i == %i\n", i);
 	if (dup2(shell->pipe[i - 1][0], 0) == -1)
 	{
 		ft_putstr_fd("\nErrorDup2 : invalid fd\n", 2);
@@ -124,7 +127,7 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 		dup_pipe_wr(shell, i);
 	if (ft_isbltn(shell, cur, 0) == false)
 	{
-		ft_putstr_fd("\nJust Before Execution with EXECVE\n", 2);
+		// ft_putstr_fd("\nJust Before Execution with EXECVE\n", 2);
 		if (execve(cur->path, cur->av, shell->env->envp) == -1)
 		{
 			ft_putstr_fd(cur->av[0], 2);
@@ -150,14 +153,14 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 			ft_close_pipes(shell);
 			return (1);
 		}
-		printf("\nBefore exec\n----\nCOMMAND av[0] == %s\nfd_rd == %i, fd_wr == %i\n", cur->av[0], cur->fd_rd, cur->fd_wr);
+		// printf("\nBefore exec\n----\nCOMMAND av[0] == %s\nfd_rd == %i, fd_wr == %i\n", cur->av[0], cur->fd_rd, cur->fd_wr);
 		if (cur->fd_wr == -1 || cur->fd_rd == -1)
 			return (ft_putstr_fd("fd error\n", 2), 42);
 		if (cur->hd_name != NULL)
 		 	cur->fd_rd = open(cur->hd_name, O_RDONLY);
 		if (shell->pids[i] == 0)
 		{
-			printf("\nChild Process number %i\n", i);
+			// printf("\nChild Process number %i\n", i);
 			ft_execve(shell, cur, i);
 		}
 		if (cur->next)

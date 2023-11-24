@@ -24,15 +24,15 @@ int	ft_complex_fds(t_shell *shell,t_elem *cur)
 
 	tmp = cur;
 	i = 0;
-	printf("\nDANS COMPLEX FD IN REDIRS\n");
+	// printf("\nDANS COMPLEX FD IN REDIRS\n");
 	while(tmp)
 	{
 		i++;
-		if (tmp->av)
-			printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
+		// if (tmp->av)
+		// 	printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
 		while(tmp->redirs)
 		{
-			printf ("\nBOUCLE REDIRS\n");
+			// printf ("\nBOUCLE REDIRS\n");
 			if (tmp->redirs->syn == SIMPLEREDIRRIGHT)
 				ft_simpledirright(tmp, tmp->redirs);
 			if (tmp->redirs->syn == DOUBLEREDIRRIGHT)
@@ -49,7 +49,7 @@ int	ft_complex_fds(t_shell *shell,t_elem *cur)
 			tmp->fd_wr = -2;
 		tmp = tmp->next;
 	}
-	printf("\n\n------------------------------\n\n");
+	// printf("\n\n------------------------------\n\n");
 	return (0);
 }
 
