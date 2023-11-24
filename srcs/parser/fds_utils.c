@@ -6,7 +6,7 @@ bool	ft_check_outfile(t_elem *cur)
 	t_elem *tmp;
 
 	tmp = cur;
-	if (tmp->redirs == NULL) 
+	if (tmp->redirs == NULL)
 		return(false);
 	while (tmp->redirs)
 		tmp->redirs = tmp->redirs->next;
@@ -28,7 +28,7 @@ int	ft_complex_fds(t_shell *shell,t_elem *cur)
 	while(tmp)
 	{
 		i++;
-		printf("\n Passage %i\ntmp->av[0] == %s", i, tmp->av[0]);
+		printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
 		while(tmp->redirs)
 		{
 			printf ("\nBOUCLE REDIRS\n");
