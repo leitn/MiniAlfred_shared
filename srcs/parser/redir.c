@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/23 16:44:56 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:58:58 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,10 @@ int	ft_open_hd(t_elem *cur, int passage_nb)
 		cur->fd_rd = open(cur->hd_name, O_RDWR | O_CREAT | O_EXCL, 0777);
 		if (cur->fd_rd == -1)
 		{
-			ft_putstr_fd("\ncan't open the heredoc\n", 2); // GERER ERREUR
-			return (g_error = 42, -1);
+			perror("perror : can't open the heredoc");
+			close(cur->fd_rd);
+			unlink(cur->hd_name);
+			return (g_error = errno, -1);
 		}
 		return (1);
 	}
@@ -188,12 +190,16 @@ int	ft_open_hd(t_elem *cur, int passage_nb)
 	{
 		close(cur->fd_rd);
 		unlink(cur->hd_name);
-		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb));
+		// cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb));
+		cur->hd_name = "tmpfile";
 		cur->fd_rd = open(cur->hd_name, O_RDWR | O_CREAT | O_EXCL, 0777);
 		if (cur->fd_rd == -1)
 		{
-			ft_putstr_fd("\ncan't open the heredoc\n", 2); // GERER ERREUR
-			return (g_error = 42, -1);
+			perror("\nperror : can't open the heredoc");
+			printf("| Error Code : %d \n", errno);
+			close(cur->fd_rd);
+			unlink(cur->hd_name);
+			return (g_error = errno, -1);
 		}
 	}
 	return (0);
@@ -215,7 +221,7 @@ int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red) // changer pour prendre 
 		line = readline("> ");
 		if (!line)
 			return (1);
-		if (ft_is_eof(cur->next->av[0], line))
+		if (ft_is_eof(cur->redirs->av, line))
 			return (close(cur->fd_rd), 0);
 		else
 		{

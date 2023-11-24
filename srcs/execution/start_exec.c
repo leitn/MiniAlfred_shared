@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 15:21:19 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:13:19 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 		printf("\nBefore exec\n----\nCOMMAND av[0] == %s\nfd_rd == %i, fd_wr == %i\n", cur->av[0], cur->fd_rd, cur->fd_wr);
 		if (cur->fd_wr == -1 || cur->fd_rd == -1)
 			return (ft_putstr_fd("fd error\n", 2), 42);
-		// if (cur->hd_name != NULL)
-		// 	cur->fd_rd = open(cur->hd_name, O_RDONLY);
+		if (cur->hd_name != NULL)
+		 	cur->fd_rd = open(cur->hd_name, O_RDONLY);
 		if (shell->pids[i] == 0)
 		{
 			printf("\nChild Process number %i\n", i);

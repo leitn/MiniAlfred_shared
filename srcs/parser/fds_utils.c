@@ -28,7 +28,8 @@ int	ft_complex_fds(t_shell *shell,t_elem *cur)
 	while(tmp)
 	{
 		i++;
-		printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
+		if (tmp->av)
+			printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
 		while(tmp->redirs)
 		{
 			printf ("\nBOUCLE REDIRS\n");
