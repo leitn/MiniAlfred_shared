@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 11:49:56 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:07:05 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 	i = 0;
 	if (shell->tree->count_pipe > 0)
 	 	ft_close_pipes(shell);
-	if (cur->fd_rd != 0)
+	if (cur->fd_rd != 0 && cur->fd_wr > 0)
 	{
 		if (dup2(cur->fd_rd, STDIN_FILENO) == -1)
 		{
@@ -72,7 +72,7 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 		}
 		close(cur->fd_rd);
 	}
-	if (cur->fd_wr != 1)
+	if (cur->fd_wr != 1 && cur->fd_wr > 0)
 	{
 		printf("\n DUP2 fd-> == %i et STDOUT\n", cur->fd_wr);
 		if (dup2(cur->fd_wr, STDOUT_FILENO) == -1)

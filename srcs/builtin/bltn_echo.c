@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/06 14:39:32 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:21:00 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,22 @@ void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne)
 {
 	while (cur->av[i])
 	{
-		ft_putstr_fd(cur->av[i], cur->fd_wr);
-		if (cur->av[i + 1])
-			ft_putstr_fd(" ", cur->fd_wr);
+		if (cur->fd_wr > 0)
+		{
+			ft_putstr_fd(cur->av[i], cur->fd_wr);
+			if (cur->av[i + 1])
+				ft_putstr_fd(" ", cur->fd_wr);
+		}
+		else
+		{
+			ft_putstr_fd(cur->av[i], 1);
+			if (cur->av[i + 1])
+				ft_putstr_fd(" ", 1);
+		}
 		i++;
 	}
 	if (no_ligne == false)
-		ft_putstr_fd("\n", cur->fd_wr);
+		ft_putstr_fd("\n", 2);
 	(void)shell;
 	// shell->exec_current = cur->next;
 }
