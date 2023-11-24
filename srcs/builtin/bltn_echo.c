@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 13:40:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:12:39 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 	}
 	ft_print(shell, cur, i, no_ligne);
 	if (pid == 0)
-		printf ("pid == 0 in echo\n");
-	// exit(0);
+		exit(0);
+		// printf ("pid == 0 in echo\n");
 }

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:10:02 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/23 18:43:11 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:20:19 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_wait_children(t_shell *shell)
 	extern int	g_error;
 
 	i = 0;
-	while (i < shell->tree->count_pipe - 1)
+	while (i < shell->tree->count_pipe)
 	{
 		waitpid(shell->pids[i], NULL, 0);
 		i++;
