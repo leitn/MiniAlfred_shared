@@ -1,5 +1,22 @@
 #include "../../include/minishell.h"
 
+// verifie si le dernier redir est un outfile
+bool	ft_check_outfile(t_elem *cur)
+{
+	t_elem *tmp;
+
+	tmp = cur;
+	if (tmp->redirs == NULL) 
+		return(false);
+	while (tmp->redirs)
+		tmp->redirs = tmp->redirs->next;
+	if (tmp->redirs->syn == SIMPLEREDIRLEFT)
+		return (false);
+	else if (tmp->redirs->syn == DOUBLEREDIRLEFT)
+		return (false);
+	return (true);
+}
+
 int	ft_complex_fds(t_shell *shell,t_elem *cur)
 {
 	t_elem *tmp;
@@ -27,7 +44,7 @@ int	ft_complex_fds(t_shell *shell,t_elem *cur)
 		}
 		if (i > 1)
 			tmp->fd_rd = -2;
-		else if (tmp->next && tmp->redirs == NULL)
+		else if (tmp->next && ft_check_outfile(tmp) == false)
 			tmp->fd_wr = -2;
 		tmp = tmp->next;
 	}
