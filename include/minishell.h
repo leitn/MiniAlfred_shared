@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 18:16:27 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:50:59 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,13 +272,14 @@ void		ft_ctrlc_inparent(int sig);
 void		ft_signals_inchildren(void);
 void		ft_ctrlc_inchildren(int sig);
 void		ft_ctrlbs_inchildren(int sig);
-void		ft_check_return(int error_status);
 int			ft_signal_return_handler(int sig);
+void		ft_check_return(int error_status);
 
 /* heredocs' */
 void		ft_signals_inhd(void);
 void		ft_ctrlc_inhd(int sig);
 void		ft_ctrlbs_inhd(int sig);
+int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red);
 
 
 /** EXECUTION **/

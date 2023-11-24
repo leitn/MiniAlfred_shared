@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_inchildren.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:40:42 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 14:58:08 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:51:24 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	ft_check_return(int error_status)
 	if (WIFEXITED(error_status))
 		g_error = WEXITSTATUS(error_status);
 	else if (WIFSIGNALED(error_status))
-		g_error = ft_signal_return_handler(error_status);
+		g_error = ft_signal_return_handler(WTERMSIG(error_status));
 }

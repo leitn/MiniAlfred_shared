@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/24 18:40:13 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:45:37 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,12 +217,12 @@ int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 		printf("\nPipes Alert. This is the av[0] cmd of this hd : %s\n", red->av);
 	ft_open_hd(cur, passage_nb, shell);
 	// printf("\ncur->fd_rd : %i\npassage_nb == %i\n", cur->fd_rd, passage_nb);
-	while (1)
+	ft_signals_inhd();
+	while (g_error == 0)
 	{
-		ft_signals_inhd();
 		line = readline("> ");
 		if (!line)
-			return (1);
+			return (ft_ctrld_inhd(shell, cur, red));
 		if (ft_is_eof(cur->redirs->av, line))
 			return (close(cur->fd_rd), 0);
 		else

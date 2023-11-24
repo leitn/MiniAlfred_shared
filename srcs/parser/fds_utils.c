@@ -3,16 +3,16 @@
 // verifie si le dernier redir est un outfile
 bool	ft_check_outfile(t_elem *cur)
 {
-	t_elem *tmp;
+	t_red	*tmp;
 
-	tmp = cur;
-	if (tmp->redirs == NULL)
+	tmp = cur->redirs;
+	if (tmp == NULL)
 		return(false);
-	while (tmp->redirs)
-		tmp->redirs = tmp->redirs->next;
-	if (tmp->redirs->syn == SIMPLEREDIRLEFT)
+	while (tmp)
+		tmp = tmp->next;
+	if (tmp->syn == SIMPLEREDIRLEFT)
 		return (false);
-	else if (tmp->redirs->syn == DOUBLEREDIRLEFT)
+	else if (tmp->syn == DOUBLEREDIRLEFT)
 		return (false);
 	return (true);
 }
@@ -45,7 +45,7 @@ int	ft_complex_fds(t_shell *shell,t_elem *cur)
 		}
 		if (i > 1)
 			tmp->fd_rd = -2;
-		else if (tmp->next && ft_check_outfile(tmp) == false)
+		if (tmp->next && ft_check_outfile(tmp) == false)
 			tmp->fd_wr = -2;
 		tmp = tmp->next;
 	}

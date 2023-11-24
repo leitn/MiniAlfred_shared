@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils5.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:11:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 18:07:14 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:01:20 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_print_tree(t_head *tree)
 	{
 		printf("#### node %i ####\n", i++);
 		j = -1;
+		printf("fd_rd == %i, fd_wr == %i\n", tmp1->fd_rd, tmp1->fd_wr);
 		if (tmp1->av)
 		{
 			while (tmp1->av[++j])
