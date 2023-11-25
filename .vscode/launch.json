@@ -2,23 +2,29 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
+      "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
+      "program": "${workspaceFolder}/minishell",
       "args": [],
       "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
       "externalConsole": false,
-      "cwd": "/mnt/nfs/homes/letnitan/Documents/MiniAlfred_Novembre/Reorganized/MiniAlfred_DesEnfers/srcs/execution",
-      "program": "/mnt/nfs/homes/letnitan/Documents/MiniAlfred_Novembre/Reorganized/MiniAlfred_DesEnfers/srcs/execution/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
       "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
+          {
+              "description": "Enable pretty-printing for gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          },
+          {
+              "description": "Set Disassembly Flavor to Intel",
+              "text": "-gdb-set disassembly-flavor intel",
+              "ignoreFailures": true
+          }
       ]
     }
+
   ]
 }

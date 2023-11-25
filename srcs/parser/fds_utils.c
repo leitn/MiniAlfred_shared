@@ -9,45 +9,47 @@ bool	ft_check_outfile(t_elem *cur)
 	if (tmp == NULL)
 		return(false);
 	while (tmp)
+	{
+		if (tmp->syn == SIMPLEREDIRRIGHT || tmp->syn == DOUBLEREDIRRIGHT)
+			return (true);
 		tmp = tmp->next;
-	if (tmp->syn == SIMPLEREDIRLEFT)
-		return (false);
-	else if (tmp->syn == DOUBLEREDIRLEFT)
-		return (false);
-	return (true);
+	}
+	return (false);
 }
 
-int	ft_complex_fds(t_shell *shell,t_elem *cur)
+int	ft_complex_fds(t_shell *shell)
 {
-	t_elem *tmp;
+	t_red	*tmpr;
+	t_elem	*tmpe;
 	int		i;
 
-	tmp = cur;
+	tmpe = shell->tree->first;
 	i = 0;
 	// printf("\nDANS COMPLEX FD IN REDIRS\n");
-	while(tmp)
+	while(tmpe)
 	{
 		i++;
 		// if (tmp->av)
 		// 	printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
-		while(tmp->redirs)
+		tmpr = tmpe->redirs;
+		while(tmpr)
 		{
 			// printf ("\nBOUCLE REDIRS\n");
-			if (tmp->redirs->syn == SIMPLEREDIRRIGHT)
-				ft_simpledirright(tmp, tmp->redirs);
-			if (tmp->redirs->syn == DOUBLEREDIRRIGHT)
-				ft_doubledirright(tmp, tmp->redirs);
-			if (tmp->redirs->syn == SIMPLEREDIRLEFT)
-				ft_simpleleftdir(tmp, tmp->redirs);
-			if (tmp->redirs->syn == DOUBLEREDIRLEFT)
-				ft_doubledirleft(shell, tmp, tmp->redirs);
-			tmp->redirs = tmp->redirs->next;
+			if (tmpr->syn == SIMPLEREDIRRIGHT)
+				ft_simpledirright(tmpe, tmpr);
+			if (tmpr->syn == DOUBLEREDIRRIGHT)
+				ft_doubledirright(tmpe, tmpr);
+			if (tmpr->syn == SIMPLEREDIRLEFT)
+				ft_simpleleftdir(tmpe, tmpr);
+			if (tmpr->syn == DOUBLEREDIRLEFT)
+				ft_doubledirleft(shell, tmpe, tmpr);
+			tmpr = tmpr->next;
 		}
 		if (i > 1)
-			tmp->fd_rd = -2;
-		if (tmp->next && ft_check_outfile(tmp) == false)
-			tmp->fd_wr = -2;
-		tmp = tmp->next;
+			tmpe->fd_rd = -2;
+		if (tmpe->next && ft_check_outfile(tmpe) == false)
+			tmpe->fd_wr = -2;
+		tmpe = tmpe->next;
 	}
 	// printf("\n\n------------------------------\n\n");
 	return (0);
@@ -69,6 +71,6 @@ void	ft_manage_fds(t_shell *shell)
 		tmp = tmp->next;
 	}
 	// if (shell->tree->redir || shell->tree->pipe)
-	ft_complex_fds(shell, shell->tree->first);
+	ft_complex_fds(shell);
 }
 

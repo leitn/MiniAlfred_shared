@@ -6,33 +6,30 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/24 18:45:37 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:04:06 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_simpledirright(t_elem *tmp, t_red *red)
+int	ft_simpledirright(t_elem *tmp, t_red *red) //doublon fd ??
 {
 	t_elem	*cur;
 	t_red	*redir;
-	int	fd;
 
 	cur = tmp;
 	redir = red;
-	printf("\n IN SIMPLEDIRRIGHT : red->av == %s\n", red->av);
+	// printf("\n IN SIMPLEDIRRIGHT : red->av == %s\n", red->av);
 	if (access(red->av, F_OK) == 0)
-		fd = open(red->av, O_WRONLY | O_TRUNC);
+		tmp->fd_wr = open(red->av, O_WRONLY | O_TRUNC);
 	else
-		fd = open(red->av, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
+		tmp->fd_wr = open(red->av, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (tmp->fd_wr == -1)
 	{
 		ft_putstr_fd("can't open the file\n", 2);   //GERER ERREUR
 		g_error = 42;
 		return (-1);
 	}
-	else
-		tmp->fd_wr = fd;
 	return (0);
 }
 
@@ -174,7 +171,7 @@ char	*ft_itoa(int n, t_shell *shell)
 
 int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 {
-	printf("\nIn ft_open_hd\n");
+	// printf("\nIn ft_open_hd\n");
 	if (cur->hd_name == NULL)
 	{
 		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
@@ -213,8 +210,8 @@ int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 	static int	passage_nb = 0;
 
 	passage_nb++;
-	if(shell->tree->count_pipe > 0)
-		printf("\nPipes Alert. This is the av[0] cmd of this hd : %s\n", red->av);
+	// if(shell->tree->count_pipe > 0)
+	// 	printf("\nPipes Alert. This is the av[0] cmd of this hd : %s\n", red->av);
 	ft_open_hd(cur, passage_nb, shell);
 	// printf("\ncur->fd_rd : %i\npassage_nb == %i\n", cur->fd_rd, passage_nb);
 	ft_signals_inhd();
@@ -223,7 +220,7 @@ int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 		line = readline("> ");
 		if (!line)
 			return (ft_ctrld_inhd(shell, cur, red));
-		if (ft_is_eof(cur->redirs->av, line))
+		if (ft_is_eof(red->av, line))
 			return (close(cur->fd_rd), 0);
 		else
 		{

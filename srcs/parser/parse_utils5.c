@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:11:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 19:01:20 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:57:08 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,30 @@ void	ft_print_tree(t_head *tree)
 {
 	t_elem	*tmp1;
 	t_red	*tmp2;
-	int		i = 0;
+	// int		i = 0;
 	int		j;
 
 	tmp1 = tree->first;
 	while (tmp1)
 	{
-		printf("#### node %i ####\n", i++);
+		// printf("#### node %i ####\n", i++);
 		j = -1;
-		printf("fd_rd == %i, fd_wr == %i\n", tmp1->fd_rd, tmp1->fd_wr);
-		if (tmp1->av)
-		{
-			while (tmp1->av[++j])
-				printf("av[%i] == %s\n", j, tmp1->av[j]);
-		}
+		// printf("fd_rd == %i, fd_wr == %i\n", tmp1->fd_rd, tmp1->fd_wr);
+		// if (tmp1->av)
+		// {
+		// 	while (tmp1->av[++j])
+		// 		printf("av[%i] == %s\n", j, tmp1->av[j]);
+		// }
 		if (tmp1->redirs)
 		{
-			printf(">>>>> REDIRS\n");
+			// printf(">>>>> REDIRS\n");
 			tmp2 = tmp1->redirs;
 			j = 0;
-			while (tmp2)
-			{
-				printf("redir[%i] == %s, token == %i\n", j++, tmp2->av, tmp2->syn);
-				tmp2 = tmp2->next;
-			}
+			// while (tmp2)
+			// {
+			// 	printf("redir[%i] == %s, token == %i\n", j++, tmp2->av, tmp2->syn);
+			// 	tmp2 = tmp2->next;
+			// }
 		}
 		tmp1 = tmp1->next;
 	}

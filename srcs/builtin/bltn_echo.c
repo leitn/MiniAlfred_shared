@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 16:44:31 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:33:15 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne)
 		if (cur->fd_wr > 0)
 		{
 			ft_putstr_fd(cur->av[i], cur->fd_wr);
-			if (cur->av[i + 1])
-				ft_putstr_fd(" ", cur->fd_wr);
+
+
 		}
 		else
 		{
@@ -64,5 +64,5 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 	if (cur->hd_name != NULL)
 		unlink(cur->hd_name);
 	if (pid == 0)
-		exit(0);
+	 	exit(0);
 }

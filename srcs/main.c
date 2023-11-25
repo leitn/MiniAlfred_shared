@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 16:26:57 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:26:44 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int	main(int ac, char **av, char **env)
 		if (ft_parse(shell))
 		{
 			ft_print_tree(shell->tree);
-			if (shell->tree->count_pipe <= 0)
+			if (shell->tree->count_pipe <= 0 && g_error != 130)
 			{
 				if (ft_isbltn(shell, shell->tree->first, 1) == false)
 					ft_exec(shell, shell->tree->first);
 			}
-			else
+			else if (g_error != 130)
 				ft_exec(shell, shell->tree->first);
 		}
 		ft_filter(shell, TREEONLY);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 22:53:45 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:21:26 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_free_tree(t_head *tree)
 		tmp2 = tmp1->next;
 		if (tmp1->av)
 			ft_free_str_array(tmp1->av);
+		if (tmp1->hd_name)
+			free(tmp1->hd_name);
 		if (tmp1->path)
 			free(tmp1->path);
 		if (tmp1->redirs)
