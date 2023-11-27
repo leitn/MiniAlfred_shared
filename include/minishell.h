@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/24 18:50:59 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:37:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_shell
 	int				pids[1024];
 	t_elem			*exec_current;
 	int				error_status;
+	int				hd_fd;
 	bool			ss;
 }	t_shell;
 
@@ -256,7 +257,7 @@ void	ft_print_tree(t_head *tree);
 
 /* fds_utils */
 
-void		ft_manage_fds(t_shell *shell);
+bool		ft_manage_fds(t_shell *shell);
 
 /* signals*/
 
@@ -273,7 +274,7 @@ void		ft_signals_inchildren(void);
 void		ft_ctrlc_inchildren(int sig);
 void		ft_ctrlbs_inchildren(int sig);
 int			ft_signal_return_handler(int sig);
-void		ft_check_return(int error_status);
+void		ft_recast_return(t_shell *shell);
 
 /* heredocs' */
 void		ft_signals_inhd(void);
@@ -308,11 +309,11 @@ bool		exec_last_node(t_shell *shell, t_elem *cur, int *fd);
 bool		exec_middle_node(t_shell *shell, t_elem *cur, int i);
 
 /* redir.c */
-int			ft_simpledirright(t_elem *tmp, t_red *red);
-int			ft_doubledirright(t_elem *tmp, t_red *red);
-int			ft_simpleleftdir(t_elem *tmp, t_red *red);
+bool		ft_simpledirright(t_elem *tmp, t_red *red);
+bool		ft_doubledirright(t_elem *tmp, t_red *red);
+bool		ft_simpleleftdir(t_elem *tmp, t_red *red);
 bool		ft_is_eof(char *eof, char *str);
-int			ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs);
+bool		ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs);
 int			ft_redir(t_shell *shell,t_elem *cur);
 
 /** BUILT-IN **/
@@ -326,7 +327,7 @@ bool		ft_cd(t_shell *shell, t_elem *cur, int pid);
 
 /* echo */
 
-void		ft_print(t_shell *shell, t_elem *tmp, int i, bool no_ligne);
+void		ft_print(t_shell *shell, t_elem *tmp, int i, bool no_ligne, int pid);
 void		ft_echo(t_shell *shell, t_elem *cur, int pid);
 
 /* env */

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:30:02 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 14:38:23 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:28:32 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,18 @@
 void	ft_signals_inhd(void)
 {
 	signal(SIGINT, &ft_ctrlc_inhd);
-	signal(SIGQUIT, &ft_ctrlbs_inhd);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 }
 
 void	ft_ctrlc_inhd(int sig)
 {
 	t_shell	*shell;
-	t_elem  *cur;
-	extern int	g_error;
 
-	(void)sig;
-	shell = ft_getshell(NULL, 0);
-	cur = shell->tree->first;
-	g_error = 130;
-
-}
-
-void	ft_ctrlbs_inhd(int sig)
-{
-	extern int	g_error;
-
+	shell = ft_getshell(NULL, 1);
 	(void)sig;
 	g_error = 130;
+	// close(STDIN_FILENO); TO FIX : test me :)
 }
 
 int	ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red)

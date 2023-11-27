@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:44:25 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 16:15:02 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:10:28 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,11 +137,10 @@ void	ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex)
 {
 	char		*new;
 	char		*env;
-	extern int	g_error;
 
 	if (cur->av[index][*jindex + 1] == '?')
 	{
-		env = ft_get_status(g_error);
+		env = ft_get_status(shell->error_status);
 		new = ft_write_new(cur->av[index], env, jindex);
 	}
 	else

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fds_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
+/*   Updated: 2023/11/27 14:58:57 by letnitan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 // verifie si le dernier redir est un outfile
@@ -17,7 +29,7 @@ bool	ft_check_outfile(t_elem *cur)
 	return (false);
 }
 
-int	ft_complex_fds(t_shell *shell)
+bool	ft_complex_fds(t_shell *shell)
 {
 	t_red	*tmpr;
 	t_elem	*tmpe;
@@ -32,17 +44,17 @@ int	ft_complex_fds(t_shell *shell)
 		// if (tmp->av)
 		// 	printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
 		tmpr = tmpe->redirs;
-		while(tmpr/*  && !ft_strcmp(tmpe->av[0], "cat") */)
+		while(tmpr)
 		{
 			// printf ("\nBOUCLE REDIRS\n");
-			if (tmpr->syn == SIMPLEREDIRRIGHT)
-				ft_simpledirright(tmpe, tmpr);
-			if (tmpr->syn == DOUBLEREDIRRIGHT)
-				ft_doubledirright(tmpe, tmpr);
-			if (tmpr->syn == SIMPLEREDIRLEFT)
-				ft_simpleleftdir(tmpe, tmpr);
-			if (tmpr->syn == DOUBLEREDIRLEFT)
-				ft_doubledirleft(shell, tmpe, tmpr);
+			if (tmpr->syn == SIMPLEREDIRRIGHT && !ft_simpledirright(tmpe, tmpr))
+				return (false);
+			if (tmpr->syn == DOUBLEREDIRRIGHT && !ft_doubledirright(tmpe, tmpr))
+				return (false);
+			if (tmpr->syn == SIMPLEREDIRLEFT && !ft_simpleleftdir(tmpe, tmpr))
+				return(false);
+			if (tmpr->syn == DOUBLEREDIRLEFT && !ft_doubledirleft(shell, tmpe, tmpr))
+				return (false);
 			tmpr = tmpr->next;
 		}
 		if (i > 1)
@@ -52,18 +64,17 @@ int	ft_complex_fds(t_shell *shell)
 		tmpe = tmpe->next;
 	}
 	// printf("\n\n------------------------------\n\n");
-	return (0);
+	return (true);
 }
 
 	// printf("\ntmp->av[0] == %s\ntmp->av[1] == %s\n", tmp->av[0], tmp->av[1]);
 	// printf("\nAfter ft_redir : tmp->av[0] == %s, cur->fd_rd == %i, cur->fd_wr == %i\n", shell->tree->first->av[0], shell->tree->first->fd_rd, shell->tree->first->fd_wr);
 
-void	ft_manage_fds(t_shell *shell)
+bool	ft_manage_fds(t_shell *shell)
 {
 	t_elem	*tmp;
 
 	tmp = shell->tree->first;
-	tmp->hd_name = NULL;
 	while (tmp)
 	{
 		tmp->fd_rd = 0;
@@ -71,6 +82,6 @@ void	ft_manage_fds(t_shell *shell)
 		tmp = tmp->next;
 	}
 	// if (shell->tree->redir || shell->tree->pipe)
-	ft_complex_fds(shell);
+	return (ft_complex_fds(shell));
 }
 

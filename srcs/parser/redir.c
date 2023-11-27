@@ -6,13 +6,13 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/25 16:04:06 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:03:28 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_simpledirright(t_elem *tmp, t_red *red) //doublon fd ??
+bool	ft_simpledirright(t_elem *tmp, t_red *red)
 {
 	t_elem	*cur;
 	t_red	*redir;
@@ -28,12 +28,12 @@ int	ft_simpledirright(t_elem *tmp, t_red *red) //doublon fd ??
 	{
 		ft_putstr_fd("can't open the file\n", 2);   //GERER ERREUR
 		g_error = 42;
-		return (-1);
+		return (false);
 	}
-	return (0);
+	return (true);
 }
 
-int	ft_doubledirright(t_elem *tmp, t_red *red)
+bool	ft_doubledirright(t_elem *tmp, t_red *red)
 {
 	int	fd;
 
@@ -46,14 +46,14 @@ int	ft_doubledirright(t_elem *tmp, t_red *red)
 		ft_putstr_fd("can't open the file\n", 2); // GERER ERREUR
 		tmp->fd_wr = fd;
 		g_error = 42;
-		return (-1);
+		return (false);
 	}
 	else
 		tmp->fd_wr = fd;
-	return (0);
+	return (true);
 }
 
-int	ft_simpleleftdir(t_elem *tmp, t_red *red)
+bool	ft_simpleleftdir(t_elem *tmp, t_red *red)
 {
 	t_elem *cur;
 
@@ -64,11 +64,13 @@ int	ft_simpleleftdir(t_elem *tmp, t_red *red)
 		tmp->fd_rd = -1;
 	if (tmp->fd_rd == -1)
 	{
-		ft_putstr_fd("\ncan't open the file\n", 2); //GERER ERREUR
+		ft_putstr_fd("MiniAlfred: ", 2);
+		ft_putstr_fd(red->av, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		g_error = 42;
-		return (-1);
+		return (false);
 	}
-	return (0);
+	return (true);
 }
 
 bool	ft_is_eof(char *eof, char *str) //strcmp a la place ?
@@ -169,7 +171,7 @@ char	*ft_itoa(int n, t_shell *shell)
 	return (str);
 }
 
-int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
+bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 {
 	// printf("\nIn ft_open_hd\n");
 	if (cur->hd_name == NULL)
@@ -181,7 +183,7 @@ int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 			perror("perror : can't open the heredoc");
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = 42, -1);
+			return (g_error = 42, false);  //TOFIX : g_error == 42 ???
 		}
 		return (1);
 	}
@@ -197,43 +199,45 @@ int	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 			printf("| Error Code : %d \n", errno);
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = 42, -1);
+			return (g_error = 42, false); //TOFIX : g_error == 42 ???
 		}
 	}
-	return (0);
+	return (true);
 }
 
 
-int	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
+bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 {
 	char		*line;
 	static int	passage_nb = 0;
+	//int			mem_stdin;
 
 	passage_nb++;
-	// if(shell->tree->count_pipe > 0)
-	// 	printf("\nPipes Alert. This is the av[0] cmd of this hd : %s\n", red->av);
-	ft_open_hd(cur, passage_nb, shell);
-	// printf("\ncur->fd_rd : %i\npassage_nb == %i\n", cur->fd_rd, passage_nb);
+	if (!ft_open_hd(cur, passage_nb, shell))
+		return (false);
+	//mem_stdin = dup(STDIN_FILENO); TOFIX open me in exec
+	g_error = 0;
 	ft_signals_inhd();
-	while (g_error == 0)
+	while (1)
 	{
+		if (g_error != 0)
+			break ; //TO FIX : restaurer STDIN avant de partir :)
 		line = readline("> ");
 		if (!line)
 			return (ft_ctrld_inhd(shell, cur, red));
-		if (ft_is_eof(red->av, line))
-			return (close(cur->fd_rd), 0);
+		if (ft_is_eof(cur->redirs->av, line))
+			return (close(cur->fd_rd), true);
 		else
 		{
 			ft_putstr_fd(line, cur->fd_rd);
 			ft_putstr_fd("\n", cur->fd_rd);
 		}
 	}
-	return (0);
+	return (false);
 }
 
-int	ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs)
+bool	ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs)
 {
-	ft_heredoc(shell, tmp, redirs);
-	return(0);
+	return(ft_heredoc(shell, tmp, redirs));
 	// wow cette fonction ne sert plus a rien
 }

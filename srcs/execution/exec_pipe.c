@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:10:02 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/25 15:57:57 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:21:19 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	ft_wait_children(t_shell *shell)
 		i++;
 	}
 	waitpid(shell->pids[i], &shell->error_status, 0);
-	// printf("\nwaited, shell->pids[%i]\n", i);
-	ft_check_return(shell->error_status);
+	//printf("\nwaited, shell->pids[%i]\n", i);
+	ft_recast_return(shell);
 	return (0);
 }

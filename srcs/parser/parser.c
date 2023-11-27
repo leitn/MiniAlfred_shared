@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 18:05:42 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:42:04 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ bool	ft_parse(t_shell *shell)
 	}
 	ft_lex(shell);
 	ft_manage_paths(shell);
-	ft_manage_fds(shell);
+	if (!ft_manage_fds(shell))
+		return (ft_filter(shell, BOTH), false);
 	return (ft_filter(shell, INPONLY), true);
 }
 

@@ -6,7 +6,7 @@
 #    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/24 16:31:00 by letnitan         ###   ########.fr        #
+#    Updated: 2023/11/27 14:41:52 by letnitan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRCS	=	main.c \
 			env/env.c \
 			env/env_utils.c \
 			execution/start_exec.c \
-			execution/exec_nodes.c \
 			execution/exec_pipe.c \
 			init_and_free/bin_utils.c \
 			init_and_free/free_utils.c \

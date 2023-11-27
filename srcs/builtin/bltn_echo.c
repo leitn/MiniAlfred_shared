@@ -6,29 +6,33 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 15:33:15 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:44:01 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne)
+void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne, int pid)
 {
-	while (cur->av[i])
+	if (cur->fd_wr > 0 && (pid != 0))
 	{
-		if (cur->fd_wr > 0)
+		while (cur->av[i])
 		{
 			ft_putstr_fd(cur->av[i], cur->fd_wr);
-
-
+			if (cur->av[i + 1])
+				ft_putstr_fd(" ", cur->fd_wr);
+			i++;
 		}
-		else
+	}
+	else if ((pid == 0) || (cur->fd_wr == -2))
+	{
+		while (cur->av[i])
 		{
 			ft_putstr_fd(cur->av[i], 1);
 			if (cur->av[i + 1])
 				ft_putstr_fd(" ", 1);
+			i++;
 		}
-		i++;
 	}
 	if (no_ligne == false && cur->fd_wr > 0)
 		ft_putstr_fd("\n", cur->fd_wr);
@@ -60,9 +64,9 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 			i++;
 		}
 	}
-	ft_print(shell, cur, i, no_ligne);
+	ft_print(shell, cur, i, no_ligne, pid);
 	if (cur->hd_name != NULL)
 		unlink(cur->hd_name);
 	if (pid == 0)
-	 	exit(0);
+		exit(0);
 }
