@@ -188,8 +188,7 @@ void		ft_filter(t_shell *shell, t_filter to_free);
 
 
 /* error_utils */
-
-bool		ft_error(t_error error);
+bool	ft_error(char *arg, t_error error);
 
 /* lexer */
 
@@ -299,6 +298,7 @@ bool		ft_direct_exec(t_shell *shell);
 bool		check_bltn(t_elem *cur);
 int			ft_exec_pipe(t_shell *shell, t_elem *cur);
 void		ft_close_pipes(t_shell *shell);
+int			ft_close_fds(t_shell *shell, t_elem *cur);
 void		ft_init_pipes(t_shell *shell);
 int			ft_wait_children(t_shell *shell);
 

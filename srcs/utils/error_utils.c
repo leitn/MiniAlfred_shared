@@ -12,9 +12,9 @@
 
 #include "../../include/minishell.h"
 
-bool	ft_error(t_error error)
+bool ft_error(char *arg, t_error error)
 {
-	extern int	g_error;
+	extern int g_error;
 
 	if (error == SYN)
 	{
@@ -24,7 +24,10 @@ bool	ft_error(t_error error)
 	else if (error == CMD)
 	{
 		g_error = 126;
-		ft_putstr_fd("command not found\n", 2);
+		ft_putstr_fd("MiniAlfred: ", 2);
+		if (arg)
+			ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
 	else if (error == ARG)
 	{

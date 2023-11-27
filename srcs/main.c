@@ -28,7 +28,7 @@ int	main(int ac, char **av, char **env)
 	t_shell	*shell;
 
 	if (ac > 1)
-		ft_error(ARG);
+		ft_error(NULL, ARG);
 	g_error = 0;
 	(void)av;
 	shell = ft_init_shell(env);

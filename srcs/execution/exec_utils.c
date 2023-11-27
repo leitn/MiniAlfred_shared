@@ -31,43 +31,6 @@ bool	check_bltn(t_elem *cur)
 	return (false);
 }
 
-// int	ft_exec_pipe(t_shell *shell, t_elem *cur)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	ft_init_pipes(shell);
-// 	printf("\nIN EXEC PIPE\n");
-// 	while (i <= shell->tree->count_pipe)
-// 	{
-// 		ft_signals();
-// 		shell->pids[i] = fork();
-// 		if (shell->pids[i] == -1)
-// 		{
-// 			ft_close_pipes(shell);
-// 			return (1);
-// 		}
-// 		printf("\nIn Ft_EXEC_PIPE. cur->arg[0] == %s\n", cur->av[0]);
-// 		if (shell->pids[i] == 0 && i == 0)
-// 			exec_first_node(shell, cur, shell->pipe[i]);
-// 		else if (shell->pids[i] == 0 && i == shell->tree->count_pipe)
-// 			exec_last_node(shell, cur, shell->pipe[i - 1]);
-// 		else if (shell->pids[i] == 0 && i != shell->tree->count_pipe && i != 0)
-// 			exec_middle_node(shell, cur, i);
-// 		if (cur->next)
-// 		{
-// 			if (cur->after == PIPE || cur->after == REDIR) //insuffisant
-// 				cur = cur->next;
-// 			else
-// 				cur = cur->next->next;
-// 		}
-// 		i++;
-// 	}
-// 	ft_close_pipes(shell);
-// 	ft_wait_children(shell);
-// 	return (0);
-// }
-
 void	ft_close_pipes(t_shell *shell)
 {
 	int		i;
@@ -81,12 +44,37 @@ void	ft_close_pipes(t_shell *shell)
 	}
 }
 
+int	ft_close_fds(t_shell *shell, t_elem *cur)
+{
+	int		i;
+
+	i = 0;
+	if (shell->tree->count_pipe > 0)
+	{
+		while (i < shell->tree->count_pipe)
+		{
+			close(shell->pipe[i][0]);
+			close(shell->pipe[i][1]);
+			i++;
+		}
+	}
+	while (cur)
+	{
+		if (cur->fd_rd > 0)
+			close(cur->fd_rd);
+		if (cur->fd_wr > 1)
+			close(cur->fd_wr);
+		cur = cur->next;
+	}
+	return (0);
+}
+
 void	ft_init_pipes(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while(i < shell->tree->count_pipe)
+	while (i < shell->tree->count_pipe)
 	{
 		if (pipe(shell->pipe[i]) == -1)
 		{
@@ -114,7 +102,6 @@ int	ft_wait_children(t_shell *shell)
 		i++;
 	}
 	waitpid(shell->pids[i], &shell->error_status, 0);
-	//printf("\nwaited, shell->pids[%i]\n", i);
 	ft_recast_return(shell);
 	return (0);
 }

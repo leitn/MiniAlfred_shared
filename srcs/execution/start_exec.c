@@ -47,31 +47,6 @@ void	ft_mini_close(t_shell *shell, t_elem *cur, int i)
 		close(cur->fd_wr);
 }
 
-int	ft_close_fds(t_shell *shell, t_elem *cur)
-{
-	int		i;
-
-	i = 0;
-	if (shell->tree->count_pipe > 0)
-	{
-		while (i < shell->tree->count_pipe)
-		{
-			close(shell->pipe[i][0]);
-			close(shell->pipe[i][1]);
-			i++;
-		}
-	}
-	while (cur)
-	{
-		if (cur->fd_rd > 0)
-			close(cur->fd_rd);
-		if (cur->fd_wr > 1)
-			close(cur->fd_wr);
-		cur = cur->next;
-	}
-	return (0);
-}
-
 int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 {
 	(void)shell;
@@ -81,7 +56,6 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 		if (dup2(cur->fd_rd, STDIN_FILENO) == -1)
 		{
 			perror("Error Dup2");
-			// ft_putstr_fd("\nErrorDup2 : invalid fd_rd in dupnopipe\n", 2);
 			g_error = 155;
 			return (155);
 		}
@@ -91,7 +65,6 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 		if (dup2(cur->fd_wr, STDOUT_FILENO) == -1)
 		{
 			perror("Error Dup2");
-			// ft_putstr_fd("\nErrorDup2 : invalid fd_wr in dupnopipe\n", 2);
 			g_error = 155;
 			return (155);
 		}
@@ -104,7 +77,6 @@ int	dup_pipe_rd(t_shell *shell, int i)
 	if (dup2(shell->pipe[i - 1][0], STDIN_FILENO) == -1)
 	{
 		perror("Error Dup2");
-		// ft_putstr_fd("\nErrorDup2 : invalid fd in dup_pipe_rd\n", 2);
 		g_error = 155;
 		return (155);
 	}
@@ -116,7 +88,6 @@ int	dup_pipe_wr(t_shell *shell, int i)
 	if (dup2(shell->pipe[i][1], STDOUT_FILENO) == -1)
 	{
 		perror("Error Dup2");
-		// ft_putstr_fd("\nErrorDup2 : invalid fd in dup_pipe_wr", 2);
 		g_error = 155;
 		return (155);
 	}
@@ -136,10 +107,7 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 	{
 		if (execve(cur->path, cur->av, shell->env->envp) == -1)
 		{
-			perror("\nError");
-			printf("Error code: %d\n", errno);
-			ft_putstr_fd(cur->av[0], 2);
-			ft_putstr_fd(": ", 2);
+			ft_error(cur->av[0], CMD);
 			exit(-1);
 		}
 	}

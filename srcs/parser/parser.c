@@ -55,7 +55,7 @@ bool	ft_parse(t_shell *shell)
 	if (ft_isempty(shell->input))
 		return (ft_filter(shell, INPONLY), false);
 	if (ft_unclosedquotes(shell->input) || ft_error_pipe_or_redir(shell->input))
-		return (ft_filter(shell, INPONLY), ft_error(SYN));
+		return (ft_filter(shell, INPONLY), ft_error(NULL, SYN));
 	if (!ft_init_tree(shell))
 		return (ft_filter(shell, INPONLY), false);
 	i = 0;

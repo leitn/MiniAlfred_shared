@@ -29,7 +29,7 @@ SRCS	=	main.c \
 			env/env.c \
 			env/env_utils.c \
 			execution/start_exec.c \
-			execution/exec_pipe.c \
+			execution/exec_utils.c \
 			init_and_free/bin_utils.c \
 			init_and_free/free_utils.c \
 			init_and_free/init_utils.c \
