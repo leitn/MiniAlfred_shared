@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 18:33:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/06 14:56:03 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:46:39 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	ft_exit(t_elem *cur, t_shell *shell)
 	extern int	g_error;
 	int			exit_status;
 
-	ft_putstr_fd("exit\n", cur->fd_wr);
+	ft_putstr_fd("exit\n", 2);
 	if (cur->av[1])
 	{
 		if (!ft_atoi(cur->av[1], &exit_status))

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:53:27 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/06 14:54:55 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:44:43 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,16 @@ void	ft_env(t_shell *shell, t_elem *cur, int pid)
 	}
 	while (shell->env->envp[i])
 	{
-		ft_putstr_fd(shell->env->envp[i++], cur->fd_wr);
-		ft_putchar_fd('\n', cur->fd_wr);
+		if (cur->fd_wr > 0 && (pid != 0))
+		{
+			ft_putstr_fd(shell->env->envp[i++], cur->fd_wr);
+			ft_putchar_fd('\n', cur->fd_wr);
+		}
+		else if ((pid == 0) || (cur->fd_wr == -2))
+		{
+			ft_putstr_fd(shell->env->envp[i++], 1);
+			ft_putchar_fd('\n',1);
+		}
 	}
 	if (pid == 0)
 		exit(0);

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 14:58:57 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:52:40 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@ bool	ft_check_outfile(t_elem *cur)
 	return (false);
 }
 
+void	ft_builtin_fds(t_elem *cur)
+{
+	printf("\nDANS BUILTIN FDS\n");
+	printf("\ncur->av[0] == %s\n", cur->av[0]);
+	if (cur->av)
+	{
+		if (ft_strcmp(cur->av[0], "exit") || ft_strcmp(cur->av[0], "cd"))
+		{
+			cur->fd_rd = 0;
+			cur->fd_wr = 1;
+		}
+		else if (ft_strcmp(cur->av[0], "export") || ft_strcmp(cur->av[0], "unset"))
+		{
+			cur->fd_rd = 0;
+			cur->fd_wr = 1;
+		}
+	}
+}
+
 bool	ft_complex_fds(t_shell *shell)
 {
 	t_red	*tmpr;
@@ -37,7 +56,7 @@ bool	ft_complex_fds(t_shell *shell)
 
 	tmpe = shell->tree->first;
 	i = 0;
-	// printf("\nDANS COMPLEX FD IN REDIRS\n");
+	printf("\nDANS COMPLEX FD IN REDIRS\n");
 	while(tmpe)
 	{
 		i++;
@@ -61,14 +80,12 @@ bool	ft_complex_fds(t_shell *shell)
 			tmpe->fd_rd = -2;
 		if (tmpe->next && ft_check_outfile(tmpe) == false)
 			tmpe->fd_wr = -2;
+		ft_builtin_fds(tmpe);
 		tmpe = tmpe->next;
 	}
 	// printf("\n\n------------------------------\n\n");
 	return (true);
 }
-
-	// printf("\ntmp->av[0] == %s\ntmp->av[1] == %s\n", tmp->av[0], tmp->av[1]);
-	// printf("\nAfter ft_redir : tmp->av[0] == %s, cur->fd_rd == %i, cur->fd_wr == %i\n", shell->tree->first->av[0], shell->tree->first->fd_rd, shell->tree->first->fd_wr);
 
 bool	ft_manage_fds(t_shell *shell)
 {
@@ -81,7 +98,6 @@ bool	ft_manage_fds(t_shell *shell)
 		tmp->fd_wr = 1;
 		tmp = tmp->next;
 	}
-	// if (shell->tree->redir || shell->tree->pipe)
 	return (ft_complex_fds(shell));
 }
 
