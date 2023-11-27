@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 15:44:13 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:02:49 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 			ft_putstr_fd(cur->av[0], 2);
 			ft_putstr_fd(": ", 2);
 			ft_error(CMD);
-			return (1);
+			exit(0);
 		}
 	}
 	return (0);
