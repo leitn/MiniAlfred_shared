@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 18:02:49 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:25:43 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	dup_pipe_rd(t_shell *shell, int i)
 
 int	dup_pipe_wr(t_shell *shell, int i)
 {
-	errno = 0;
 	if (dup2(shell->pipe[i][1], STDOUT_FILENO) == -1)
 	{
 		perror("Error Dup2");
@@ -137,10 +136,11 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 	{
 		if (execve(cur->path, cur->av, shell->env->envp) == -1)
 		{
+			perror("\nError");
+			printf("Error code: %d\n", errno);
 			ft_putstr_fd(cur->av[0], 2);
 			ft_putstr_fd(": ", 2);
-			ft_error(CMD);
-			exit(0);
+			exit(-1);
 		}
 	}
 	return (0);
@@ -163,7 +163,10 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 		if (shell->pids[i] == 0)
 			ft_execve(shell, cur, i); //exit
 		if (cur->hd_name != NULL)
+			{
 				unlink(cur->hd_name);
+				free(cur->hd_name);
+			}
 		if (cur->next)
 			cur = cur->next;
 	}

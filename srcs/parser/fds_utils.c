@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 17:52:40 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:08:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ bool	ft_check_outfile(t_elem *cur)
 
 void	ft_builtin_fds(t_elem *cur)
 {
-	printf("\nDANS BUILTIN FDS\n");
-	printf("\ncur->av[0] == %s\n", cur->av[0]);
 	if (cur->av)
 	{
 		if (ft_strcmp(cur->av[0], "exit") || ft_strcmp(cur->av[0], "cd"))
@@ -56,7 +54,6 @@ bool	ft_complex_fds(t_shell *shell)
 
 	tmpe = shell->tree->first;
 	i = 0;
-	printf("\nDANS COMPLEX FD IN REDIRS\n");
 	while(tmpe)
 	{
 		i++;

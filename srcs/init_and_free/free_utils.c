@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 16:45:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:31:33 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	ft_free_redirs(t_red *redirs)
 	}
 }
 
+void    ft_free_tmpfile(char *hd_name, int fd)
+{
+	close(fd);
+	unlink(hd_name);
+	free(hd_name);
+}
+
 void	ft_free_tree(t_head *tree)
 {
 	t_elem	*tmp1;
@@ -46,7 +53,7 @@ void	ft_free_tree(t_head *tree)
 		if (tmp1->av)
 			ft_free_str_array(tmp1->av);
 		if (tmp1->hd_name)
-			free(tmp1->hd_name);
+			ft_free_tmpfile(tmp1->hd_name, tmp1->fd_rd);
 		if (tmp1->path)
 			free(tmp1->path);
 		if (tmp1->redirs)

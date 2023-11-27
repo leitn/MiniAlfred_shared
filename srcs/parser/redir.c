@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 16:04:17 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:19:51 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,19 +203,21 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 {
 	char		*line;
 	static int	passage_nb = 0;
-	//int			mem_stdin;
+	int			save;
 
 	passage_nb++;
 	if (!ft_open_hd(cur, passage_nb, shell))
 		return (false);
-	//mem_stdin = dup(STDIN_FILENO); TOFIX open me in exec
 	g_error = 0;
+	save = dup(STDIN_FILENO);
+	// if (cur->hd_name != NULL)
+	// 	shell->hd_fd = cur->fd_rd;
 	ft_signals_inhd();
 	while (1)
 	{
-		// if (g_error != 0)
-		// 	break ; //TO FIX : restaurer STDIN avant de partir :)
 		line = readline("> ");
+		if (g_error != 0)
+			break ;
 		if (!line)
 			return (ft_ctrld_inhd(shell, cur, red));
 		if (ft_is_eof(red->av, line))
@@ -225,6 +227,11 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 			ft_putstr_fd(line, cur->fd_rd);
 			ft_putstr_fd("\n", cur->fd_rd);
 		}
+	}
+	if(dup2(save, STDIN_FILENO) == -1)
+	{
+		ft_filter(shell, FCLEAN);
+		exit(EXIT_FAILURE);
 	}
 	return (false);
 }
