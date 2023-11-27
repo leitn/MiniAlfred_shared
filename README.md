@@ -1,4 +1,5 @@
-![pngtree-shell-coast-still-life-shellfish-png-image_3512557](https://github.com/leitn/MiniAlfred_shared/assets/104629160/da3fb824-4f6b-4299-9fec-be2a02114359)
+![Alfred](https://github.com/leitn/MiniAlfred_shared/assets/104629160/337ddfbe-ab55-425b-bc64-a138bc66ea9d)
+
 
 ### TO DO
 * verifier une derniere fois que l'historique ne detruit pas le prompt
