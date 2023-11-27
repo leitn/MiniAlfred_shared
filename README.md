@@ -1,6 +1,5 @@
-<p align="center"> 
-  ![Alfred](https://github.com/leitn/MiniAlfred_shared/assets/104629160/337ddfbe-ab55-425b-bc64-a138bc66ea9d) 
-</p>
+
+                          ![Alfred](https://github.com/leitn/MiniAlfred_shared/assets/104629160/337ddfbe-ab55-425b-bc64-a138bc66ea9d) 
 
 
 ### TO DO
