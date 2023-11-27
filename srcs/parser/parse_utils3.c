@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 18:04:39 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:09:33 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ void	ft_write_cmd(t_elem *cur, char *input, int *start)
 	i = *start;
 	tmp = NULL;
 	size = ft_size(input, &end, start);
-	cur->av = ft_calloc(sizeof(char *), (size + 1));
+	printf("\nSIZE IS %i\n", size);
+	cur->av = (char **)ft_calloc(sizeof(char *), (size + 1));
 	if (!cur->av)
 		return ;
 	if (size == 0)
