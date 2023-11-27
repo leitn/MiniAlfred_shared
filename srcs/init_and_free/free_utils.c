@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 14:19:34 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:46:18 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ void	ft_free_str_array(char **strarr)
 
 void	ft_free_env(t_shell *shell)
 {
-	ft_free_str_array(shell->env->paths);
-	ft_free_str_array(shell->env->envp);
+	if (shell->env->paths)
+		ft_free_str_array(shell->env->paths);
+	if (shell->env->envp)
+		ft_free_str_array(shell->env->envp);
 	free(shell->env);
 }
 
