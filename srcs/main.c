@@ -16,15 +16,7 @@ int	g_error;
 
 bool	ft_get_input(t_shell *shell)
 {
-	static char	*red = " \033[31mMiniAlfred\033[0m ";
-	static char	*green = " \033[32mMiniAlfred\033[0m ";
-	extern int			g_error;
-
-	if (shell->error_status == 0)
-		ft_putstr_fd(green, 1);
-	else
-		ft_putstr_fd(red, 1);
-	shell->input = readline("$> ");
+	shell->input = readline("\001\033[1;95m\002 MiniAlfred $> \001\033[0m\002");
 	if (!shell->input)
 		return (false);
 	add_history(shell->input);
