@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:11:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 14:47:06 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:11:28 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_print_tree(t_head *tree)
 			j = 0;
 			while (tmp2)
 			{
-				printf("redir[%i] == %s, token == %i\n", j++, tmp2->av, tmp2->syn);
+				printf("redir[%i] == %s, token == %i\n",
+					j++, tmp2->av, tmp2->syn);
 				tmp2 = tmp2->next;
 			}
 		}

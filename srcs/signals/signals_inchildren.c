@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_inchildren.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:40:42 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 16:07:24 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:12:46 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_signals_inchildren(void)
 	signal(SIGQUIT, &ft_ctrlbs_inchildren);
 	signal(SIGTSTP, SIG_IGN);
 }
+
 void	ft_ctrlc_inchildren(int sig)
 {
 	(void)sig;
@@ -47,5 +48,6 @@ void	ft_recast_return(t_shell *shell)
 	if (WIFEXITED(shell->error_status))
 		shell->error_status = WEXITSTATUS(shell->error_status);
 	else if (WIFSIGNALED(shell->error_status))
-		shell->error_status = ft_signal_return_handler(WTERMSIG(shell->error_status));
+		shell->error_status
+			= ft_signal_return_handler(WTERMSIG(shell->error_status));
 }

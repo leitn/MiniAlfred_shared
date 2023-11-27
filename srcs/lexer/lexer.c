@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 16:18:31 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:09:43 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_remove_quotes(t_elem *cur, int index, int start, int *end)
 	cur->av[index] = new;
 }
 
-void	ft_rewrite(t_shell *shell, t_elem *cur, int	index, int *jindex)
+void	ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex)
 {
 	char	target;
 	int		end;

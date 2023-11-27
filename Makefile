@@ -6,7 +6,7 @@
 #    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/27 23:01:38 by letnitan         ###   ########.fr        #
+#    Updated: 2023/11/27 23:03:10 by letnitan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS	=	main.c \
 			utils/ft_split.c \
 			utils/title_utils.c \
 			utils/title_utils2.c \
+			utils/libft.c \
 
 OBJS	= $(addprefix $(BIN_PATH), $(SRCS:.c=.o))
 

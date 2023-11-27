@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 18:33:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 17:46:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:07:04 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ bool	ft_isnbr(char *nbr)
 	i = 0;
 	while (nbr[i])
 	{
-	if (nbr[i] < '0' || nbr[i] > '9')
-		return (false);
-	i++;
+		if (nbr[i] < '0' || nbr[i] > '9')
+			return (false);
+		i++;
 	}
 	return (true);
 }

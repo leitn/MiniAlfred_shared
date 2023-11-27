@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 01:47:27 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/23 15:34:46 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:11:12 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_is_a_builtin(char *isbltn)
 {
-	if(ft_strcmp(isbltn, "echo")
+	if (ft_strcmp(isbltn, "echo")
 		|| ft_strcmp(isbltn, "cd")
 		|| ft_strcmp(isbltn, "pwd")
 		|| ft_strcmp(isbltn, "export")
@@ -30,9 +30,9 @@ int	ft_array_len(char **array)
 	int	len;
 
 	len = 0;
-	while(array[len])
+	while (array[len])
 		len++;
-	return(len);
+	return (len);
 }
 
 char	*ft_strcpy(char *src)

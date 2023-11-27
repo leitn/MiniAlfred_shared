@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 23:01:05 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:04:25 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,6 +357,12 @@ void		ft_unset(t_shell *shell, t_elem *cur, int pid);
 /** UTILS **/
 
 char		**ft_split(char const *s, char c);
+
+/* libft.c */
+bool		ft_is_eof(char *eof, char *str);
+char		*ft_strjoin(char *s1, char *s2);
+size_t		ft_countchar(int n);
+char		*ft_itoa(int n, t_shell *shell);
 
 /* diverses_utils */
 

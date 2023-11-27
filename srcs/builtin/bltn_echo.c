@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 15:44:01 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:06:28 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne, int pid)
 	else if (no_ligne == false && cur->fd_wr < 0)
 		ft_putstr_fd("\n", 1);
 	(void)shell;
-	// shell->exec_current = cur->next;
 }
 
 void	ft_echo(t_shell *shell, t_elem *cur, int pid)
@@ -55,7 +54,7 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 		while (cur->av[i] && ft_issyntax(cur->av[i][0]) == OPTION)
 		{
 			j = 1;
-			while(cur->av[i][j] && cur->av[i][j] == 'n')
+			while (cur->av[i][j] && cur->av[i][j] == 'n')
 				j++;
 			if (j == ft_strlen(cur->av[i]))
 				no_ligne = true;

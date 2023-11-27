@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 23:00:28 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:04:48 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,97 +72,6 @@ bool	ft_simpleleftdir(t_elem *tmp, t_red *red)
 	return (true);
 }
 
-bool	ft_is_eof(char *eof, char *str)
-{
-	while (*str)
-	{
-		if (*str == *eof)
-		{
-			str++;
-			eof++;
-		}
-		else
-			return (false);
-	}
-	return (!*eof);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char				*str;
-	size_t				lentotal;
-	int	i;
-	int	j;
-
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	lentotal = (ft_strlen(s1) + ft_strlen(s2));
-	str = malloc(sizeof(char) * (lentotal + 1));
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i] && i <= ft_strlen(s1))
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2[j] && j <= ft_strlen(s2))
-		str[i++] = s2[j++];
-	str[lentotal] = '\0';
-	return (str);
-}
-
-size_t	ft_countchar(int n)
-{
-	size_t			i;
-	unsigned int	nb;
-
-	i = 0;
-	nb = 0;
-	if (n < 0)
-	{
-		nb = n * (-1);
-		i++;
-	}
-	else
-		nb = n;
-	while (nb != 0 || i == 0)
-	{
-		nb = nb / 10;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_itoa(int n, t_shell *shell)
-{
-	size_t			i;
-	size_t			j;
-	char			*str;
-	long			nb;
-
-	i = ft_countchar(n);
-	nb = n;
-	str = malloc(sizeof(char) * (i + 1));
-	if (!str)
-		return (NULL);
-	ft_add_to_the_bin(str, STR, shell->bin);
-	j = 0;
-	if (n < 0)
-	{
-		str[j++] = '-';
-		nb = nb * (-1);
-	}
-	str[i] = '\0';
-	while (i > j)
-	{
-		str[--i] = nb % 10 + '0';
-		nb = nb / 10;
-	}
-	return (str);
-}
-
 bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 {
 	if (cur->hd_name == NULL)
@@ -195,7 +104,6 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 	}
 	return (true);
 }
-
 
 bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 {
@@ -232,8 +140,3 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 	return (false);
 }
 
-/* bool	ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs)
-{
-	return(ft_heredoc(shell, tmp, redirs));
-	// wow cette fonction ne sert plus a rien
-} */

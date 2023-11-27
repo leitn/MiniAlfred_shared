@@ -6,15 +6,15 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:16:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/10/25 05:46:29 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:13:40 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool ft_error(char *arg, t_error error)
+bool	ft_error(char *arg, t_error error)
 {
-	extern int g_error;
+	extern int	g_error;
 
 	if (error == SYN)
 	{

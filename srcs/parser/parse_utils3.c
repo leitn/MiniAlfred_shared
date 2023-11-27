@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 18:08:09 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:10:57 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_return_avx(char *input, int *start, int size)
 		return (NULL);
 	size += *start;
 	i = 0;
-	while(*start < size)
+	while (*start < size)
 	{
 		avx[i] = input[*start];
 		i++;
@@ -102,8 +102,8 @@ char	*ft_write_current_av(char *input, int *start)
 				quote = input[size];
 		}
 		if (quote == 0 && (ft_isspace(input[size])
-			|| ft_issyntax(input[size]) == REDIR
-			|| ft_issyntax(input[size]) == PIPE))
+				|| ft_issyntax(input[size]) == REDIR
+				|| ft_issyntax(input[size]) == PIPE))
 			break ;
 		size++;
 	}
@@ -113,10 +113,10 @@ char	*ft_write_current_av(char *input, int *start)
 /* Ecrit la commande de la branche actuelle */
 void	ft_write_cmd(t_elem *cur, char *input, int *start)
 {
-	int	end;
-	int	i;
-	t_red *tmp;
-	int	size;
+	int		end;
+	int		i;
+	t_red	*tmp;
+	int		size;
 
 	end = *start;
 	i = *start;

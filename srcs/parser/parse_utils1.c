@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:44:23 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 18:05:56 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:06:06 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_write_path(t_shell *shell, t_elem *cur)
 	else if (ft_is_a_builtin(cur->av[0]))
 	{
 		cur->path = ft_calloc(sizeof(char), 1);
-		if(!cur->path)
+		if (!cur->path)
 			return ;
 		cur->path[0] = '\0';
 		return ;
@@ -51,7 +51,7 @@ void	ft_write_path(t_shell *shell, t_elem *cur)
 	if (!cur->path)
 	{
 		cur->path = ft_calloc(sizeof(char), 1);
-		if(!cur->path)
+		if (!cur->path)
 			return ;
 		cur->path[0] = '\0';
 	}

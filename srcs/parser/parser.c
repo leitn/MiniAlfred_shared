@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 16:42:26 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:11:55 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_end_size(char *input, int *end, int *start, int size, int token)
 {
 	*start = *end;
 	if (((!input[*end] && input[*end - 1] != ' ') || (input[*end] == '|'
-		&& !ft_isspace(input[*end - 1]))) && token != REDIR)
+				&& !ft_isspace(input[*end - 1]))) && token != REDIR)
 		size++;
 	while (input[*end] && ft_isspace(input[*end - 1]))
 		*end -= 1;

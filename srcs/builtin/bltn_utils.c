@@ -20,7 +20,7 @@ void	ft_putstr_fd(char *str, int fd)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		ft_putchar_fd(str[i++], fd);
 }
 
@@ -29,7 +29,7 @@ bool	ft_strcmp(char *cmd, char *cmp)
 	int		i;
 
 	i = 0;
-	while(cmp[i])
+	while (cmp[i])
 	{
 		if (cmd[i] != cmp[i])
 			return (false);

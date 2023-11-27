@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:44:25 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 16:10:28 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:09:56 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_replacedollard(char *cmd, char *env, int size, int *index)
 	return (new);
 }
 
-char	*ft_get_status(int	status)
+char	*ft_get_status(int status)
 {
 	char	*str;
 	int		len;
@@ -93,7 +93,7 @@ char	*ft_get_status(int	status)
 		str[0] = '-';
 		status *= -1;
 	}
-	while(status)
+	while (status)
 	{
 		str[len--] = (status % 10) + '0';
 		status /= 10;

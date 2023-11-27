@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:42:41 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/22 19:50:47 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:10:26 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	ft_while_after(char *to_parse, int *i)
 	if (to_parse[*i] == to_parse[*i - 1])
 		return (false);
 	while (to_parse[*i] && (to_parse[*i] != '|' || to_parse[*i] != '<'
-		|| to_parse[*i] != '>'))
+			|| to_parse[*i] != '>'))
 	{
 		if (!ft_isspace(to_parse[*i]) && !ft_issyntax(to_parse[*i]))
 			return (false);

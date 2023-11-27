@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:53:27 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 17:44:43 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:06:45 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_env(t_shell *shell, t_elem *cur, int pid)
 {
-	int		i;
+	int			i;
 	static char	*err = "'\nthis implementation does not accept arg or option";
 
 	i = 0;

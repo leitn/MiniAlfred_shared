@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 18:19:02 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:15:49 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ bool	ft_get_input(t_shell *shell)
 		return (false);
 	add_history(shell->input);
 	return (true);
+}
+
+int	start_alfred(t_shell *shell)
+{
+	if (shell->tree->count_pipe <= 0)
+	{
+		if (ft_isbltn(shell, shell->tree->first, 1) == false)
+			ft_exec(shell, shell->tree->first);
+	}
+	else
+		ft_exec(shell, shell->tree->first);
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -43,14 +55,7 @@ int	main(int ac, char **av, char **env)
 		shell->error_status = 0;
 		if (ft_parse(shell))
 		{
-			// ft_print_tree(shell->tree);
-			if (shell->tree->count_pipe <= 0)
-			{
-				if (ft_isbltn(shell, shell->tree->first, 1) == false)
-					ft_exec(shell, shell->tree->first);
-			}
-			else
-				ft_exec(shell, shell->tree->first);
+			start_alfred(shell);
 			ft_filter(shell, TREEONLY);
 		}
 	}

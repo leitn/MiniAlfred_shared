@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 03:47:57 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/06 15:15:45 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:06:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,3 @@ bool	ft_cd(t_shell *shell, t_elem *cur, int pid)
 	}
 	return (ft_chdir(shell, cur->av[1], pid));
 }
-
-
-
-/*SRCS	=	main.c \
-			builtin/bltn_echo.c \
-			builtin/bltn_exit.c \
-			builtin/bltn_pwd.c \
-			builtin/bltn_utils.c \
-			builtin/bltn_env.c \
-			builtin/bltn_cd.c \
-			builtin/bltn_unset.c \
-			env/env.c \
-			env/env_utils.c \
-			execution/exec_utils_1.c \
-			execution/exec_utils2.c \
-			execution/start_exec.c \
-			execution/exec_simple.c \
-			init_and_free/free_utils.c \
-			init_and_free/init_utils.c \
-			init_and_free/init_utils2.c \
-			init_and_free/bin_utils.c \
-			init_and_free/shlvl_utils.c \
-			lexer/lexer_utils.c \
-			lexer/lexer.c \
-			parser/parse_utils1.c \
-			parser/parse_utils2.c \
-			parser/parse_utils3.c \
-			parser/parser.c \
-			signals/signals_utils.c \
-			utils/diverses_utils.c \
-			utils/error_utils.c \
-			utils/ft_split.c \
-			utils/title_utils.c \
-			utils/title_utils2.c */

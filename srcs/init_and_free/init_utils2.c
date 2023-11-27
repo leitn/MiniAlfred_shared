@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:10:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 15:38:32 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:09:21 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ bool	ft_get_paths(t_env *en, t_bin *bin)
 	return (true);
 }
 
-void *ft_memcpy(void *dest, void *src, int new_size, int old_size)
+void	*ft_memcpy(void *dest, void *src, int new_size, int old_size)
 {
-	unsigned char *d;
-	unsigned char *s;
+	unsigned char	*d;
+	unsigned char	*s;
 
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;
@@ -70,9 +70,9 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-void *ft_realloc(void *ptr, int new_size, int old_size)
+void	*ft_realloc(void *ptr, int new_size, int old_size)
 {
-	void *new_ptr;
+	void	*new_ptr;
 
 	if (!ptr)
 		return (ft_calloc(new_size, 1));
