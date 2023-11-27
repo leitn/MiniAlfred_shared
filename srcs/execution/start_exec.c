@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 19:25:43 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:15:45 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,23 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 	return (0);
 }
 
+void	ft_free_hd(t_shell *shell)
+{
+	t_elem *cur;
+
+	cur = shell->tree->first;
+	while(cur)
+	{
+		if (cur->hd_name != NULL)
+		{
+			unlink(cur->hd_name);
+			free(cur->hd_name);
+			cur->hd_name = NULL;
+		}
+		cur = cur->next;
+	}
+}
+
 int	ft_exec(t_shell *shell, t_elem *cur)
 {
 	int i = -1;
@@ -161,23 +178,12 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 		if (cur->hd_name != NULL)
 			cur->fd_rd = open(cur->hd_name, O_RDONLY | O_EXCL);
 		if (shell->pids[i] == 0)
-			ft_execve(shell, cur, i); //exit
-		if (cur->hd_name != NULL)
-			{
-				unlink(cur->hd_name);
-				free(cur->hd_name);
-			}
+			ft_execve(shell, cur, i);
 		if (cur->next)
 			cur = cur->next;
 	}
 	ft_close_fds(shell, shell->tree->first);
 	ft_wait_children(shell);
-	cur = shell->tree->first;
-	while(cur)
-	{
-		if (cur->hd_name != NULL)
-			unlink(cur->hd_name);
-		cur = cur->next;
-	}
+	ft_free_hd(shell);
 	return (0);
 }
