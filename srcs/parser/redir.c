@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 15:03:28 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:04:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,7 @@ bool	ft_is_eof(char *eof, char *str) //strcmp a la place ?
 {
 	while (*str)
 	{
-		if (*eof == '"' || *eof == '\'')
-		{
-			eof++;
-			continue ;
-		}
-		else if (*str == *eof)
+		if (*str == *eof)
 		{
 			str++;
 			eof++;
@@ -90,8 +85,6 @@ bool	ft_is_eof(char *eof, char *str) //strcmp a la place ?
 		else
 			return (false);
 	}
-	while (*eof == '"' || *eof == '\'')
-		eof++;
 	return (!*eof);
 }
 
@@ -220,12 +213,12 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 	ft_signals_inhd();
 	while (1)
 	{
-		if (g_error != 0)
-			break ; //TO FIX : restaurer STDIN avant de partir :)
+		// if (g_error != 0)
+		// 	break ; //TO FIX : restaurer STDIN avant de partir :)
 		line = readline("> ");
 		if (!line)
 			return (ft_ctrld_inhd(shell, cur, red));
-		if (ft_is_eof(cur->redirs->av, line))
+		if (ft_is_eof(red->av, line))
 			return (close(cur->fd_rd), true);
 		else
 		{
