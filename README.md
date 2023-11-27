@@ -7,6 +7,7 @@
 * gerer toutes les return values des process pour les expendre avec $?
 * Verifier les messages d'erreur d'un maximum de cas d'erreurs
 * export BLABLA=pouet, (entree), env : on a un IOT instruction (core dumped)
+* unset PATH, puis export PATH=/bin : ls doit marcher
 * unset USER, puis export USER, puis env : core dumped aussi
 * VALGRIND : quand on tape une commande qui n'existe pas, on a un des still-reachable, normal ?
 * passer toute la correction blanche avec valgrind et le flag track-fds=yes
