@@ -1,5 +1,6 @@
-### TO DO
+![pngtree-shell-coast-still-life-shellfish-png-image_3512557](https://github.com/leitn/MiniAlfred_shared/assets/104629160/da3fb824-4f6b-4299-9fec-be2a02114359)
 
+### TO DO
 * verifier une derniere fois que l'historique ne detruit pas le prompt
 * ctrl + C dans un prompt vide renvoie un double prompt, dont un en rouge
 * gerer toutes les return values des process pour les expendre avec $?
