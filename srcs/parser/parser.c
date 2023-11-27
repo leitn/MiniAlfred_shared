@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 16:42:04 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:42:26 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ void	ft_manage_paths(t_shell *shell)
 	tmp = shell->tree->first;
 	while (tmp)
 	{
-		if (tmp->av)
+		if (tmp->av && shell->env->paths)
 			ft_write_path(shell, tmp);
+		else
+			tmp->path = NULL;
 		tmp = tmp->next;
 	}
 }

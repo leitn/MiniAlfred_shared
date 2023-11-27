@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:44:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/07 18:50:52 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:32:47 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 {
-	int	i;
+	int		i;
+	bool	ispath;
 
 	if (!cur->av[1])
 		return ;
@@ -24,9 +25,17 @@ void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 		return ;
 	}
 	i = 1;
+	ispath = false;
 	while (cur->av[i] && !ft_issyntax(cur->av[i][0]))
+	{
+		if (ft_strcmp(cur->av[i], "PATH"))
+			ispath = true;
 		ft_delete_var(shell, cur->av[i++]);
+
+	}
 	shell->exec_current = cur->next;
+	if (ispath == true)
+		ft_updatepaths(shell);
 	if (pid == 0)
 		exit(0);
 }

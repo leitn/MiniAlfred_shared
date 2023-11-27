@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 16:40:48 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:37:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,6 @@ int			ft_redir(t_shell *shell,t_elem *cur);
 
 void		ft_putstr_fd(char *str, int fd);
 void		ft_putchar_fd(char c, int fd);
-bool		ft_cmpbegin(char *cmd, char *cmp);
 
 /* cd */
 
@@ -382,6 +381,5 @@ char		*ft_option2(void);
 char		*ft_getenv(t_env *env, char *target);
 bool		ft_update_var(t_env *env, char *to_update, char *new);
 bool		ft_delete_var(t_shell *shell, char *to_delete);
-void		ft_updatepaths(t_shell *shell);
 
 #endif

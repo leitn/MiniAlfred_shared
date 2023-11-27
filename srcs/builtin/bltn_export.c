@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:20:17 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/22 21:49:15 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:32:14 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ bool	ft_export(t_shell *shell, t_elem *cur)
 			ft_replace(shell, cur->av[i], ft_strcmp_until_equal(shell, cur->av[i]));
 		else if (ft_isequal(cur->av[i]))
 			ft_set_new_env(shell, cur->av[i]);
+		if (ft_cmpbegin(cur->av[i], "PATH"))
+			ft_updatepaths(shell);
 		i++;
 	}
 	return (true);

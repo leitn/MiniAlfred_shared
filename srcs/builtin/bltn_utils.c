@@ -39,3 +39,19 @@ bool	ft_strcmp(char *cmd, char *cmp)
 		return (true);
 	return (false);
 }
+
+bool	ft_cmpbegin(char *cmd, char *cmp)
+{
+	int	i;
+
+	i = 0;
+	while (cmp[i])
+	{
+		if (cmd[i] != cmp[i])
+			return (false);
+		i++;
+	}
+	if (cmd[i] == '=')
+		return (true);
+	return (false);
+}
