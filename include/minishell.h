@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 16:40:48 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:01:05 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ void		*ft_realloc(void *ptr, int new_size, int old_size);
 
 /* init_shlvl */
 
-bool	ft_isshlvl(char *cur_env);
-char	*ft_write_shlvl(char *cur_env);
+bool		ft_isshlvl(char *cur_env);
+char		*ft_write_shlvl(char *cur_env);
 
 /* bin_utils */
 
@@ -188,11 +188,11 @@ void		ft_filter(t_shell *shell, t_filter to_free);
 
 
 /* error_utils */
-bool	ft_error(char *arg, t_error error);
+bool		ft_error(char *arg, t_error error);
 
 /* lexer */
 
-void		ft_rewrite(t_shell *shell, t_elem *cur, int	index, int *jindex);
+void		ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex);
 char		*ft_returnenv(char *cmd, int index);
 void		ft_lex(t_shell *shell);
 
@@ -200,7 +200,8 @@ void		ft_lex(t_shell *shell);
 
 char		*ft_removedollard(char *cmd, int size, int index);
 char		*ft_replacedollard(char *cmd, char *env, int size, int *index);
-void		ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex);
+void		ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index,
+				int *jindex);
 
 /* lexer_utils2 */
 
@@ -249,9 +250,9 @@ char		*ft_joinpath(char *s1, char *s2);
 
 /* parse_utils5 */
 
-t_red	*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i);
-void	ft_manage_av(char **av);
-void	ft_print_tree(t_head *tree);
+t_red		*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i);
+void		ft_manage_av(char **av);
+void		ft_print_tree(t_head *tree);
 
 
 /* fds_utils */
@@ -283,38 +284,37 @@ int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red);
 
 
 /** EXECUTION **/
-
-
-/* start_exec */
-
 bool		ft_strcmp(char *cmd, char *cmp);
-bool		ft_isbltn(t_shell *shell, t_elem *cur, int pid);
-bool		ft_exec_simple(t_shell *shell, t_elem *cur);
-int			ft_exec(t_shell *shell, t_elem *cur);
-bool		ft_direct_exec(t_shell *shell);
 
-/* exec_pipe.c */
 
-bool		check_bltn(t_elem *cur);
-int			ft_exec_pipe(t_shell *shell, t_elem *cur);
-void		ft_close_pipes(t_shell *shell);
+/* fds_utils.c */
+void		ft_free_hd(t_shell *shell);
 int			ft_close_fds(t_shell *shell, t_elem *cur);
+int			dup_no_pipe(t_shell *shell, t_elem *cur, int i);
+int			dup_pipe_rd(t_shell *shell, int i);
+int			dup_pipe_wr(t_shell *shell, int i);
+
+/* exec_utils.c */
+bool		check_bltn(t_elem *cur);
+void		ft_close_pipes(t_shell *shell);
 void		ft_init_pipes(t_shell *shell);
 int			ft_wait_children(t_shell *shell);
 
-/* exec_nodes.c */
-void		ft_putnbr_fd(int n, int fd);
-bool		exec_first_node(t_shell *shell, t_elem *cur, int *fd);
-bool		exec_last_node(t_shell *shell, t_elem *cur, int *fd);
-bool		exec_middle_node(t_shell *shell, t_elem *cur, int i);
+/* start_exec */
+
+int			ft_exec(t_shell *shell, t_elem *cur);
+int			ft_execve(t_shell *shell, t_elem *cur, int i);
+bool		ft_isbltn(t_shell *shell, t_elem *cur, int pid);
+
+/** REDIRS **/
 
 /* redir.c */
 bool		ft_simpledirright(t_elem *tmp, t_red *red);
 bool		ft_doubledirright(t_elem *tmp, t_red *red);
 bool		ft_simpleleftdir(t_elem *tmp, t_red *red);
 bool		ft_is_eof(char *eof, char *str);
-bool		ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs);
-int			ft_redir(t_shell *shell,t_elem *cur);
+bool		ft_heredoc(t_shell *shell, t_elem *cur, t_red *red);
+int			ft_redir(t_shell *shell, t_elem *cur);
 
 /** BUILT-IN **/
 
@@ -328,7 +328,8 @@ bool		ft_cd(t_shell *shell, t_elem *cur, int pid);
 
 /* echo */
 
-void		ft_print(t_shell *shell, t_elem *tmp, int i, bool no_ligne, int pid);
+void		ft_print(t_shell *shell, t_elem *tmp, int i,
+				bool no_ligne, int pid);
 void		ft_echo(t_shell *shell, t_elem *cur, int pid);
 
 /* env */
@@ -370,7 +371,7 @@ int			ft_nbrlen(int n);
 char		*ft_smblock(void);
 char		*ft_border(void);
 char		**ft_av(void);
-char		*ft_path();
+char		*ft_path(void);
 void		ft_print_titl(t_shell *shell);
 char		*ft_toilet(void);
 char		*ft_minialfred(void);

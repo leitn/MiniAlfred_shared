@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipe.c                                        :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:10:02 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 14:21:19 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:56:43 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	check_bltn(t_elem *cur)
 {
 	if (ft_strcmp(cur->av[0], "echo"))
-		return(true);
+		return (true);
 	else if (ft_strcmp(cur->av[0], "exit"))
 		return (true);
 	else if (ft_strcmp(cur->av[0], "cd"))
@@ -44,31 +44,6 @@ void	ft_close_pipes(t_shell *shell)
 	}
 }
 
-int	ft_close_fds(t_shell *shell, t_elem *cur)
-{
-	int		i;
-
-	i = 0;
-	if (shell->tree->count_pipe > 0)
-	{
-		while (i < shell->tree->count_pipe)
-		{
-			close(shell->pipe[i][0]);
-			close(shell->pipe[i][1]);
-			i++;
-		}
-	}
-	while (cur)
-	{
-		if (cur->fd_rd > 0)
-			close(cur->fd_rd);
-		if (cur->fd_wr > 1)
-			close(cur->fd_wr);
-		cur = cur->next;
-	}
-	return (0);
-}
-
 void	ft_init_pipes(t_shell *shell)
 {
 	int	i;
@@ -85,7 +60,6 @@ void	ft_init_pipes(t_shell *shell)
 				close(shell->pipe[i][1]);
 				i++;
 			}
-			printf("\nPipe Error\n");
 		}
 		i++;
 	}

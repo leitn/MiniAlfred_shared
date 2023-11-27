@@ -6,7 +6,7 @@
 #    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/27 14:41:52 by letnitan         ###   ########.fr        #
+#    Updated: 2023/11/27 23:01:38 by letnitan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS	=	main.c \
 			env/env_utils.c \
 			execution/start_exec.c \
 			execution/exec_utils.c \
+			execution/fds_utils.c \
 			init_and_free/bin_utils.c \
 			init_and_free/free_utils.c \
 			init_and_free/init_utils.c \
@@ -38,7 +39,7 @@ SRCS	=	main.c \
 			lexer/lexer_utils1.c \
 			lexer/lexer_utils2.c \
 			lexer/lexer.c \
-			parser/fds_utils.c \
+			parser/parse_fds.c \
 			parser/redir.c \
 			parser/parse_utils1.c \
 			parser/parse_utils2.c \

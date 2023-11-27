@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 18:08:17 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:52:47 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_check_outfile(t_elem *cur)
 
 	tmp = cur->redirs;
 	if (tmp == NULL)
-		return(false);
+		return (false);
 	while (tmp)
 	{
 		if (tmp->syn == SIMPLEREDIRRIGHT || tmp->syn == DOUBLEREDIRRIGHT)
@@ -38,7 +38,8 @@ void	ft_builtin_fds(t_elem *cur)
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;
 		}
-		else if (ft_strcmp(cur->av[0], "export") || ft_strcmp(cur->av[0], "unset"))
+		else if (ft_strcmp(cur->av[0], "export")
+			|| ft_strcmp(cur->av[0], "unset"))
 		{
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;
@@ -54,22 +55,20 @@ bool	ft_complex_fds(t_shell *shell)
 
 	tmpe = shell->tree->first;
 	i = 0;
-	while(tmpe)
+	while (tmpe)
 	{
 		i++;
-		// if (tmp->av)
-		// 	printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
 		tmpr = tmpe->redirs;
-		while(tmpr)
+		while (tmpr)
 		{
-			// printf ("\nBOUCLE REDIRS\n");
 			if (tmpr->syn == SIMPLEREDIRRIGHT && !ft_simpledirright(tmpe, tmpr))
 				return (false);
 			if (tmpr->syn == DOUBLEREDIRRIGHT && !ft_doubledirright(tmpe, tmpr))
 				return (false);
 			if (tmpr->syn == SIMPLEREDIRLEFT && !ft_simpleleftdir(tmpe, tmpr))
-				return(false);
-			if (tmpr->syn == DOUBLEREDIRLEFT && !ft_doubledirleft(shell, tmpe, tmpr))
+				return (false);
+			if (tmpr->syn == DOUBLEREDIRLEFT
+				&& !ft_heredoc(shell, tmpe, tmpr))
 				return (false);
 			tmpr = tmpr->next;
 		}
@@ -80,7 +79,6 @@ bool	ft_complex_fds(t_shell *shell)
 		ft_builtin_fds(tmpe);
 		tmpe = tmpe->next;
 	}
-	// printf("\n\n------------------------------\n\n");
 	return (true);
 }
 

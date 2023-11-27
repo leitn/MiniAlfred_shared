@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 19:19:51 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:00:28 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ bool	ft_simpledirright(t_elem *tmp, t_red *red)
 
 	cur = tmp;
 	redir = red;
-	// printf("\n IN SIMPLEDIRRIGHT : red->av == %s\n", red->av);
 	if (access(red->av, F_OK) == 0)
 		tmp->fd_wr = open(red->av, O_WRONLY | O_TRUNC);
 	else
 		tmp->fd_wr = open(red->av, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (tmp->fd_wr == -1)
 	{
-		ft_putstr_fd("can't open the file\n", 2);   //GERER ERREUR
+		ft_putstr_fd("can't open the file\n", 2);
 		g_error = 42;
 		return (false);
 	}
@@ -37,13 +36,13 @@ bool	ft_doubledirright(t_elem *tmp, t_red *red)
 {
 	int	fd;
 
-	if (access(red->av, F_OK) == 0) //no idea
+	if (access(red->av, F_OK) == 0)
 		fd = open(red->av, O_WRONLY | O_APPEND);
 	else
 		fd = open(red->av, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		ft_putstr_fd("can't open the file\n", 2); // GERER ERREUR
+		ft_putstr_fd("can't open the file\n", 2);
 		tmp->fd_wr = fd;
 		g_error = 42;
 		return (false);
@@ -55,7 +54,7 @@ bool	ft_doubledirright(t_elem *tmp, t_red *red)
 
 bool	ft_simpleleftdir(t_elem *tmp, t_red *red)
 {
-	t_elem *cur;
+	t_elem	*cur;
 
 	cur = tmp;
 	if (access(red->av, F_OK) == 0)
@@ -73,7 +72,7 @@ bool	ft_simpleleftdir(t_elem *tmp, t_red *red)
 	return (true);
 }
 
-bool	ft_is_eof(char *eof, char *str) //strcmp a la place ?
+bool	ft_is_eof(char *eof, char *str)
 {
 	while (*str)
 	{
@@ -166,7 +165,6 @@ char	*ft_itoa(int n, t_shell *shell)
 
 bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 {
-	// printf("\nIn ft_open_hd\n");
 	if (cur->hd_name == NULL)
 	{
 		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
@@ -176,7 +174,7 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 			perror("perror : can't open the heredoc");
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = 42, false);  //TOFIX : g_error == 42 ???
+			return (g_error = 42, false);
 		}
 		return (1);
 	}
@@ -192,7 +190,7 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 			printf("| Error Code : %d \n", errno);
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = 42, false); //TOFIX : g_error == 42 ???
+			return (g_error = 42, false);
 		}
 	}
 	return (true);
@@ -210,8 +208,6 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 		return (false);
 	g_error = 0;
 	save = dup(STDIN_FILENO);
-	// if (cur->hd_name != NULL)
-	// 	shell->hd_fd = cur->fd_rd;
 	ft_signals_inhd();
 	while (1)
 	{
@@ -228,7 +224,7 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 			ft_putstr_fd("\n", cur->fd_rd);
 		}
 	}
-	if(dup2(save, STDIN_FILENO) == -1)
+	if (dup2(save, STDIN_FILENO) == -1)
 	{
 		ft_filter(shell, FCLEAN);
 		exit(EXIT_FAILURE);
@@ -236,8 +232,8 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 	return (false);
 }
 
-bool	ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs)
+/* bool	ft_doubledirleft(t_shell *shell, t_elem *tmp, t_red *redirs)
 {
 	return(ft_heredoc(shell, tmp, redirs));
 	// wow cette fonction ne sert plus a rien
-}
+} */

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 20:15:45 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:43:58 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 	if (cur->av)
 	{
 		if (ft_strcmp(cur->av[0], "echo"))
-			return(ft_echo(shell, cur, pid), true);
+			return (ft_echo(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "exit"))
 			return (ft_exit(cur, shell), true);
 		else if (ft_strcmp(cur->av[0], "cd"))
@@ -29,78 +29,18 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 		else if (ft_strcmp(cur->av[0], "env"))
 			return (ft_env(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "pwd"))
-			return(ft_pwd(shell, cur, pid), true);
+			return (ft_pwd(shell, cur, pid), true);
 	}
 	return (false);
 }
 
-void	ft_mini_close(t_shell *shell, t_elem *cur, int i)
-{
-	if (i)
-	{
-		close(shell->pipe[i - 1][0]);
-		close(shell->pipe[i - 1][1]);
-	}
-	if (cur->fd_rd > 0)
-		close(cur->fd_rd);
-	if (cur->fd_wr > 1)
-		close(cur->fd_wr);
-}
-
-int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
-{
-	(void)shell;
-	i = 0;
-	if (cur->fd_rd != 0 && cur->fd_rd > 0)
-	{
-		if (dup2(cur->fd_rd, STDIN_FILENO) == -1)
-		{
-			perror("Error Dup2");
-			g_error = 155;
-			return (155);
-		}
-	}
-	if (cur->fd_wr != 1 && cur->fd_wr > 1)
-	{
-		if (dup2(cur->fd_wr, STDOUT_FILENO) == -1)
-		{
-			perror("Error Dup2");
-			g_error = 155;
-			return (155);
-		}
-	}
-	return (0);
-}
-
-int	dup_pipe_rd(t_shell *shell, int i)
-{
-	if (dup2(shell->pipe[i - 1][0], STDIN_FILENO) == -1)
-	{
-		perror("Error Dup2");
-		g_error = 155;
-		return (155);
-	}
-	return (0);
-}
-
-int	dup_pipe_wr(t_shell *shell, int i)
-{
-	if (dup2(shell->pipe[i][1], STDOUT_FILENO) == -1)
-	{
-		perror("Error Dup2");
-		g_error = 155;
-		return (155);
-	}
-	return (0);
-}
-
-int	ft_execve (t_shell *shell, t_elem *cur, int i)
+int	ft_execve(t_shell *shell, t_elem *cur, int i)
 {
 	if (cur->fd_wr != -2 || cur->fd_rd != -2)
 		dup_no_pipe(shell, cur, i);
 	if (cur->fd_rd == -2 && shell->tree->count_pipe > 0)
 		dup_pipe_rd(shell, i);
-	if (cur->fd_wr == -2  && shell->tree->count_pipe > 0)
+	if (cur->fd_wr == -2 && shell->tree->count_pipe > 0)
 		dup_pipe_wr(shell, i);
 	ft_close_fds(shell, shell->tree->first);
 	if (ft_isbltn(shell, cur, 0) == false)
@@ -114,26 +54,11 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 	return (0);
 }
 
-void	ft_free_hd(t_shell *shell)
-{
-	t_elem *cur;
-
-	cur = shell->tree->first;
-	while(cur)
-	{
-		if (cur->hd_name != NULL)
-		{
-			unlink(cur->hd_name);
-			free(cur->hd_name);
-			cur->hd_name = NULL;
-		}
-		cur = cur->next;
-	}
-}
-
 int	ft_exec(t_shell *shell, t_elem *cur)
 {
-	int i = -1;
+	int	i;
+
+	i = -1;
 	ft_init_pipes(shell);
 	while (cur && i < shell->tree->count_pipe)
 	{
