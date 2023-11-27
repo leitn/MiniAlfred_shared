@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 17:09:33 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:55:59 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_size(char *input, int *i, int *start)
 		}
 		if (quote == 0 && ft_issyntax(input[*i]) == PIPE)
 			break ;
-		if (ft_istoken(input[*i]))
+		if (ft_istoken(input[*i]) && (quote == 0))
 			token = ft_istoken(input[*i]);
 		if (ft_isspace(input[*i]) && !ft_isspace(input[*i + 1])
 			&& token != REDIR && quote == 0)
