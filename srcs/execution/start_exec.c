@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/25 18:13:53 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:13:32 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,25 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 	return (false);
 }
 
+void	ft_mini_close(t_shell *shell, t_elem *cur, int i)
+{
+	if (i)
+	{
+		close(shell->pipe[i - 1][0]);
+		close(shell->pipe[i - 1][1]);
+	}
+	if (cur->fd_rd > 0)
+	{
+		printf("\nI close this fd_rd");
+		close(cur->fd_rd);
+	}
+	if (cur->fd_wr > 1)
+	{
+		printf("\nI close this fd_wr");
+		close(cur->fd_wr);
+	}
+}
+
 int	ft_close_fds(t_shell *shell, t_elem *cur)
 {
 	int		i;
@@ -50,29 +69,29 @@ int	ft_close_fds(t_shell *shell, t_elem *cur)
 	}
 	while (cur)
 	{
-		// printf("\n/!\\boucle while close fd)\n");
-		if (cur->fd_rd != 0 && cur->fd_rd > 0)
+		printf("\n/!\\boucle while close fd. Cur == %s\n", cur->av[0]);
+		if (cur->fd_rd > 0)
 		{
-			// printf("\nI close this fd_rd");
+			printf("\nI close this fd_rd");
 			close(cur->fd_rd);
 		}
-		if (cur->fd_wr != 1 && cur->fd_wr > 0)
+		if (cur->fd_wr > 1)
 		{
-			// printf("\nI close this fd_wr");
+			printf("\nI close this fd_wr");
 			close(cur->fd_wr);
 		}
 		cur = cur->next;
 	}
+	printf("JE SORS DE FD_CLOSE_FD\n");
 	return (0);
 }
 
 int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 {
 	(void)shell;
-	// printf("\nDans dup_no_pipe\n");
 	printf("dup_no_pipe %i\n", i);
 	i = 0;
-	if (cur->fd_rd != 0 && cur->fd_wr > 0)
+	if (cur->fd_rd != 0 && cur->fd_rd > 0)
 	{
 		if (dup2(cur->fd_rd, STDIN_FILENO) == -1)
 		{
@@ -80,18 +99,15 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 			g_error = 155;
 			return (155);
 		}
-		//close(cur->fd_rd);
 	}
-	if (cur->fd_wr != 1 && cur->fd_wr > 0)
+	if (cur->fd_wr != 1 && cur->fd_wr > 1)
 	{
-		// printf("\n DUP2 fd-> == %i et STDOUT\n", cur->fd_wr);
 		if (dup2(cur->fd_wr, STDOUT_FILENO) == -1)
 		{
 			ft_putstr_fd("\nErrorDup2 : invalid fd_wr in dupnopipe\n", 2);
 			g_error = 155;
 			return (155);
 		}
-		//close(cur->fd_wr);
 	}
 	return (0);
 }
@@ -113,6 +129,7 @@ int	dup_pipe_rd(t_shell *shell, int i)
 int	dup_pipe_wr(t_shell *shell, int i)
 {
 	errno = 0;
+	printf("dup_pipe_wr %i\n", i);
 	if (dup2(shell->pipe[i][1], STDOUT_FILENO) == -1)
 	{
 		perror("Error Dup2");
@@ -131,16 +148,17 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 {
 	// printf("\ncur-av[0] == %s\n", cur->av[0]);
 	printf("\nPassage %i\n", i);
-	if (cur->fd_wr != -2 && cur->fd_rd != -2)
+	if (cur->fd_wr != -2 || cur->fd_rd != -2)
 		dup_no_pipe(shell, cur, i);
 	if (cur->fd_rd == -2 && shell->tree->count_pipe > 0)
 		dup_pipe_rd(shell, i);
 	if (cur->fd_wr == -2  && shell->tree->count_pipe > 0)
 		dup_pipe_wr(shell, i);
 	ft_close_fds(shell, shell->tree->first);
+	printf("\nEXECVE %i of cur->av[0] == %s\n", i, cur->av[0]);
 	if (ft_isbltn(shell, cur, 0) == false)
 	{
-		// ft_putstr_fd("\nJust Before Execution with EXECVE\n", 2);
+		ft_putstr_fd("\nJust Before Execution with EXECVE\n", 2);
 		if (execve(cur->path, cur->av, shell->env->envp) == -1)
 		{
 			ft_putstr_fd(cur->av[0], 2);
@@ -148,6 +166,7 @@ int	ft_execve (t_shell *shell, t_elem *cur, int i)
 			ft_error(CMD);
 			return (1);
 		}
+		printf("\nFinished execve %i \n", i);
 	}
 	return (0);
 }
@@ -160,6 +179,8 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 	{
 		i++;
 		printf("\nBefore exec\n----\nCOMMAND av[0] == %s\nfd_rd == %i, fd_wr == %i\n", cur->av[0], cur->fd_rd, cur->fd_wr);
+		if (cur->fd_wr == -1 || cur->fd_rd == -1)
+			return (ft_putstr_fd("fd error\n", 2), 42); //gestion erreur
 		shell->pids[i] = fork();
 		ft_signals_inchildren();
 		if (shell->pids[i] == -1)
@@ -168,24 +189,18 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 			ft_close_pipes(shell);
 			return (1);
 		}
-		if (cur->fd_wr == -1 || cur->fd_rd == -1)
-			return (ft_putstr_fd("fd error\n", 2), 42);
 		if (cur->hd_name != NULL)
-			{
-				// printf("\nOpening Hd\n");
-				cur->fd_rd = open(cur->hd_name, O_RDONLY | O_EXCL);
-				// printf("\nCur->fd_rd == %i\n", cur->fd_rd);
-			}
+			cur->fd_rd = open(cur->hd_name, O_RDONLY | O_EXCL);
 		if (shell->pids[i] == 0)
-		{
 			ft_execve(shell, cur, i); //exit
-			if (cur->hd_name != NULL) //FIXME move this in parent
+		// ft_mini_close(shell, cur, i);
+		printf("\nI'm out of ft_execve\n");
+		if (cur->hd_name != NULL)
 				unlink(cur->hd_name);
-			exit(0); //TODO remove
-		}
 		if (cur->next)
 			cur = cur->next;
 	}
+	printf("\nI'm out of the while\n");
 	ft_close_fds(shell, shell->tree->first);
 	ft_wait_children(shell);
 	cur = shell->tree->first;

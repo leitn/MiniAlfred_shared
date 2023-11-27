@@ -1,0 +1,6 @@
+
+/!\boucle while close fd. Cur == cat
+
+EXECVE 0 of cur->av[0] == cat
+Bonjour test3
+Ceci est le dernier Test

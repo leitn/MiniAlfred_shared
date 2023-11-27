@@ -32,7 +32,7 @@ int	ft_complex_fds(t_shell *shell)
 		// if (tmp->av)
 		// 	printf("\n Passage %i\ntmp->av[0] == %s\ntmp->path  == %s", i, tmp->av[0], tmp->path);
 		tmpr = tmpe->redirs;
-		while(tmpr)
+		while(tmpr/*  && !ft_strcmp(tmpe->av[0], "cat") */)
 		{
 			// printf ("\nBOUCLE REDIRS\n");
 			if (tmpr->syn == SIMPLEREDIRRIGHT)
