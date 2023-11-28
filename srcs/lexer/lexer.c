@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:39:54 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:28:05 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_returnenv(char *cmd, int index)
 
 	i = index + 1;
 	while (cmd[i] && (cmd[i] != ' ' || cmd[i] != '"'
-			|| cmd[i] == 34 || cmd[i] == '$'))
+			|| cmd[i] == 34 || cmd[i] != ':'))
 		i++;
 	i -= (index + 1);
 	getenvp = ft_calloc(sizeof(char), i + 1);
@@ -31,7 +31,8 @@ char	*ft_returnenv(char *cmd, int index)
 	index++;
 	while (cmd[index] && !ft_isspace(cmd[index]) && !ft_issyntax(cmd[index]))
 	{
-		if (cmd[index] == 34 || cmd[index] == 39 || cmd[index] == '$')
+		if (cmd[index] == 34 || cmd[index] == 39 || cmd[index] == '$'
+			|| cmd[index] == ':')
 			break ;
 		getenvp[i] = cmd[index];
 		i++;
@@ -71,7 +72,7 @@ void	ft_remove_quotes(t_elem *cur, int index, int start, int *end)
 	cur->av[index] = new;
 }
 
-void	ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex)
+void	ft_rewrite(t_shell *shell, t_elem *cur, int	index, int *jindex)
 {
 	char	target;
 	int		end;

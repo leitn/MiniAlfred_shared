@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:44:25 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:39:08 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:28:25 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char	*ft_removedollard(char *cmd, int size, int index)
 		{
 			i++;
 			while (cmd[i] && !ft_isspace(cmd[i]) && !ft_issyntax(cmd[i])
-				&& cmd[i] != '$' && cmd[i] != 34 && cmd[i] != 39)
+				&& cmd[i] != '$' && cmd[i] != 34 && cmd[i] != 39
+				&& cmd[i] != ':')
 				i++;
 		}
 		if (!cmd[i])
@@ -67,7 +68,8 @@ char	*ft_replacedollard(char *cmd, char *env, int size, int *index)
 	*index = k;
 	i++;
 	while (cmd[i] && !ft_isspace(cmd[i]) && !ft_issyntax(cmd[i])
-		&& cmd[i] != 34 && cmd[i] != 39 && cmd[i] != '$')
+		&& cmd[i] != 34 && cmd[i] != 39 && cmd[i] != '$'
+		&& cmd[i] != ':')
 		i++;
 	while (cmd[i])
 		new[k++] = cmd[i++];
@@ -75,7 +77,7 @@ char	*ft_replacedollard(char *cmd, char *env, int size, int *index)
 	return (new);
 }
 
-char	*ft_get_status(int status)
+char	*ft_get_status(int	status)
 {
 	char	*str;
 	int		len;
@@ -93,7 +95,7 @@ char	*ft_get_status(int status)
 		str[0] = '-';
 		status *= -1;
 	}
-	while (status)
+	while(status)
 	{
 		str[len--] = (status % 10) + '0';
 		status /= 10;
@@ -116,7 +118,8 @@ char	*ft_write_new(char *cmd, char *env, int *index)
 		{
 			i++;
 			while (cmd[i] && !ft_issyntax(cmd[i]) && !ft_isspace(cmd[i])
-				&& cmd[i] != 34 && cmd[i] != 39 && cmd[i] != '$')
+				&& cmd[i] != 34 && cmd[i] != 39 && cmd[i] != '$'
+				&& cmd[i] != ':')
 				i++;
 		}
 		if (!cmd[i])
@@ -138,6 +141,11 @@ void	ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex)
 	char		*new;
 	char		*env;
 
+	if (cur->av[index][*jindex + 1] == '.')
+	{
+		*jindex += 2;
+		return ;
+	}
 	if (cur->av[index][*jindex + 1] == '?')
 	{
 		env = ft_get_status(shell->error_status);
