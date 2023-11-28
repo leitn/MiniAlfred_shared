@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:42:41 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:34:47 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 23:58:52 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	ft_while_after(char *to_parse, int *i)
 		&& (to_parse[*i] == to_parse[*i - 1]))
 		*i += 1;
 	if (to_parse[*i] == to_parse[*i - 1])
-		return (false);
+		return (true);
 	while (to_parse[*i] && (to_parse[*i] != '|' || to_parse[*i] != '<'
 			|| to_parse[*i] != '>'))
 	{

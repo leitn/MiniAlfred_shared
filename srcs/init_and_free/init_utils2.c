@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:10:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:43:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:02:41 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ bool	ft_get_paths(t_env *en, t_bin *bin)
 	char	**paths;
 
 	path_tmp = ft_getenv(en, "PATH");
+	if (!path_tmp)
+	{
+		en->paths = NULL;
+		return (true);
+	}
 	paths = ft_split(path_tmp, ':');
 	ft_add_to_the_bin(path_tmp, STR, bin);
 	if (!paths)

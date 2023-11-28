@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 17:10:35 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:57:37 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ char	*ft_returnenv(char *cmd, int index)
 	int		i;
 
 	i = index + 1;
-	while (cmd[i] && (cmd[i] != ' ' || cmd[i] != '"'
-			|| cmd[i] == 34 || cmd[i] != ':'))
+	if (cmd[i] == 34 || cmd[i] == 39)
+		return (NULL);
+	while (cmd[i] && (cmd[i] != ' ' || cmd[i] != 39
+			|| cmd[i] != 34 || cmd[i] != ':'))
 		i++;
-	i -= (index + 1);
+	i -= index + 1;
 	getenvp = ft_calloc(sizeof(char), i + 1);
-	if (!getenvp || i == 0)
+	if (!getenvp || i <= 1)
 		return (NULL);
 	i = 0;
 	index++;
@@ -34,9 +36,7 @@ char	*ft_returnenv(char *cmd, int index)
 		if (cmd[index] == 34 || cmd[index] == 39 || cmd[index] == '$'
 			|| cmd[index] == ':')
 			break ;
-		getenvp[i] = cmd[index];
-		i++;
-		index++;
+		getenvp[i++] = cmd[index++];
 	}
 	getenvp[i] = '\0';
 	return (getenvp);

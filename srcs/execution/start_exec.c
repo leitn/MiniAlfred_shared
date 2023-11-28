@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 21:40:26 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:55:01 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 int	ft_execve(t_shell *shell, t_elem *cur, int i)
 {
 	if (!cur->av[0])
+	{
+		ft_close_fds(shell, shell->tree->first);
 		exit (0);
+	}
 	if ((cur->fd_wr != -2 && cur->fd_wr > 2)
 		|| (cur->fd_rd != -2 && cur->fd_rd > 0))
 		dup_no_pipe(shell, cur, i);

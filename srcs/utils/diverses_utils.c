@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:26:48 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:54:55 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 23:26:55 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	ft_nbrlen(int n)
 	return (len);
 }
 
+//supprimer ?
 bool	ft_ishell(char *input)
 {
 	int	i;

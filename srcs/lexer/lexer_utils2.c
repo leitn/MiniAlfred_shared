@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:12:13 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/23 16:14:24 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:41:44 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,25 @@ void	ft_lex_av(t_shell *shell, t_elem *tmp)
 				ft_rewrite_dollard(shell, tmp, i, &j);
 			else
 				j++;
+			if (!tmp->av[i][j])
+				break ;
 		}
 		i++;
 	}
+}
+
+bool	ft_continue(char next, int *j)
+{
+	if (!next)
+	{
+		*j += 1;
+		return (false);
+	}
+	if (next == ' ' || next == '.' || ft_issyntax(next)
+		|| next == '%' || next == '$' || next == ':' || next == '=')
+	{
+		*j += 1;
+		return (false);
+	}
+	return (true);
 }

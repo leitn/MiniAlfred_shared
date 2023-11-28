@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 21:03:03 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:12:24 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ void		ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index,
 /* lexer_utils2 */
 
 void		ft_lex_av(t_shell *shell, t_elem *tmp);
+bool		ft_continue(char next, int *j);
 
 /* main */
 
@@ -310,9 +311,9 @@ bool		ft_isbltn(t_shell *shell, t_elem *cur, int pid);
 /** REDIRS **/
 
 /* redir.c */
-bool		ft_simpledirright(t_elem *tmp, t_red *red);
-bool		ft_doubledirright(t_elem *tmp, t_red *red);
-bool		ft_simpleleftdir(t_elem *tmp, t_red *red);
+bool		ft_simpledirright(t_elem *tmp, t_red *red, t_shell *shell);
+bool		ft_doubledirright(t_elem *tmp, t_red *red, t_shell *shell);
+bool		ft_simpleleftdir(t_elem *tmp, t_red *red, t_shell *shell);
 bool		ft_is_eof(char *eof, char *str);
 bool		ft_heredoc(t_shell *shell, t_elem *cur, t_red *red);
 int			ft_redir(t_shell *shell, t_elem *cur);
@@ -391,5 +392,8 @@ char		*ft_getenv(t_env *env, char *target);
 bool		ft_update_var(t_env *env, char *to_update, char *new);
 bool		ft_delete_var(t_shell *shell, char *to_delete);
 void		ft_updatepaths(t_shell *shell);
+
+/* env.c */
+bool		ft_setbasicenv(t_shell *shell);
 
 #endif

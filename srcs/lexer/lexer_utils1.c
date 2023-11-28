@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:44:25 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 17:10:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:05:28 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ char	*ft_replacedollard(char *cmd, char *env, int size, int *index)
 	*index = k;
 	i++;
 	while (cmd[i] && !ft_isspace(cmd[i]) && !ft_issyntax(cmd[i])
-		&& cmd[i] != 34 && cmd[i] != 39 && cmd[i] != '$'
-		&& cmd[i] != ':')
+		&& cmd[i] != 34 && cmd[i] != 39 && cmd[i] != '$' && cmd[i] != ':')
 		i++;
 	while (cmd[i])
 		new[k++] = cmd[i++];
@@ -105,7 +104,7 @@ char	*ft_get_status(int	status)
 
 /* calcule la taille de la nouvelle commande,
 et la fait rediger par la fonction appropriee */
-char	*ft_write_new(char *cmd, char *env, int *index)
+char	*ft_write_new(t_shell *shell, char *cmd, char *env, int *index)
 {
 	int		i;
 	int		size;
@@ -130,6 +129,7 @@ char	*ft_write_new(char *cmd, char *env, int *index)
 	if (!env)
 		return (ft_removedollard(cmd, size + 1, *index));
 	size += ft_strlen(env);
+	ft_add_to_the_bin(env, STR, shell->bin);
 	return (ft_replacedollard(cmd, env, size + 1, index));
 }
 
@@ -141,23 +141,19 @@ void	ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex)
 	char		*new;
 	char		*env;
 
-	if (cur->av[index][*jindex + 1] == '.')
-	{
-		*jindex += 2;
+	if (!ft_continue(cur->av[index][*jindex + 1], jindex))
 		return ;
-	}
 	if (cur->av[index][*jindex + 1] == '?')
 	{
 		env = ft_get_status(shell->error_status);
-		new = ft_write_new(cur->av[index], env, jindex);
+		new = ft_write_new(shell, cur->av[index], env, jindex);
 	}
 	else
 	{
 		env = ft_returnenv(cur->av[index], *jindex);
-		new = ft_write_new(cur->av[index], ft_getenv(shell->env, env), jindex);
+		new = ft_write_new(shell, cur->av[index], ft_getenv(shell->env, env), jindex);
 	}
 	free(cur->av[index]);
 	cur->av[index] = new;
 	ft_add_to_the_bin(env, STR, shell->bin);
-	index += 1;
 }

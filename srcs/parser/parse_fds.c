@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 21:32:51 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 23:43:39 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_check_outfile(t_elem *cur)
 
 	tmp = cur->redirs;
 	if (tmp == NULL)
-		return(false);
+		return (false);
 	while (tmp)
 	{
 		if (tmp->syn == SIMPLEREDIRRIGHT || tmp->syn == DOUBLEREDIRRIGHT)
@@ -44,7 +44,6 @@ bool	ft_builtin_fds(t_elem *cur)
 		{
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;
-			// printf("\ndans ds_builtin_fds\ncur->av[0]=%s\ncur->fd_wr=%i\ncur->fd_rd=%i\n", cur->av[0], cur->fd_wr, cur->fd_rd);
 			return (true);
 		}
 	}
@@ -65,11 +64,14 @@ bool	ft_complex_fds(t_shell *shell)
 		tmpr = tmpe->redirs;
 		while (tmpr)
 		{
-			if (tmpr->syn == SIMPLEREDIRRIGHT && !ft_simpledirright(tmpe, tmpr))
+			if (tmpr->syn == SIMPLEREDIRRIGHT
+				&& !ft_simpledirright(tmpe, tmpr, shell))
 				return (false);
-			if (tmpr->syn == DOUBLEREDIRRIGHT && !ft_doubledirright(tmpe, tmpr))
+			if (tmpr->syn == DOUBLEREDIRRIGHT
+				&& !ft_doubledirright(tmpe, tmpr, shell))
 				return (false);
-			if (tmpr->syn == SIMPLEREDIRLEFT && !ft_simpleleftdir(tmpe, tmpr))
+			if (tmpr->syn == SIMPLEREDIRLEFT
+				&& !ft_simpleleftdir(tmpe, tmpr, shell))
 				return (false);
 			if (tmpr->syn == DOUBLEREDIRLEFT
 				&& !ft_heredoc(shell, tmpe, tmpr))

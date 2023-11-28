@@ -35,3 +35,6 @@
 * verifier une derniere fois que l'historique ne detruit pas le prompt // UPDATE : FIXED (Helia)
 * export BLABLA=pouet, (entree), env : on a un IOT instruction (core dumped) // UPDATE : FIXED (Helia)
 * unset PATH puis blabla ou ls : idem, unadressable bytes in execve in start_exec.c (ligne 108) // FIXED (Leila)
+
+### flags valgrind
+valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --trace-children=yes --suppressions=readline.supp --track-fds=yes -q ./minishell

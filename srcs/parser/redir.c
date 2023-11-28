@@ -6,13 +6,13 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/28 15:33:33 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 23:42:43 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	ft_simpledirright(t_elem *tmp, t_red *red)
+bool	ft_simpledirright(t_elem *tmp, t_red *red, t_shell *shell)
 {
 	t_elem	*cur;
 	t_red	*redir;
@@ -25,14 +25,17 @@ bool	ft_simpledirright(t_elem *tmp, t_red *red)
 		tmp->fd_wr = open(red->av, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (tmp->fd_wr == -1)
 	{
-		ft_putstr_fd("can't open the file\n", 2);
-		g_error = 42;
+		ft_putstr_fd("MiniAlfred: ", 2);
+		if (tmp->av[0])
+			ft_putstr_fd(tmp->av[0], 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+		shell->error_status = 1;
 		return (false);
 	}
 	return (true);
 }
 
-bool	ft_doubledirright(t_elem *tmp, t_red *red)
+bool	ft_doubledirright(t_elem *tmp, t_red *red, t_shell *shell)
 {
 	int	fd;
 
@@ -42,9 +45,12 @@ bool	ft_doubledirright(t_elem *tmp, t_red *red)
 		fd = open(red->av, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		ft_putstr_fd("can't open the file\n", 2);
+		ft_putstr_fd("MiniAlfred: ", 2);
+		if (tmp->av[0])
+			ft_putstr_fd(tmp->av[0], 2);
+		ft_putstr_fd(": Permission denied\n", 2);
 		tmp->fd_wr = fd;
-		g_error = 42;
+		shell->error_status = 1;
 		return (false);
 	}
 	else
@@ -52,7 +58,7 @@ bool	ft_doubledirright(t_elem *tmp, t_red *red)
 	return (true);
 }
 
-bool	ft_simpleleftdir(t_elem *tmp, t_red *red)
+bool	ft_simpleleftdir(t_elem *tmp, t_red *red, t_shell *shell)
 {
 	t_elem	*cur;
 
@@ -60,13 +66,11 @@ bool	ft_simpleleftdir(t_elem *tmp, t_red *red)
 	if (access(red->av, F_OK) == 0)
 		tmp->fd_rd = open(red->av, O_RDONLY, 0777);
 	else
-		tmp->fd_rd = -1;
-	if (tmp->fd_rd == -1)
 	{
-		ft_putstr_fd("MiniAlfred: ", 2);
-		ft_putstr_fd(red->av, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		g_error = 42;
+		tmp->fd_rd = -1;
+		if (tmp->av[0])
+			ft_error(tmp->av[0], NOPATH);
+		shell->error_status = 1;
 		return (false);
 	}
 	return (true);
@@ -83,7 +87,7 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 			perror("perror : can't open the heredoc");
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = 42, false);
+			return (false);
 		}
 		return (1);
 	}
@@ -96,10 +100,9 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 		if (cur->fd_rd == -1)
 		{
 			perror("\nperror : can't open the heredoc");
-			printf("| Error Code : %d \n", errno);
 			close(cur->fd_rd);
 			unlink(cur->hd_name);
-			return (g_error = 42, false);
+			return (false);
 		}
 	}
 	return (true);

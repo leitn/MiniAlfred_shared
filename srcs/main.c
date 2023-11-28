@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 20:34:49 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:38:39 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **env)
 		ft_signals_inparent();
 		shell->error_status = g_error;
 		if (!ft_get_input(shell))
-			break ;
+			ft_exit(NULL, shell);
 		shell->error_status = 0;
 		if (ft_parse(shell))
 		{

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:39:24 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 20:34:55 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:02:15 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ bool	ft_init_envp(t_shell *shell, char **env)
 	int		i;
 
 	i = 0;
+	if (!env[0])
+		return (ft_setbasicenv(shell));
 	while (env[i])
 		i++;
 	shell->env->envp = ft_calloc(sizeof(char *), (i + 1));
@@ -67,7 +69,8 @@ bool	ft_init_envp(t_shell *shell, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (!(shell->env->envp[i] = ft_init_current(env[i])))
+		shell->env->envp[i] = ft_init_current(env[i]);
+		if (!shell->env->envp[i])
 			return (false);
 		i++;
 	}

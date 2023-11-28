@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 20:09:36 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:01:46 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ void	ft_filter(t_shell *shell, t_filter to_free)
 		shell->tree = NULL;
 		shell->isthere = false;
 	}
-	ft_empty_the_bin(shell->bin);
+	if (!shell->bin->isempty)
+		ft_empty_the_bin(shell->bin);
 	if (to_free == FCLEAN)
 	{
-		ft_free_env(shell);
 		free(shell->bin);
+		ft_free_env(shell);
 		free(shell);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 17:11:27 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:04:32 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,11 @@
 int	ft_index(char **env, char *target)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (env[i])
 	{
-		j = 0;
-		while (target[j])
-		{
-			if (target[j] != env[i][j])
-				break ;
-			j++;
-		}
-		if (j == ft_strlen(target))
+		if (ft_cmpbegin(env[i], target))
 			return (i);
 		i++;
 	}
