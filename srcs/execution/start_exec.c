@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 16:13:49 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:40:26 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 		else if (ft_strcmp(cur->av[0], "cd"))
 			return (ft_cd(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "export"))
-			return (ft_export(shell, cur), true);
+			return (ft_export(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "unset"))
 			return (ft_unset(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "env"))
@@ -36,16 +36,19 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 
 int	ft_execve(t_shell *shell, t_elem *cur, int i)
 {
-	if (cur->fd_wr != -2 || cur->fd_rd != -2)
+	if (!cur->av[0])
+		exit (0);
+	if ((cur->fd_wr != -2 && cur->fd_wr > 2)
+		|| (cur->fd_rd != -2 && cur->fd_rd > 0))
 		dup_no_pipe(shell, cur, i);
 	if (cur->fd_rd == -2 && shell->tree->count_pipe > 0)
 		dup_pipe_rd(shell, i);
 	if (cur->fd_wr == -2 && shell->tree->count_pipe > 0)
 		dup_pipe_wr(shell, i);
 	ft_close_fds(shell, shell->tree->first);
-	if (ft_isbltn(shell, cur, 0) == false)
+	if (cur->av[0] && ft_isbltn(shell, cur, 0) == false)
 	{
-		if (cur->path == NULL)
+		if (cur->path == NULL && cur->av[0])
 		{
 			ft_error(cur->av[0], NOPATH);
 			exit(-1);

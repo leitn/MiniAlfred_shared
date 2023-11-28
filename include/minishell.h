@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 16:12:56 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:03:03 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void		ft_manage_av(char **av);
 void		ft_print_tree(t_head *tree);
 
 
-/* fds_utils */
+/* parse_fds*/
 
 bool		ft_manage_fds(t_shell *shell);
 
@@ -344,7 +344,7 @@ bool		ft_exit(t_elem *cur, t_shell *shell);
 
 /* export */
 
-bool		ft_export(t_shell *shell, t_elem *cur);
+bool		ft_export(t_shell *shell, t_elem *cur, int pid);
 
 /* pwd */
 

@@ -40,7 +40,10 @@ int	ft_signal_return_handler(int sig)
 		return (131);
 	}
 	if (sig == SIGINT)
+	{
+		ft_putchar_fd('\n', 2);
 		return (130);
+	}
 	return (sig);
 }
 

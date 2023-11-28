@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 22:39:49 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 22:56:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:52:47 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 	{
 		if (dup2(cur->fd_rd, STDIN_FILENO) == -1)
 		{
-			perror("Error Dup2");
+			perror("Error Dup_no_pipe fd_rd");
 			g_error = 155;
 			return (155);
 		}
@@ -71,7 +71,7 @@ int	dup_no_pipe(t_shell *shell, t_elem *cur, int i)
 	{
 		if (dup2(cur->fd_wr, STDOUT_FILENO) == -1)
 		{
-			perror("Error Dup2");
+			perror("Error Dup_no_pipe fd_wr");
 			g_error = 155;
 			return (155);
 		}
@@ -83,7 +83,7 @@ int	dup_pipe_rd(t_shell *shell, int i)
 {
 	if (dup2(shell->pipe[i - 1][0], STDIN_FILENO) == -1)
 	{
-		perror("Error Dup2");
+		perror("Error Dup_pipe_rd");
 		g_error = 155;
 		return (155);
 	}

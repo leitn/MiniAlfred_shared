@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:12:27 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:11:27 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*ft_getenv(t_env *env, char *target)
 	int		j;
 	int		index;
 
+	if (!target)
+		return (NULL);
 	index = ft_index(env->envp, target);
 	if (index == -1)
 		return (NULL);

@@ -9,6 +9,12 @@
 ### TO FIX
 * VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72
 * VALGRIND : ctrl D Heredoc : unadressable bytes in execve in start_exec.c(ligne 108) + invalid read of size 8 in execve (ligne 110)
+* VALGRIND script et flags de Yakov : fix les leaks qu'on vient de decouvir
+* exit + pipe : ne doit pas ecrire exit.
+* echo || cat : ouch, SEGFAULT
+* le cas de env -i ./minishell : SEGGAULT :'(
+* il se passe quoi si on s'amuse a TOUT unset ? Comme des gros sagouins ?
+
 
 ### TO BETTER
 * NORME : ft_end_size et Ft_print dans echo ont cinq arguments, quatre est le maximum autorise.
@@ -20,6 +26,9 @@
 
 ### FIXED
 
+* > bonjour : SEGFAULT
+* > bonjour | cat : execute comme bash --posix
+* export + pipe et cd + pipe : added if pid == 0 exit(0);
 * ctrl + C dans un prompt vide renvoie un double prompt, dont un en rouge // UPDATE : FIXED (minishell Helia)
 * Expand issue on $PATH dans unset (UPDATE : FIXED (Helia))
 * unset USER, puis export USER, puis env : core dumped aussi // UPDATE : FIXED (Helia)

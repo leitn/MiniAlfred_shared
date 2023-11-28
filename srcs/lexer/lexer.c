@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 16:28:05 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:10:35 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_returnenv(char *cmd, int index)
 		i++;
 	i -= (index + 1);
 	getenvp = ft_calloc(sizeof(char), i + 1);
-	if (!getenvp)
+	if (!getenvp || i == 0)
 		return (NULL);
 	i = 0;
 	index++;

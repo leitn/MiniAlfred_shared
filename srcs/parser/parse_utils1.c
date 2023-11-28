@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:44:23 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:34:23 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:30:51 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	ft_write_no(t_elem *cur, char *input, int *i)
 
 void	ft_write_path(t_shell *shell, t_elem *cur)
 {
-	if (!cur->av)
+	if (!cur->av || !cur->av[0])
 		return ;
 	if (!access(cur->av[0], F_OK | X_OK))
 	{

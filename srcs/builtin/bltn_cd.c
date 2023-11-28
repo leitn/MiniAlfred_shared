@@ -6,13 +6,13 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 03:47:57 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:47:20 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:06:13 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	ft_chdir(t_shell *shell, char *path, int pid)
+bool	ft_chdir(t_shell *shell, char *path)
 {
 	char		*old_pwd;
 	char		*new_pwd;
@@ -34,8 +34,6 @@ bool	ft_chdir(t_shell *shell, char *path, int pid)
 		return (false);
 	ft_add_to_the_bin(new_pwd, STR, shell->bin);
 	ft_update_var(shell->env, "PWD", new_pwd);
-	if (pid == 0)
-		exit(0);
 	return (true);
 }
 
@@ -43,6 +41,8 @@ bool	ft_cd(t_shell *shell, t_elem *cur, int pid)
 {
 	extern int	g_error;
 
+	if (pid == 0)
+		exit(0);
 	if (!cur->av[1])
 	{
 		ft_putstr_fd("cd: missing argument\n", 2);
@@ -60,5 +60,5 @@ bool	ft_cd(t_shell *shell, t_elem *cur, int pid)
 		shell->exec_current = cur;
 		return (false);
 	}
-	return (ft_chdir(shell, cur->av[1], pid));
+	return (ft_chdir(shell, cur->av[1]));
 }

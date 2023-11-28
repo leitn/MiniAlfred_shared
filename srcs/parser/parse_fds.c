@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:30:20 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:32:51 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,26 @@ bool	ft_check_outfile(t_elem *cur)
 	return (false);
 }
 
-void	ft_builtin_fds(t_elem *cur)
+bool	ft_builtin_fds(t_elem *cur)
 {
-	if (cur->av)
+	if (cur->av && cur->av[0])
 	{
 		if (ft_strcmp(cur->av[0], "exit") || ft_strcmp(cur->av[0], "cd"))
 		{
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;
+			return (true);
 		}
-		else if (ft_strcmp(cur->av[0], "export") || ft_strcmp(cur->av[0], "unset"))
+		else if (ft_strcmp(cur->av[0], "export")
+			|| ft_strcmp(cur->av[0], "unset"))
 		{
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;
+			// printf("\ndans ds_builtin_fds\ncur->av[0]=%s\ncur->fd_wr=%i\ncur->fd_rd=%i\n", cur->av[0], cur->fd_wr, cur->fd_rd);
+			return (true);
 		}
 	}
+	return (false);
 }
 
 bool	ft_complex_fds(t_shell *shell)

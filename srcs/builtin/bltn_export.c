@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:20:17 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/28 15:51:51 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:03:26 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	ft_isequal(char *to_parse)
 	return (false);
 }
 
-bool	ft_export(t_shell *shell, t_elem *cur)
+bool	ft_export(t_shell *shell, t_elem *cur, int pid)
 {
 	int	i;
 
@@ -88,5 +88,7 @@ bool	ft_export(t_shell *shell, t_elem *cur)
 			ft_updatepaths(shell);
 		i++;
 	}
+	if (pid == 0)
+		exit (0);
 	return (true);
 }
