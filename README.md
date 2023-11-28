@@ -7,7 +7,6 @@
 * Verifier les messages d'erreur d'un maximum de cas d'erreurs
 * VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72
 * VALGRIND : ctrl D Heredoc : unadressable bytes in execve in start_exec.c(ligne 108) + invalid read of size 8 in execve (ligne 110)
-* unset PATH puis blabla ou ls : idem, unadressable bytes in execve in start_exec.c (ligne 108)
 * Expand issue on $PATH dans unset
 
 
@@ -24,3 +23,4 @@
 * unset USER, puis export USER, puis env : core dumped aussi // UPDATE : FIXED (Helia)
 * verifier une derniere fois que l'historique ne detruit pas le prompt // UPDATE : FIXED (Helia)
 * export BLABLA=pouet, (entree), env : on a un IOT instruction (core dumped) // UPDATE : FIXED (Helia)
+* unset PATH puis blabla ou ls : idem, unadressable bytes in execve in start_exec.c (ligne 108) // FIXED (Leila)

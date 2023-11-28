@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:58:09 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:12:56 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef enum s_error
 	SYN,
 	CMD,
 	ARG,
+	NOPATH,
 }	t_error;
 
 /***** FUNCTIONS *****/

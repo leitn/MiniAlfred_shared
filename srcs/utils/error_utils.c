@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:16:29 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:55:38 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:13:21 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ bool	ft_error(char *arg, t_error error)
 	{
 		ft_putstr_fd("Minishell : too many arguments", 2);
 		exit(EXIT_FAILURE);
+	}
+	else if (error == NOPATH)
+	{
+		ft_putstr_fd("MiniAlfred: ", 2);
+		if (arg)
+			ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	return (false);
 }

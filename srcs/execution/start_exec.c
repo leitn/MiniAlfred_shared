@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 22:43:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:13:49 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ int	ft_execve(t_shell *shell, t_elem *cur, int i)
 	ft_close_fds(shell, shell->tree->first);
 	if (ft_isbltn(shell, cur, 0) == false)
 	{
-		if (execve(cur->path, cur->av, shell->env->envp) == -1)
+		if (cur->path == NULL)
+		{
+			ft_error(cur->av[0], NOPATH);
+			exit(-1);
+		}
+		else if (execve(cur->path, cur->av, shell->env->envp) == -1)
 		{
 			ft_error(cur->av[0], CMD);
 			exit(-1);
@@ -63,7 +68,7 @@ int	ft_exec(t_shell *shell, t_elem *cur)
 	while (cur && i < shell->tree->count_pipe)
 	{
 		if (cur->fd_wr == -1 || cur->fd_rd == -1)
-			return (ft_putstr_fd("fd error\n", 2), 42); //gestion erreur
+			return (ft_putstr_fd("fd error\n", 2), 42);
 		shell->pids[++i] = fork();
 		ft_signals_inchildren();
 		if (shell->pids[i] == -1)
