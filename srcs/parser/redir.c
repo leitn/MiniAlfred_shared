@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 23:04:48 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:33:33 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 	return (true);
 }
 
+
 bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 {
 	char		*line;
@@ -139,4 +140,3 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 	}
 	return (false);
 }
-

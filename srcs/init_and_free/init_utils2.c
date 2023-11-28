@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:10:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 23:09:21 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:43:58 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	*ft_realloc(void *ptr, int new_size, int old_size)
 		free(ptr);
 		return (NULL);
 	}
-	new_ptr = ft_calloc(new_size, 1);
+	new_ptr = malloc(new_size);
 	if (!new_ptr)
 	{
 		free(ptr);

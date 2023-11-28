@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fds_utils.c                                        :+:      :+:    :+:   */
+/*   parse_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 22:52:47 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:30:20 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_check_outfile(t_elem *cur)
 
 	tmp = cur->redirs;
 	if (tmp == NULL)
-		return (false);
+		return(false);
 	while (tmp)
 	{
 		if (tmp->syn == SIMPLEREDIRRIGHT || tmp->syn == DOUBLEREDIRRIGHT)
@@ -38,8 +38,7 @@ void	ft_builtin_fds(t_elem *cur)
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;
 		}
-		else if (ft_strcmp(cur->av[0], "export")
-			|| ft_strcmp(cur->av[0], "unset"))
+		else if (ft_strcmp(cur->av[0], "export") || ft_strcmp(cur->av[0], "unset"))
 		{
 			cur->fd_rd = 0;
 			cur->fd_wr = 1;

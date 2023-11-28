@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   title_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 04:23:07 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 23:14:07 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/10/26 05:00:10 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_av(void)
 
 	av = malloc(sizeof(char *) * 7);
 	if (!av)
-		return (NULL);
+		return NULL;
 	av[0] = ft_toilet();
 	av[1] = ft_minialfred();
 	av[2] = ft_option1();
@@ -60,7 +60,7 @@ char	**ft_av(void)
 	return (av);
 }
 
-char	*ft_path(void)
+char	*ft_path()
 {
 	static char	*path = "/usr/bin/toilet";
 	char		*rtrn;

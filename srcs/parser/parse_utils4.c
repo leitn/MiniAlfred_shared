@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 01:47:27 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 23:11:12 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:36:13 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strcpy(char *src)
 	char	*dst;
 	int		i;
 
-	dst = ft_calloc(sizeof(char), (ft_strlen(src) + 1));
+	dst = ft_calloc(sizeof(char), ft_strlen(src) + 1);
 	if (!dst)
 		return (NULL);
 	i = 0;

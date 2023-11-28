@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 16:33:37 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:12:27 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ void	ft_deletepaths(t_shell *shell)
 
 void	ft_updatepaths(t_shell *shell)
 {
-	int	i;
+	int		i;
+	char	*casted;
 
 	i = ft_index(shell->env->envp, "PATH");
 	if (i == -1)
@@ -145,6 +146,9 @@ void	ft_updatepaths(t_shell *shell)
 		ft_deletepaths(shell);
 		return ;
 	}
-	ft_free_str_array(shell->env->paths);
-	shell->env->paths = ft_split(shell->env->envp[i], ':');
+	if (shell->env->paths)
+		ft_free_str_array(shell->env->paths);
+	casted = ft_getenv(shell->env, "PATH");
+	ft_add_to_the_bin(casted, STR, shell->bin);
+	shell->env->paths = ft_split(casted, ':');
 }

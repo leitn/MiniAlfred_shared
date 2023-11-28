@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:20:17 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/27 23:07:22 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:51:51 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	ft_set_new_env(t_shell *shell, char *to_add)
 	shell->env->envp = ft_realloc(shell->env->envp, sizeof(char *) * size, os);
 	if (!shell->env->envp)
 		return ;
-	shell->env->envp[size] = ft_strcpy(to_add);
-	shell->env->envp[size + 1] = NULL;
+	shell->env->envp[size - 2] = ft_strcpy(to_add);
+	shell->env->envp[size - 1] = NULL;
 }
 
 bool	ft_isequal(char *to_parse)
