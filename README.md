@@ -9,7 +9,6 @@
 ### TO FIX
 * VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72
 * VALGRIND : ctrl D Heredoc : unadressable bytes in execve in start_exec.c(ligne 108) + invalid read of size 8 in execve (ligne 110)
-* Expand issue on $PATH dans unset
 
 ### TO BETTER
 * NORME : ft_end_size et Ft_print dans echo ont cinq arguments, quatre est le maximum autorise.
@@ -22,6 +21,7 @@
 ### FIXED
 
 * ctrl + C dans un prompt vide renvoie un double prompt, dont un en rouge // UPDATE : FIXED (minishell Helia)
+* Expand issue on $PATH dans unset (UPDATE : FIXED (Helia))
 * unset USER, puis export USER, puis env : core dumped aussi // UPDATE : FIXED (Helia)
 * verifier une derniere fois que l'historique ne detruit pas le prompt // UPDATE : FIXED (Helia)
 * export BLABLA=pouet, (entree), env : on a un IOT instruction (core dumped) // UPDATE : FIXED (Helia)
