@@ -8,6 +8,7 @@
 * unset PATH, puis export PATH=/bin : ls doit marcher
 * VALGRIND ctrl D Heredoc : unadressable bytes in execve in start_exec.c(ligne 108) + invalid read of size 8 in execve (ligne 110)
 * unset PATH puis blabla ou ls : idem, unadressable bytes in execve in start_exec.c (ligne 108)
+* Expand issue on $PATH dans unset
 
 
 * NORME : ft_end_size et Ft_print dans echo ont cinq arguments, quatre est le maximum autorise.
