@@ -3,13 +3,15 @@
 
 ### TO DO
 * passer toute la correction blanche avec valgrind et le flag track-fds=yes
-* gerer toutes les return values des process pour les expendre avec $?
+* gerer toutes les return values des process pour les expandre avec $?
 * Verifier les messages d'erreur d'un maximum de cas d'erreurs
+
+### TO FIX
 * VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72
 * VALGRIND : ctrl D Heredoc : unadressable bytes in execve in start_exec.c(ligne 108) + invalid read of size 8 in execve (ligne 110)
 * Expand issue on $PATH dans unset
 
-
+### TO BETTER
 * NORME : ft_end_size et Ft_print dans echo ont cinq arguments, quatre est le maximum autorise.
 * NORME : quelques fonctions depassent les 25 lignes
 * PROPRETE 1 : on a des fonctions doublons. Ft_is_eof peut etre remplace par strcmp. Ft_is_builtn et Ft_check_builtn sont doublons.
