@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:44:25 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 21:05:28 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:52:09 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ char	*ft_replacedollard(char *cmd, char *env, int size, int *index)
 	return (new);
 }
 
-char	*ft_get_status(int	status)
+char *ft_get_status(int status)
 {
-	char	*str;
-	int		len;
+	char *str;
+	int len;
 
 	len = ft_nbrlen(status);
 	str = ft_calloc(sizeof(char), (len + 1));
+	if (!str)
+		return (NULL);
 	str[len--] = '\0';
 	if (status == 0)
 	{
@@ -136,13 +138,13 @@ char	*ft_write_new(t_shell *shell, char *cmd, char *env, int *index)
 /* transforme le dollard par sa valeur reelle,
 Ou le supprime si celui-ci n'existe pas */
 
-void	ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex)
+void ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex)
 {
-	char		*new;
-	char		*env;
+	char *new;
+	char *env;
 
 	if (!ft_continue(cur->av[index][*jindex + 1], jindex))
-		return ;
+		return;
 	if (cur->av[index][*jindex + 1] == '?')
 	{
 		env = ft_get_status(shell->error_status);
@@ -155,5 +157,4 @@ void	ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index, int *jindex)
 	}
 	free(cur->av[index]);
 	cur->av[index] = new;
-	ft_add_to_the_bin(env, STR, shell->bin);
 }
