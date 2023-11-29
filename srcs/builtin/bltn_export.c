@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:20:17 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 00:10:12 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:58:54 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ bool	ft_export(t_shell *shell, t_elem *cur, int pid)
 	int	i;
 
 	i = 1;
+	if (!cur->av[i])
+		return (ft_simple_export(shell, cur, pid));
 	while (cur->av[i])
 	{
 		if (ft_strcmp_until_equal(shell, cur->av[i]) != -42)

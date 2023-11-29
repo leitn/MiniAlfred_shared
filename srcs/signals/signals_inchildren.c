@@ -49,9 +49,17 @@ int	ft_signal_return_handler(int sig)
 
 void	ft_recast_return(t_shell *shell)
 {
+	if (g_error != 0)
+	{
+		shell->error_status = g_error;
+		g_error = 0;
+		return ;
+	}
 	if (WIFEXITED(shell->error_status))
 		shell->error_status = WEXITSTATUS(shell->error_status);
 	else if (WIFSIGNALED(shell->error_status))
 		shell->error_status
-			= ft_signal_return_handler(WTERMSIG(shell->error_status));
+			= ft_signal_return_handler(128 + WTERMSIG(shell->error_status));
+	if (shell->error_status == 255)
+		shell->error_status = 126;
 }

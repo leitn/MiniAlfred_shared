@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:53:27 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:07:05 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:41:18 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_error_env(t_elem *cur, t_syntax FLAG)
+void	ft_error_env(t_elem *cur, t_syntax FLAG, int pid, t_shell *shell)
 {
 	static char	*err = "'\nthis implementation does not accept arg or option\n";
 
@@ -21,13 +21,18 @@ void	ft_error_env(t_elem *cur, t_syntax FLAG)
 		ft_putstr_fd("env: extra operand '", 2);
 		ft_putstr_fd(cur->av[1], 2);
 		ft_putstr_fd(err, 2);
+		shell->error_status = 127;
+		if (pid == 0)
+			exit(127);
 	}
-
 	else if (FLAG == OPTION)
 	{
 		ft_putstr_fd("env: invalid -- option '", 2);
 		ft_putstr_fd(cur->av[1], 2);
 		ft_putstr_fd(err, 2);
+		shell->error_status = 125;
+		if (pid == 0)
+			exit(125);
 	}
 }
 
@@ -38,7 +43,7 @@ void	ft_env(t_shell *shell, t_elem *cur, int pid)
 	if (cur->av[1] && (ft_issyntax(cur->av[1][0]) == NO
 		|| ft_issyntax(cur->av[1][0]) == OPTION))
 	{
-		ft_error_env(cur, ft_issyntax(cur->av[1][0]));
+		ft_error_env(cur, ft_issyntax(cur->av[1][0]), pid, shell);
 		return ;
 	}
 	i = 0;

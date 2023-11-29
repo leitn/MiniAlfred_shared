@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 16:58:45 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:56:00 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_elem
 typedef struct s_head
 {
 	t_elem			*first;
-	bool			redir;
+	bool			ispath;
 	bool			pipe;
 	int				count_pipe;
 }	t_head;
@@ -326,6 +326,8 @@ bool		ft_cmpbegin(char *cmd, char *cmp);
 
 /* cd */
 
+bool		ft_chdir2(t_shell *shell);
+bool		ft_chdir(t_shell *shell, char *path, int pid);
 bool		ft_cd(t_shell *shell, t_elem *cur, int pid);
 
 /* echo */
@@ -333,6 +335,7 @@ bool		ft_cd(t_shell *shell, t_elem *cur, int pid);
 void		ft_print(t_shell *shell, t_elem *tmp, int i,
 				bool no_ligne, int pid);
 void		ft_echo(t_shell *shell, t_elem *cur, int pid);
+void		ft_exitbltn(t_shell *shell, int status);
 
 /* env */
 
@@ -346,6 +349,7 @@ bool		ft_exit(t_elem *cur, t_shell *shell, int pid);
 /* export */
 
 bool		ft_export(t_shell *shell, t_elem *cur, int pid);
+bool		ft_simple_export(t_shell *shell, t_elem *cur, int pid);
 
 /* pwd */
 

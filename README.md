@@ -4,10 +4,30 @@
 ### TO DO
 * passer toute la correction blanche avec valgrind et le flag track-fds=yes
 * gerer toutes les return values des process pour les expandre avec $?
+
+### VALEURS DE RETOUR
 * Verifier les messages d'erreur d'un maximum de cas d'erreurs
+|_______________________________________________
+|
+| 0 : success
+|(1-255) exit status indicates failure.
+| 1 : erreurs generales
+| 2 : mauvaise utilisation des cmds execve
+|
+|127 : cmd not found : PATH ou erreur de frappe
+|126 : cmd found but not executable (droits de fichiers par exemple)
+|128 : argument invalide (COMMENT JE FAIS LA DISTINCTION ?!)
+|128 + numero du signal
+| 130 : termine avec Ctrl C
+| 255 : code de sortie errone
+________________________________
+
+Dans le cas des processus enfants : waitpid avec WIFEXITED(status).
+
+
+
 
 ### TO FIX
-* VALGRIND : si env -i ./minishell puis unset PATH : SEGFAULT
 
 ### TO BETTER
 * NORME : ft_end_size et Ft_print dans echo ont cinq arguments, quatre est le maximum autorise.
@@ -19,6 +39,8 @@
 
 ### FIXED
 
+* ERREUR 126 command not found
+* VALGRIND : si env -i ./minishell puis unset PATH : SEGFAULT (FIXED Helia)
 * VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72 (FIXED Helia)
 * il se passe quoi si on s'amuse a TOUT unset ? Comme des gros sagouins ? (OK : meme comportement que POSIX)
 * exit + pipe : ne doit pas ecrire exit.(FIXED Leila)

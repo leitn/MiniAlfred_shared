@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 04:02:34 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:04:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,16 @@ void	ft_manage_paths(t_shell *shell)
 {
 	t_elem	*tmp;
 
+	shell->tree->ispath = true;
 	tmp = shell->tree->first;
 	while (tmp)
 	{
-		if (tmp->av && shell->env->paths)
+		if (tmp->av)
 			ft_write_path(shell, tmp);
 		else
 			tmp->path = NULL;
 		tmp = tmp->next;
 	}
+	if (!shell->env->paths)
+		shell->tree->ispath = false;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:48:40 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:21:03 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,25 @@ void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne, int pid)
 	{
 		while (cur->av[i])
 		{
-			ft_putstr_fd(cur->av[i], cur->fd_wr);
-			if (cur->av[i + 1])
+			ft_putstr_fd(cur->av[i++], cur->fd_wr);
+			if (cur->av[i])
 				ft_putstr_fd(" ", cur->fd_wr);
-			i++;
 		}
 	}
 	else if ((pid == 0) || (cur->fd_wr == -2))
 	{
 		while (cur->av[i])
 		{
-			ft_putstr_fd(cur->av[i], 1);
-			if (cur->av[i + 1])
+			ft_putstr_fd(cur->av[i++], 1);
+			if (cur->av[i])
 				ft_putstr_fd(" ", 1);
-			i++;
 		}
 	}
 	if (no_ligne == false && cur->fd_wr > 0)
 		ft_putstr_fd("\n", cur->fd_wr);
 	else if (no_ligne == false && cur->fd_wr < 0)
 		ft_putstr_fd("\n", 1);
-	(void)shell;
+	shell->error_status = 0;
 }
 
 void	ft_echo(t_shell *shell, t_elem *cur, int pid)
@@ -67,5 +65,11 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 	if (cur->hd_name != NULL)
 		unlink(cur->hd_name);
 	if (pid == 0)
-		exit(0);
+		ft_exitbltn(shell, 0);
+}
+
+void	ft_exitbltn(t_shell *shell, int status)
+{
+	ft_filter(shell, FCLEAN);
+	exit(status);
 }

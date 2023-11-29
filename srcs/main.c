@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 16:58:07 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:54:06 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,50 @@ bool	ft_get_input(t_shell *shell)
 	return (true);
 }
 
+void	ft_no_path_else(t_elem *tmp, t_shell *shell)
+{
+	if ((tmp->path == NULL) && (check_bltn(tmp) == false))
+	{
+		shell->error_status = 127;
+		if (tmp->av && tmp->av[0])
+			ft_error(tmp->av[0], NOPATH, shell);
+	}
+	else
+	{
+		shell->error_status = 0;
+		if (tmp->av && tmp->av[0] && !ft_strcmp(tmp->av[0], "cd")
+			&& !ft_strcmp(tmp->av[0], "unset")
+			&& !ft_strcmp(tmp->av[0], "export"))
+			ft_isbltn(shell, tmp, 1);
+	}
+}
+
+bool	ft_exec_no_path(t_shell *shell)
+{
+	t_elem	*tmp;
+
+	tmp = shell->tree->first;
+	if (shell->tree->ispath == false)
+	{
+		while (tmp->next)
+		{
+			if ((tmp->path == NULL) && (check_bltn(tmp) == false))
+			{
+				if (tmp->av && tmp->av[0])
+					ft_error(tmp->av[0], NOPATH, shell);
+			}
+			tmp = tmp->next;
+		}
+		ft_no_path_else(tmp, shell);
+		return (true);
+	}
+	return (false);
+}
+
 int	start_alfred(t_shell *shell)
 {
+	if (ft_exec_no_path(shell) == true)
+		return (127);
 	if (shell->tree->count_pipe <= 0)
 	{
 		if (ft_isbltn(shell, shell->tree->first, 1) == false)
@@ -45,11 +87,11 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	shell = ft_init_shell(env);
 	ft_getshell(shell, 1);
+	shell->error_status = 0;
 	// ft_print_titl(shell);
 	while (42)
 	{
 		ft_signals_inparent();
-		// shell->error_status = g_error;
 		if (!ft_get_input(shell))
 			ft_exit(NULL, shell, 1);
 		if (ft_parse(shell))

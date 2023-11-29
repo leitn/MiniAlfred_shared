@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:44:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 03:37:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:49:01 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_end(t_shell *shell, int pid, bool ispath)
+{
+	if (ispath == true)
+		ft_updatepaths(shell);
+	if (pid == 0)
+		exit(0);
+}
 
 void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 {
@@ -21,9 +29,10 @@ void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 		return ;
 	if (ft_issyntax(cur->av[1][0]) == OPTION)
 	{
-		ft_putstr_fd("unset: this implementation take no options\n", 2);
+		ft_putstr_fd("unset: this implementation takes no options\n", 2);
+		shell->error_status = 2;
 		if (pid == 0)
-			exit(0);
+			exit(2);
 		return ;
 	}
 	i = 1;
@@ -35,9 +44,5 @@ void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 		ft_delete_var(shell, cur->av[i++]);
 
 	}
-	shell->exec_current = cur->next;
-	if (ispath == true)
-		ft_updatepaths(shell);
-	if (pid == 0)
-		exit(0);
+	ft_end(shell, pid, ispath);
 }

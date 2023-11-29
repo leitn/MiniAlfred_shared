@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 16:58:19 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:58:16 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_execve(t_shell *shell, t_elem *cur, int i)
 	{
 		if (cur->path == NULL && cur->av[0])
 		{
-			ft_error(cur->av[0], NOPATH, shell);
+			ft_error(cur->av[0], CMD, shell);
 			ft_filter(shell, TREEONLY);
 			ft_filter(shell, FCLEAN);
 			exit(-1);

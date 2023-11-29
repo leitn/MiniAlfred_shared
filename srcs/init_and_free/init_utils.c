@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:39:24 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:02:15 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:06:36 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ bool	ft_init_tree(t_shell *shell)
 	shell->tree = tree;
 	shell->tree->pipe = false;
 	shell->tree->count_pipe = 0;
-	shell->tree->redir = false;
 	shell->isthere = true;
 	return (true);
 }

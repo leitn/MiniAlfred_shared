@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 18:33:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 16:57:23 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:48:17 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ void	ft_non_numeric(t_shell *shell, char *cmd)
 	exit(2);
 }
 
-bool	ft_too_many_args(t_elem *cur, t_shell *shell)
+bool	ft_too_many_args(t_shell *shell, int pid)
 {
 	ft_putstr_fd("MiniAlfred: exit: too many arguments\n", 2);
 	g_error = 2;
-	shell->exec_current = cur->next;
+	shell->error_status = 1;
+	if (pid == 0)
+		exit (1);
 	return (false);
 }
 
@@ -84,10 +86,11 @@ bool	ft_exit(t_elem *cur, t_shell *shell, int pid)
 		if (!ft_atoi(cur->av[1], &exit_status))
 			ft_non_numeric(shell, cur->av[1]);
 		else if (cur->av[2])
-			return (ft_too_many_args(cur, shell));
+			return (ft_too_many_args(shell, pid));
 		ft_filter(shell, FCLEAN);
 		exit(exit_status);
 	}
+	exit_status = shell->error_status;
 	ft_filter(shell, FCLEAN);
-	exit(g_error);
+	exit(exit_status);
 }

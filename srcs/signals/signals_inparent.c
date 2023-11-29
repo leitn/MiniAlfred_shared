@@ -6,7 +6,7 @@
 /*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:04:05 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/27 23:37:02 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:51:36 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	ft_signals_inparent(void)
 
 void	ft_ctrlc_inparent(int sig)
 {
+	t_shell	*shell;
+
 	(void)sig;
-	g_error = 130;
+	shell = ft_getshell(NULL, 0);
+	shell->error_status = 130;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	ft_putchar_fd('\n', 1);

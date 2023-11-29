@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:44:23 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 01:00:53 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:04:50 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_write_path(t_shell *shell, t_elem *cur)
 	}
 	else if (ft_is_a_builtin(cur->av[0]))
 		cur->path = NULL;
-	else
+	else if (shell->env->paths)
 		cur->path = init_path(shell, cur);
 	if (!cur->path)
 		cur->path = NULL;

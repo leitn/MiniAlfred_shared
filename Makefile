@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
+#    By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/28 15:58:32 by letnitan         ###   ########.fr        #
+#    Updated: 2023/11/29 18:00:52 by hedubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS	=	main.c \
 			builtin/bltn_pwd.c \
 			builtin/bltn_unset.c \
 			builtin/bltn_export.c \
+			builtin/bltn_export2.c \
 			builtin/bltn_utils.c \
 			env/env.c \
 			env/env_utils.c \
