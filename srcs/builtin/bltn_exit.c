@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 18:33:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:05:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:57:23 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ bool	ft_too_many_args(t_elem *cur, t_shell *shell)
 	return (false);
 }
 
-bool	ft_exit(t_elem *cur, t_shell *shell)
+bool	ft_exit(t_elem *cur, t_shell *shell, int pid)
 {
 	extern int	g_error;
 	int			exit_status;
 
-	ft_putstr_fd("exit\n", 2);
+	if (pid != 0)
+		ft_putstr_fd("exit\n", 2);
 	if (cur && cur->av[1])
 	{
 		if (!ft_atoi(cur->av[1], &exit_status))

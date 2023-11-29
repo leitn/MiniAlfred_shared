@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 04:02:19 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:58:19 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 		if (ft_strcmp(cur->av[0], "echo"))
 			return (ft_echo(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "exit"))
-			return (ft_exit(cur, shell), true);
+			return (ft_exit(cur, shell, pid), true);
 		else if (ft_strcmp(cur->av[0], "cd"))
 			return (ft_cd(shell, cur, pid), true);
 		else if (ft_strcmp(cur->av[0], "export"))

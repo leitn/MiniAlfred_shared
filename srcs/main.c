@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 04:10:54 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:58:07 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **env)
 		ft_signals_inparent();
 		// shell->error_status = g_error;
 		if (!ft_get_input(shell))
-			ft_exit(NULL, shell);
+			ft_exit(NULL, shell, 1);
 		if (ft_parse(shell))
 		{
 			start_alfred(shell);

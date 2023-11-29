@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 04:00:23 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:58:45 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,7 @@ void		ft_env(t_shell *shell, t_elem *cur, int pid);
 /* exit */
 
 bool		ft_atoi(char *nbr, int *result);
-bool		ft_exit(t_elem *cur, t_shell *shell);
+bool		ft_exit(t_elem *cur, t_shell *shell, int pid);
 
 /* export */
 
