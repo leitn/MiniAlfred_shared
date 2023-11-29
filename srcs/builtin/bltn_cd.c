@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 03:47:57 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 21:06:13 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 04:41:23 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	ft_chdir(t_shell *shell, char *path)
 	if (chdir(path) != 0)
 	{
 		ft_putstr_fd("cd: invalid path\n", 2);
+		shell->error_status = 2;
 		g_error = 2;
 		return (false);
 	}

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 03:22:22 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 04:02:45 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	ft_simpleleftdir(t_elem *tmp, t_red *red, t_shell *shell)
 	{
 		tmp->fd_rd = -1;
 		if (tmp->av && tmp->av[0])
-			ft_error(tmp->av[0], NOPATH);
+			ft_error(tmp->av[0], NOPATH, shell);
 		shell->error_status = 1;
 		return (false);
 	}

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 02:47:46 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 04:00:23 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void		ft_filter(t_shell *shell, t_filter to_free);
 
 
 /* error_utils */
-bool		ft_error(char *arg, t_error error);
+bool		ft_error(char *arg, t_error error, t_shell *shell);
 
 /* lexer */
 

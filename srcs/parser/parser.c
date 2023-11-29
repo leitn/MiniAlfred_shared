@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:27:13 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 04:02:34 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	ft_parse(t_shell *shell)
 	if (ft_isempty(shell->input))
 		return (ft_filter(shell, INPONLY), false);
 	if (ft_unclosedquotes(shell->input) || ft_error_pipe_or_redir(shell->input))
-		return (ft_filter(shell, INPONLY), ft_error(NULL, SYN));
+		return (ft_filter(shell, INPONLY), ft_error(NULL, SYN, shell));
 	if (!ft_init_tree(shell))
 		return (ft_filter(shell, INPONLY), false);
 	i = 0;

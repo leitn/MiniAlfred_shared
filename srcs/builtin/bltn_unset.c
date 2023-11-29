@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:44:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:08:12 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 03:37:58 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 	if (ft_issyntax(cur->av[1][0]) == OPTION)
 	{
 		ft_putstr_fd("unset: this implementation take no options\n", 2);
+		if (pid == 0)
+			exit(0);
 		return ;
 	}
 	i = 1;
