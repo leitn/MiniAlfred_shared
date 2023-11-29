@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:03:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 19:04:17 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:53:20 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ bool	ft_parse(t_shell *shell)
 }
 
 /* suite de ft_size dans parse_utils3.c (norme) */
-int	ft_end_size(char *input, int *end, int *start, int size, int token)
+int	ft_end_size(char *input, int *end, int size, int token)
 {
-	*start = *end;
 	if (((!input[*end] && input[*end - 1] != ' ') || (input[*end] == '|'
 				&& !ft_isspace(input[*end - 1]))) && token != REDIR)
 		size++;

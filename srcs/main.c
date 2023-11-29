@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 22:07:26 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:58:14 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	main(int ac, char **av, char **env)
 	shell = ft_init_shell(env);
 	ft_getshell(shell, 1);
 	shell->error_status = 0;
-	// ft_print_titl(shell);
 	while (42)
 	{
 		ft_signals_inparent();

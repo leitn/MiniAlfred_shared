@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 22:27:03 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/30 00:00:12 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne, int pid)
+void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne)
 {
-	if (cur->fd_wr > 0 && (pid != 0))
+	if (cur->fd_wr > 0 && (shell->pidecho != 0))
 	{
 		while (cur->av[i])
 		{
@@ -23,7 +23,7 @@ void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne, int pid)
 				ft_putstr_fd(" ", cur->fd_wr);
 		}
 	}
-	else if ((pid == 0) || (cur->fd_wr == -2))
+	else if ((shell->pidecho == 0) || (cur->fd_wr == -2))
 	{
 		while (cur->av[i])
 		{
@@ -77,7 +77,8 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 			i++;
 		}
 	}
-	ft_print(shell, cur, i, no_ligne, pid);
+	shell->pidecho = pid;
+	ft_print(shell, cur, i, no_ligne);
 	if (pid == 0)
 		ft_exitbltn(shell, 0);
 	ft_parent_close_echo(cur, shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 21:54:21 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:42:32 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ void	ft_free_str_array(char **strarr)
 	free(strarr);
 	strarr = NULL;
 }
-

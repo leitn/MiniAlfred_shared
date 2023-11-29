@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 22:31:26 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:51:21 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,10 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 		}
 		return (1);
 	}
-	else
-	{
-		close(cur->fd_rd);
-		unlink(cur->hd_name);
-		free(cur->hd_name);
-		cur->hd_name = NULL;
-		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
-		cur->fd_rd = open(cur->hd_name, O_RDWR | O_CREAT | O_EXCL, 0777);
-		if (cur->fd_rd == -1)
-		{
-			perror("\nperror : can't open the heredoc");
-			close(cur->fd_rd);
-			unlink(cur->hd_name);
-			return (false);
-		}
-	}
+	else if (ft_else_open_hd(cur, passage_nb, shell) == false)
+		return (false);
 	return (true);
 }
-
 
 bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 {
@@ -143,19 +128,13 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 		if (g_error != 0)
 			break ;
 		if (!line)
-			return (ft_ctrld_inhd(shell, cur, red, save));
+			return (ft_ctrld_inhd(cur, red, save), true);
 		if (ft_is_eof(red->av, line))
 			return (close(save), close(cur->fd_rd), true);
 		else
-		{
-			ft_putstr_fd(line, cur->fd_rd);
-			ft_putstr_fd("\n", cur->fd_rd);
-		}
+			ft_line_in_hd(line, cur->fd_rd);
 	}
 	if (dup2(save, STDIN_FILENO) == -1)
-	{
-		ft_filter(shell, FCLEAN);
-		exit(EXIT_FAILURE);
-	}
+		ft_exitbltn(shell, EXIT_FAILURE);
 	return (false);
 }

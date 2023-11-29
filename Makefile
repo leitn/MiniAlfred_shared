@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
+#    By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/29 21:55:11 by letnitan         ###   ########.fr        #
+#    Updated: 2023/11/30 00:00:33 by hedubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,6 @@ SRCS	=	main.c \
 			utils/diverses_utils.c \
 			utils/error_utils.c \
 			utils/ft_split.c \
-			utils/title_utils.c \
-			utils/title_utils2.c \
 			utils/libft.c \
 
 OBJS	= $(addprefix $(BIN_PATH), $(SRCS:.c=.o))

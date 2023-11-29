@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:09:04 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 22:12:47 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:46:53 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,3 @@ bool	ft_manage_fds(t_shell *shell)
 	}
 	return (ft_complex_fds(shell));
 }
-

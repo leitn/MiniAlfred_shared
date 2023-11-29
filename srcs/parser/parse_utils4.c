@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 01:47:27 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 16:59:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:47:06 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,3 @@ char	*init_path(t_shell *shell, t_elem *cur)
 	}
 	return (NULL);
 }
-
-
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 03:16:40 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:53:24 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,7 @@ int	ft_size(char *input, int *i, int *start)
 	while (input[*i])
 	{
 		if (input[*i] == 34 || input[*i] == 39)
-		{
-			if (quote == input[*i])
-				quote = 0;
-			else if (quote == 0)
-				quote = input[*i];
-		}
+			ft_quote(input, i, &quote);
 		if (quote == 0 && ft_issyntax(input[*i]) == PIPE)
 			break ;
 		if (ft_istoken(input[*i]) && (quote == 0))
@@ -59,7 +54,8 @@ int	ft_size(char *input, int *i, int *start)
 			size++;
 		*i += 1;
 	}
-	return (ft_end_size(input, i, start, size, token));
+	*start = *i;
+	return (ft_end_size(input, i, size, token));
 }
 
 char	*ft_return_avx(char *input, int *start, int size)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 22:07:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:57:08 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_shell
 	t_elem			*exec_current;
 	int				error_status;
 	int				hd_fd;
+	int				pidecho;
 	bool			ss;
 }	t_shell;
 
@@ -203,7 +204,7 @@ bool		ft_get_input(t_shell *shell);
 t_syntax	ft_issyntax(char c);
 t_syntax	ft_istoken(char c);
 bool		ft_parse(t_shell *shell);
-int			ft_end_size(char *input, int *end, int *start, int size, int token);
+int			ft_end_size(char *input, int *end, int size, int token);
 void		ft_manage_paths(t_shell *shell);
 
 /* parse_utils1 */
@@ -237,7 +238,9 @@ char		*ft_joinpath(char *s1, char *s2);
 /* parse_utils5 */
 t_red		*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i);
 void		ft_manage_av(char **av);
-void		ft_print_tree(t_head *tree);
+void		ft_quote(char *input, int *i, int *quote);
+void		ft_line_in_hd(char *line, int fd);
+bool		ft_else_open_hd(t_elem *cur, int passage_nb, t_shell *shell);
 
 /* parse_fds*/
 bool		ft_manage_fds(t_shell *shell);
@@ -284,7 +287,7 @@ void		ft_recast_return(t_shell *shell);
 void		ft_signals_inhd(void);
 void		ft_ctrlc_inhd(int sig);
 void		ft_ctrlbs_inhd(int sig);
-int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red, int save);
+int			ft_ctrld_inhd(t_elem *cur, t_red *red, int save);
 
 /** EXECUTION **/
 bool		ft_strcmp(char *cmd, char *cmp);
@@ -333,8 +336,7 @@ bool		ft_cd(t_shell *shell, t_elem *cur, int pid);
 
 /* echo */
 
-void		ft_print(t_shell *shell, t_elem *tmp, int i,
-				bool no_ligne, int pid);
+void		ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne);
 void		ft_echo(t_shell *shell, t_elem *cur, int pid);
 void		ft_exitbltn(t_shell *shell, int status);
 

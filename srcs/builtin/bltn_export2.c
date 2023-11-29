@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_export2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:53:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 21:33:07 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:53:06 by hedubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ bool	ft_simple_export(t_shell *shell, t_elem *cur, int pid)
 		if (pid == 0)
 			exit(0);
 		return (true);
-
 	}
 	while (shell->env->envp[i])
 	{
