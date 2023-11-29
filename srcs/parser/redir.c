@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 22:29:57 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:31:26 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,22 @@ bool	ft_doubledirright(t_elem *tmp, t_red *red, t_shell *shell)
 bool	ft_simpleleftdir(t_elem *tmp, t_red *red, t_shell *shell)
 {
 	t_elem	*cur;
+	int		fd;
 
 	cur = tmp;
 	if (access(red->av, F_OK) == 0)
-		tmp->fd_rd = open(red->av, O_RDONLY, 0777);
+		fd = open(red->av, O_RDONLY, 0777);
 	else
 	{
-		tmp->fd_rd = -1;
+		fd = -1;
 		if (tmp->av && tmp->av[0])
 			ft_error(tmp->av[0], NOPATH, shell);
 		shell->error_status = 1;
 		return (false);
 	}
+	if (tmp->fd_rd > 0)
+		close(tmp->fd_rd);
+	tmp->fd_rd = fd;
 	return (true);
 }
 
