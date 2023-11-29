@@ -34,17 +34,11 @@ void	ft_ctrlbs_inchildren(int sig)
 
 int	ft_signal_return_handler(int sig)
 {
-	if (sig == SIGQUIT)
-	{
+	if (sig + 128 == 131)
 		ft_putstr_fd("Quit (core dumped)\n", 2);
-		return (131);
-	}
-	if (sig == SIGINT)
-	{
+	if (sig + 128 == 130)
 		ft_putchar_fd('\n', 2);
-		return (130);
-	}
-	return (sig);
+	return (sig + 128);
 }
 
 void	ft_recast_return(t_shell *shell)
@@ -53,13 +47,12 @@ void	ft_recast_return(t_shell *shell)
 	{
 		shell->error_status = g_error;
 		g_error = 0;
-		return ;
 	}
 	if (WIFEXITED(shell->error_status))
 		shell->error_status = WEXITSTATUS(shell->error_status);
 	else if (WIFSIGNALED(shell->error_status))
 		shell->error_status
-			= ft_signal_return_handler(128 + WTERMSIG(shell->error_status));
+			= ft_signal_return_handler(WTERMSIG(shell->error_status));
 	if (shell->error_status == 255)
-		shell->error_status = 126;
+		shell->error_status = 127;
 }
