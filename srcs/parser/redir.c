@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 03:01:14 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 03:22:22 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ bool	ft_open_hd(t_elem *cur, int passage_nb, t_shell *shell)
 	{
 		close(cur->fd_rd);
 		unlink(cur->hd_name);
+		free(cur->hd_name);
+		cur->hd_name = NULL;
 		cur->hd_name = ft_strjoin("tmpfile", ft_itoa(passage_nb, shell));
 		cur->fd_rd = open(cur->hd_name, O_RDWR | O_CREAT | O_EXCL, 0777);
 		if (cur->fd_rd == -1)
