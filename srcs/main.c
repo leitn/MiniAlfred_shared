@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 23:58:14 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/30 00:39:24 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ bool	ft_exec_no_path(t_shell *shell)
 			}
 			tmp = tmp->next;
 		}
-		ft_no_path_else(tmp, shell);
-		return (true);
+		if (shell->tree->count_pipe > 0)
+		{
+			ft_no_path_else(tmp, shell);
+			return (true);
+		}
 	}
 	return (false);
 }
