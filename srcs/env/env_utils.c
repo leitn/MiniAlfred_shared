@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:04:32 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:04:48 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ bool	ft_delete_var(t_shell *shell, char *to_delete)
 
 void	ft_deletepaths(t_shell *shell)
 {
-	ft_free_str_array(shell->env->paths);
+	if (shell->env->paths)
+		ft_free_str_array(shell->env->paths);
 	shell->env->paths = NULL;
 }
 
