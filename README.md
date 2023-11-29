@@ -7,9 +7,7 @@
 * Verifier les messages d'erreur d'un maximum de cas d'erreurs
 
 ### TO FIX
-* VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72
-* exit + pipe : ne doit pas ecrire exit.
-
+* VALGRIND : si env -i ./minishell puis unset PATH : SEGFAULT
 
 ### TO BETTER
 * NORME : ft_end_size et Ft_print dans echo ont cinq arguments, quatre est le maximum autorise.
@@ -21,7 +19,9 @@
 
 ### FIXED
 
+* VALGRIND : unset PATH, puis export PATH=/bin : ls -> invalid read dans init_path (parse_utils4.c ligne 94) + ft_calloc issue in init_utils2.c ligne 66 + conditional jump dans free_utils ligne 72 (FIXED Helia)
 * il se passe quoi si on s'amuse a TOUT unset ? Comme des gros sagouins ? (OK : meme comportement que POSIX)
+* exit + pipe : ne doit pas ecrire exit.(FIXED Leila)
 * le cas de env -i ./minishell : SEGGAULT :'( (FIXED)
 * echo || cat : ouch, SEGFAULT (FIXED Helia)
 * VALGRIND : ctrl D Heredoc : unadressable bytes in execve in start_exec.c(ligne 108) + invalid read of size 8 in execve (ligne 110) (UPDATE : FIXED Helia)
