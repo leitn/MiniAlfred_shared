@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 01:47:27 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 00:00:08 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:59:39 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*init_path(t_shell *shell, t_elem *cur)
 	char	**cmd_path;
 
 	i = 0;
-	cmd_path = ft_calloc(ft_array_len(shell->env->paths), (sizeof(char *) + 1));
+	cmd_path = ft_calloc(ft_array_len(shell->env->paths) + 1, sizeof(char *));
 	if (!cmd_path)
 		return (NULL);
 	ft_add_to_the_bin(cmd_path, STRARR, shell->bin);
