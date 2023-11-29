@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 21:41:47 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/30 00:27:09 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ bool	ft_delete_var(t_shell *shell, char *to_delete)
 	j = 0;
 	while (shell->env->envp[i])
 	{
-		new_env[j++] = ft_init_current(shell->env->envp[i++]);
-		if (!(new_env[j]))
+		new_env[j] = ft_init_current(shell->env->envp[i++]);
+		if (!(new_env[j++]))
 			return (false);
 		if (i == index)
 			i++;
