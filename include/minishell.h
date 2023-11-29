@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 21:44:04 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:07:39 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_waste
 	struct s_waste	*next;
 }	t_waste;
 
-typedef	struct s_bin
+typedef struct s_bin
 {
 	struct s_waste	*first;
 	bool			isempty;
@@ -166,7 +166,6 @@ bool		ft_get_paths(t_env *en, t_bin *bin);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		*ft_realloc(void *ptr, int new_size, int old_size);
 
-
 /* init_shlvl */
 
 bool		ft_isshlvl(char *cur_env);
@@ -181,38 +180,23 @@ void		ft_empty_the_bin(t_bin *bin);
 /* free_utils */
 
 bool		ft_freestr(char *str);
-void		ft_free_str_array(char **strarr);
+void		ft_free_redirs(t_red *redirs);
+void		ft_free_tmpfile(char *hd_name, int fd);
 void		ft_free_tree(t_head *tree);
+void		ft_free_str_array(char **strarr);
+
+/* free_utils2.c */
+void		ft_free_env(t_shell *shell);
 void		ft_filter(t_shell *shell, t_filter to_free);
-
-/** PARSING **/
-
 
 /* error_utils */
 bool		ft_error(char *arg, t_error error, t_shell *shell);
 
-/* lexer */
-
-void		ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex);
-char		*ft_returnenv(char *cmd, int index);
-void		ft_lex(t_shell *shell);
-
-/* lexer_utils1 */
-
-char		*ft_removedollard(char *cmd, int size, int index);
-char		*ft_replacedollard(char *cmd, char *env, int size, int *index);
-void		ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index,
-				int *jindex);
-
-/* lexer_utils2 */
-
-void		ft_lex_av(t_shell *shell, t_elem *tmp);
-bool		ft_continue(char next, int *j);
-
-/* main */
+/** --------------- MAIN.c -----------------**/
 
 bool		ft_get_input(t_shell *shell);
 
+/** -------------- PARSING---------------- **/
 
 /* parser */
 
@@ -251,18 +235,36 @@ char		*ft_strcpy(char *src);
 char		*ft_joinpath(char *s1, char *s2);
 
 /* parse_utils5 */
-
 t_red		*ft_write_lst_redir(t_red *crn, t_elem *cur, char *input, int *i);
 void		ft_manage_av(char **av);
 void		ft_print_tree(t_head *tree);
 
-
 /* parse_fds*/
-
 bool		ft_manage_fds(t_shell *shell);
 
-/* signals*/
+/** --------------- LEXING ----------------- **/
+/* lexer.c */
 
+void		ft_end_remove_quotes(t_elem *cur, int index, char *new);
+void		ft_remove_quotes(t_elem *cur, int index, int start, int *end);
+void		ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex);
+char		*ft_returnenv(char *cmd, int index);
+void		ft_lex(t_shell *shell);
+
+/* lexer_utils1 */
+
+char		*ft_removedollard(char *cmd, int size, int index);
+char		*ft_replacedollard(char *cmd, char *env, int size, int *index);
+char		*ft_get_status(int status);
+void		ft_rewrite_dollard(t_shell *shell, t_elem *cur, int index,
+				int *jindex);
+
+/* lexer_utils2 */
+
+void		ft_lex_av(t_shell *shell, t_elem *tmp);
+bool		ft_continue(char next, int *j);
+
+/* signals*/
 
 /* parent's */
 
@@ -284,7 +286,6 @@ void		ft_ctrlc_inhd(int sig);
 void		ft_ctrlbs_inhd(int sig);
 int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red, int save);
 
-
 /** EXECUTION **/
 bool		ft_strcmp(char *cmd, char *cmp);
 
@@ -301,10 +302,10 @@ int			dup_no_pipe(t_shell *shell, t_elem *cur, int i);
 int			dup_pipe_rd(t_shell *shell, int i);
 int			dup_pipe_wr(t_shell *shell, int i);
 
-
 /* start_exec */
 
 bool		ft_isbltn(t_shell *shell, t_elem *cur, int pid);
+void		ft_exec_final(t_elem *cur, t_shell *shell);
 int			ft_execve(t_shell *shell, t_elem *cur, int i);
 int			ft_exec(t_shell *shell, t_elem *tmp);
 
@@ -359,7 +360,6 @@ bool		ft_pwd(t_shell *shell, t_elem *cur, int pid);
 
 void		ft_unset(t_shell *shell, t_elem *cur, int pid);
 
-
 /** UTILS **/
 
 char		**ft_split(char const *s, char c);
@@ -389,7 +389,6 @@ char		*ft_toilet(void);
 char		*ft_minialfred(void);
 char		*ft_option1(void);
 char		*ft_option2(void);
-
 
 /* ENV */
 

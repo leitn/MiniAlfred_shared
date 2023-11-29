@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 19:57:37 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:08:24 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ char	*ft_returnenv(char *cmd, int index)
 	return (getenvp);
 }
 
+void	ft_end_remove_quotes(t_elem *cur, int index, char *new)
+{
+	free(cur->av[index]);
+	cur->av[index] = new;
+}
+
 void	ft_remove_quotes(t_elem *cur, int index, int start, int *end)
 {
 	char	*new;
@@ -68,11 +74,10 @@ void	ft_remove_quotes(t_elem *cur, int index, int start, int *end)
 			new[j++] = cur->av[index][i++];
 	}
 	new[j] = '\0';
-	free(cur->av[index]);
-	cur->av[index] = new;
+	ft_end_remove_quotes(cur, index, new);
 }
 
-void	ft_rewrite(t_shell *shell, t_elem *cur, int	index, int *jindex)
+void	ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex)
 {
 	char	target;
 	int		end;

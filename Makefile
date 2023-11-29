@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+         #
+#    By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/28 15:18:14 by hedubois          #+#    #+#              #
-#    Updated: 2023/11/29 18:00:52 by hedubois         ###   ########.fr        #
+#    Updated: 2023/11/29 21:55:11 by letnitan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS	=	main.c \
 			execution/fds_utils.c \
 			init_and_free/bin_utils.c \
 			init_and_free/free_utils.c \
+			init_and_free/free_utils2.c \
 			init_and_free/init_utils.c \
 			init_and_free/init_utils2.c \
 			init_and_free/shlvl_utils.c \
