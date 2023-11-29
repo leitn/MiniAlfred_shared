@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 23:59:50 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:09:55 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ char	*ft_return_avx(char *input, int *start, int size)
 	char	*avx;
 	int		i;
 
+	if (size < *start)
+		return (NULL);
 	size -= *start;
-	avx = ft_calloc(sizeof(char), (size + 1));
+	avx = ft_calloc(sizeof(char), size + 1);
 	if (!avx)
 		return (NULL);
 	size += *start;

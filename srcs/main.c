@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 02:27:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:38:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:10:45 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int ac, char **av, char **env)
 			start_alfred(shell);
 			ft_filter(shell, TREEONLY);
 		}
+		ft_filter(shell, TREEONLY);
 	}
 	ft_filter(shell, FCLEAN);
 	return (0);

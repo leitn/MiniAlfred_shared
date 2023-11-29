@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:26:06 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:03:39 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:21:16 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*ft_write_shlvl(char *cur_env)
 
 	ft_init_lvl(cur_env, &lvl);
 	strlvl = ft_convert_lvl(lvl);
-	new = ft_calloc(sizeof(char), (7 + ft_strlen(strlvl)));
+	new = ft_calloc(sizeof(char), 7 + ft_strlen(strlvl));
 	if (!new)
 		return (NULL);
 	lvl = 0;

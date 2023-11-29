@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 22:39:49 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/28 19:52:47 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 02:04:05 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	ft_free_hd(t_shell *shell)
 int	ft_close_fds(t_shell *shell, t_elem *cur)
 {
 	int		i;
+	t_elem	*tmp;
 
 	i = 0;
+	tmp = cur;
 	if (shell->tree->count_pipe > 0)
 	{
 		while (i < shell->tree->count_pipe)
@@ -43,13 +45,13 @@ int	ft_close_fds(t_shell *shell, t_elem *cur)
 			i++;
 		}
 	}
-	while (cur)
+	while (tmp)
 	{
-		if (cur->fd_rd > 0)
-			close(cur->fd_rd);
-		if (cur->fd_wr > 1)
-			close(cur->fd_wr);
-		cur = cur->next;
+		if (tmp->fd_rd > 0)
+			close(tmp->fd_rd);
+		if (tmp->fd_wr > 1)
+			close(tmp->fd_wr);
+		tmp = tmp->next;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:44:23 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 21:30:51 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:00:53 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,11 @@ void	ft_write_path(t_shell *shell, t_elem *cur)
 		return ;
 	}
 	else if (ft_is_a_builtin(cur->av[0]))
-	{
-		cur->path = ft_calloc(sizeof(char), 1);
-		if (!cur->path)
-			return ;
-		cur->path[0] = '\0';
-		return ;
-	}
+		cur->path = NULL;
 	else
 		cur->path = init_path(shell, cur);
 	if (!cur->path)
-	{
-		cur->path = ft_calloc(sizeof(char), 1);
-		if (!cur->path)
-			return ;
-		cur->path[0] = '\0';
-	}
+		cur->path = NULL;
 }
 
 /* Redige la branche actuelle, a l'aide des fonctions

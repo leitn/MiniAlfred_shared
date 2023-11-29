@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 00:12:24 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:46:44 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ int			ft_wait_children(t_shell *shell);
 
 /* start_exec */
 
-int			ft_exec(t_shell *shell, t_elem *cur);
+int			ft_exec(t_shell *shell, t_elem *tmp);
 int			ft_execve(t_shell *shell, t_elem *cur, int i);
 bool		ft_isbltn(t_shell *shell, t_elem *cur, int pid);
 
