@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 13:56:59 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 01:54:32 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 03:17:16 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ void	ft_free_tree(t_head *tree)
 	{
 		tmp2 = tmp1->next;
 		if (tmp1->av)
-		{
-			// printf("je free av\n");
 			ft_free_str_array(tmp1->av);
-		}
 		if (tmp1->hd_name != NULL)
 			ft_free_tmpfile(tmp1->hd_name, tmp1->fd_rd);
 		if (tmp1->path)

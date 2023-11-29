@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 21:44:10 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 01:09:55 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 03:16:40 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	ft_write_cmd(t_elem *cur, char *input, int *start)
 	if (!cur->av)
 		return ;
 	if (size == 0)
-		cur->av = NULL;
+		cur->av[0] = NULL;
 	size = 0;
 	while (i < end)
 	{

@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:30:02 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/28 15:31:51 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 02:55:29 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,23 @@ void	ft_ctrlc_inhd(int sig)
 	close(STDIN_FILENO);
 }
 
-int	ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red)
+int	ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red, int save)
 {
 	t_elem	*tmp;
 
 	tmp = shell->tree->first;
 	g_error = 0;
 	tmp = cur;
-	if (tmp->fd_rd > 2)
-		close(tmp->fd_rd);
+	while (tmp)
+	{
+		if (tmp->fd_rd > 2)
+			close(tmp->fd_rd);
+		if (tmp->fd_wr > 2)
+			close(tmp->fd_wr);
+		tmp = tmp->next;
+	}
+	ft_free_hd(shell);
+	close(save);
 	ft_putstr_fd("MiniAlfred: warning: here-document ", 2);
 	ft_putstr_fd("delimited by end-of-file (wanted '", 2);
 	ft_putstr_fd(red->av, 2);

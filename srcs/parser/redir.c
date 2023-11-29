@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/28 23:42:43 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 03:01:14 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	ft_simpleleftdir(t_elem *tmp, t_red *red, t_shell *shell)
 	else
 	{
 		tmp->fd_rd = -1;
-		if (tmp->av[0])
+		if (tmp->av && tmp->av[0])
 			ft_error(tmp->av[0], NOPATH);
 		shell->error_status = 1;
 		return (false);
@@ -127,9 +127,9 @@ bool	ft_heredoc(t_shell *shell, t_elem *cur, t_red *red)
 		if (g_error != 0)
 			break ;
 		if (!line)
-			return (ft_ctrld_inhd(shell, cur, red));
+			return (ft_ctrld_inhd(shell, cur, red, save));
 		if (ft_is_eof(red->av, line))
-			return (close(cur->fd_rd), true);
+			return (close(save), close(cur->fd_rd), true);
 		else
 		{
 			ft_putstr_fd(line, cur->fd_rd);

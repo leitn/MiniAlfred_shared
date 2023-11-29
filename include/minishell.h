@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 01:46:44 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 02:47:46 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ void		ft_recast_return(t_shell *shell);
 void		ft_signals_inhd(void);
 void		ft_ctrlc_inhd(int sig);
 void		ft_ctrlbs_inhd(int sig);
-int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red);
+int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red, int save);
 
 
 /** EXECUTION **/
