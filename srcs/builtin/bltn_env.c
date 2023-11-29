@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:53:27 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 17:41:18 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:31:37 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_error_env(t_elem *cur, t_syntax FLAG, int pid, t_shell *shell)
 		ft_putstr_fd(err, 2);
 		shell->error_status = 127;
 		if (pid == 0)
-			exit(127);
+			ft_exitbltn(shell, 127);
 	}
 	else if (FLAG == OPTION)
 	{
@@ -32,7 +32,7 @@ void	ft_error_env(t_elem *cur, t_syntax FLAG, int pid, t_shell *shell)
 		ft_putstr_fd(err, 2);
 		shell->error_status = 125;
 		if (pid == 0)
-			exit(125);
+			ft_exitbltn(shell, 125);
 	}
 }
 
@@ -61,5 +61,5 @@ void	ft_env(t_shell *shell, t_elem *cur, int pid)
 		}
 	}
 	if (pid == 0)
-		exit(0);
+		ft_exitbltn(shell, 0);
 }

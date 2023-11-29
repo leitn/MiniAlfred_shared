@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:12:08 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 17:03:14 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:41:47 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_index(char **env, char *target)
 env (contenu ds shell) en plus.
 return la variable si elle existe,
 NULL sinon. /!\ penser a free la chaine retournee */
-
 char	*ft_getenv(t_env *env, char *target)
 {
 	char	*var;
@@ -62,7 +61,6 @@ char	*ft_getenv(t_env *env, char *target)
 avec new si elle existe et renvoie true.
 Renvoie false si elle n'existe pas
 ou si une erreur se produit. */
-
 bool	ft_update_var(t_env *env, char *to_update, char *new)
 {
 	char	*new_var;
@@ -92,6 +90,14 @@ bool	ft_update_var(t_env *env, char *to_update, char *new)
 	return (true);
 }
 
+bool	ft_end_delete_var(int j, char **new_env, t_shell *shell)
+{
+	new_env[j] = NULL;
+	ft_free_str_array(shell->env->envp);
+	shell->env->envp = new_env;
+	return (true);
+}
+
 bool	ft_delete_var(t_shell *shell, char *to_delete)
 {
 	char	**new_env;
@@ -112,38 +118,11 @@ bool	ft_delete_var(t_shell *shell, char *to_delete)
 	j = 0;
 	while (shell->env->envp[i])
 	{
-		if (!(new_env[j++] = ft_init_current(shell->env->envp[i++])))
+		new_env[j++] = ft_init_current(shell->env->envp[i++]);
+		if (!(new_env[j]))
 			return (false);
 		if (i == index)
 			i++;
 	}
-	new_env[j] = NULL;
-	ft_free_str_array(shell->env->envp);
-	shell->env->envp = new_env;
-	return (true);
-}
-
-void	ft_deletepaths(t_shell *shell)
-{
-	if (shell->env->paths)
-		ft_free_str_array(shell->env->paths);
-	shell->env->paths = NULL;
-}
-
-void	ft_updatepaths(t_shell *shell)
-{
-	int		i;
-	char	*casted;
-
-	i = ft_index(shell->env->envp, "PATH");
-	if (i == -1)
-	{
-		ft_deletepaths(shell);
-		return ;
-	}
-	if (shell->env->paths)
-		ft_free_str_array(shell->env->paths);
-	casted = ft_getenv(shell->env, "PATH");
-	ft_add_to_the_bin(casted, STR, shell->bin);
-	shell->env->paths = ft_split(casted, ':');
+	return (ft_end_delete_var(j, new_env, shell));
 }

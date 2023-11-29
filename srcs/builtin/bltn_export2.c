@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_export2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:53:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 18:01:11 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:33:07 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ bool	ft_simple_export(t_shell *shell, t_elem *cur, int pid)
 		ft_putchar_fd('\n', cur->fd_wr);
 	}
 	if (pid == 0)
-		exit (0);
+		ft_exitbltn(shell, 0);
 	return (true);
 }

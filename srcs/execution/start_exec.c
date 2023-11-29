@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:22 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 19:58:16 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:46:35 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ bool	ft_isbltn(t_shell *shell, t_elem *cur, int pid)
 	return (false);
 }
 
+void	ft_exec_final(t_elem *cur, t_shell *shell)
+{
+	if (cur->path == NULL && cur->av[0])
+	{
+		ft_error(cur->av[0], CMD, shell);
+		ft_filter(shell, TREEONLY);
+		ft_filter(shell, FCLEAN);
+		exit(-1);
+	}
+	else if (execve(cur->path, cur->av, shell->env->envp) == -1)
+	{
+		ft_error(cur->av[0], CMD, shell);
+		ft_filter(shell, FCLEAN);
+		exit(-1);
+	}
+}
+
 int	ft_execve(t_shell *shell, t_elem *cur, int i)
 {
 	if (!cur->av || !cur->av[0])
@@ -58,22 +75,9 @@ int	ft_execve(t_shell *shell, t_elem *cur, int i)
 		dup_pipe_wr(shell, i);
 	ft_close_fds(shell, shell->tree->first);
 	if (cur->av[0] && ft_isbltn(shell, cur, 0) == false)
-	{
-		if (cur->path == NULL && cur->av[0])
-		{
-			ft_error(cur->av[0], CMD, shell);
-			ft_filter(shell, TREEONLY);
-			ft_filter(shell, FCLEAN);
-			exit(-1);
-		}
-		else if (execve(cur->path, cur->av, shell->env->envp) == -1)
-		{
-			ft_error(cur->av[0], CMD, shell);
-			ft_filter(shell, FCLEAN);
-			exit(-1);
-		}
-	}
-	return (0);
+		ft_exec_final(cur, shell);
+	ft_filter(shell, FCLEAN);
+	exit(1);
 }
 
 int	ft_exec(t_shell *shell, t_elem *tmp)

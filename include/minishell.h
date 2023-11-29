@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:59:01 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 18:56:00 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:44:04 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,11 @@ int			ft_ctrld_inhd(t_shell *shell, t_elem *cur, t_red *red, int save);
 /** EXECUTION **/
 bool		ft_strcmp(char *cmd, char *cmp);
 
+/* exec_utils.c */
+bool		check_bltn(t_elem *cur);
+void		ft_close_pipes(t_shell *shell);
+void		ft_init_pipes(t_shell *shell);
+int			ft_wait_children(t_shell *shell);
 
 /* fds_utils.c */
 void		ft_free_hd(t_shell *shell);
@@ -296,17 +301,12 @@ int			dup_no_pipe(t_shell *shell, t_elem *cur, int i);
 int			dup_pipe_rd(t_shell *shell, int i);
 int			dup_pipe_wr(t_shell *shell, int i);
 
-/* exec_utils.c */
-bool		check_bltn(t_elem *cur);
-void		ft_close_pipes(t_shell *shell);
-void		ft_init_pipes(t_shell *shell);
-int			ft_wait_children(t_shell *shell);
 
 /* start_exec */
 
-int			ft_exec(t_shell *shell, t_elem *tmp);
-int			ft_execve(t_shell *shell, t_elem *cur, int i);
 bool		ft_isbltn(t_shell *shell, t_elem *cur, int pid);
+int			ft_execve(t_shell *shell, t_elem *cur, int i);
+int			ft_exec(t_shell *shell, t_elem *tmp);
 
 /** REDIRS **/
 
@@ -390,14 +390,20 @@ char		*ft_minialfred(void);
 char		*ft_option1(void);
 char		*ft_option2(void);
 
+
+/* ENV */
+
 /* env_utils */
 
+int			ft_index(char **env, char *target);
 char		*ft_getenv(t_env *env, char *target);
 bool		ft_update_var(t_env *env, char *to_update, char *new);
+bool		ft_end_delete_var(int j, char **new_env, t_shell *shell);
 bool		ft_delete_var(t_shell *shell, char *to_delete);
-void		ft_updatepaths(t_shell *shell);
 
 /* env.c */
+void		ft_deletepaths(t_shell *shell);
+void		ft_updatepaths(t_shell *shell);
 bool		ft_setbasicenv(t_shell *shell);
 
 #endif

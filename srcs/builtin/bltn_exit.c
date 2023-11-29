@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 18:33:40 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 18:48:17 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:32:22 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	ft_too_many_args(t_shell *shell, int pid)
 	g_error = 2;
 	shell->error_status = 1;
 	if (pid == 0)
-		exit (1);
+		ft_exitbltn(shell, 1);
 	return (false);
 }
 

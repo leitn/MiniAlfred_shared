@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:44:34 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 17:49:01 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:36:18 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_end(t_shell *shell, int pid, bool ispath)
 	if (ispath == true)
 		ft_updatepaths(shell);
 	if (pid == 0)
-		exit(0);
+		ft_exitbltn(shell, 0);
 }
 
 void	ft_unset(t_shell *shell, t_elem *cur, int pid)
@@ -32,7 +32,7 @@ void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 		ft_putstr_fd("unset: this implementation takes no options\n", 2);
 		shell->error_status = 2;
 		if (pid == 0)
-			exit(2);
+			ft_exitbltn(shell, 2);
 		return ;
 	}
 	i = 1;
@@ -42,7 +42,6 @@ void	ft_unset(t_shell *shell, t_elem *cur, int pid)
 		if (ft_strcmp(cur->av[i], "PATH"))
 			ispath = true;
 		ft_delete_var(shell, cur->av[i++]);
-
 	}
 	ft_end(shell, pid, ispath);
 }
