@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:57:35 by letnitan          #+#    #+#             */
-/*   Updated: 2023/11/29 04:02:45 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:29:57 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,27 @@ bool	ft_simpledirright(t_elem *tmp, t_red *red, t_shell *shell)
 {
 	t_elem	*cur;
 	t_red	*redir;
+	int		fd;
 
 	cur = tmp;
 	redir = red;
 	if (access(red->av, F_OK) == 0)
-		tmp->fd_wr = open(red->av, O_WRONLY | O_TRUNC);
+		fd = open(red->av, O_WRONLY | O_TRUNC);
 	else
-		tmp->fd_wr = open(red->av, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (tmp->fd_wr == -1)
+		fd = open(red->av, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
 	{
 		ft_putstr_fd("MiniAlfred: ", 2);
 		if (tmp->av[0])
 			ft_putstr_fd(tmp->av[0], 2);
 		ft_putstr_fd(": Permission denied\n", 2);
-		shell->error_status = 1;
-		return (false);
+		return (shell->error_status = 1, false);
+	}
+	else
+	{
+		if (tmp->fd_wr > 1)
+			close(tmp->fd_wr);
+		tmp->fd_wr = fd;
 	}
 	return (true);
 }
@@ -54,7 +60,11 @@ bool	ft_doubledirright(t_elem *tmp, t_red *red, t_shell *shell)
 		return (false);
 	}
 	else
+	{
+		if (tmp->fd_wr > 1)
+			close(tmp->fd_wr);
 		tmp->fd_wr = fd;
+	}
 	return (true);
 }
 

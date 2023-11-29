@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:57:39 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 22:08:24 by letnitan         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:08:47 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_rewrite(t_shell *shell, t_elem *cur, int index, int *jindex)
 les branches a la recherche d'un dollard, en
 dehors de simples quotes. Si elle en trouve,
 les remplace par la variable correspondantes. */
-
 void	ft_lex(t_shell *shell)
 {
 	t_elem	*tmp;

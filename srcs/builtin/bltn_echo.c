@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltn_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hedubois <hedubois@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:39:51 by hedubois          #+#    #+#             */
-/*   Updated: 2023/11/29 18:21:03 by hedubois         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:27:03 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,22 @@ void	ft_print(t_shell *shell, t_elem *cur, int i, bool no_ligne, int pid)
 	shell->error_status = 0;
 }
 
+void	ft_parent_close_echo(t_elem *cur, t_shell *shell)
+{
+	t_elem	*tmp;
+
+	tmp = cur;
+	while (tmp)
+	{
+		if (tmp->fd_rd > 0)
+			close(tmp->fd_rd);
+		if (tmp->fd_wr > 1)
+			close(tmp->fd_wr);
+		tmp = tmp->next;
+	}
+	ft_free_hd(shell);
+}
+
 void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 {
 	int		i;
@@ -62,10 +78,9 @@ void	ft_echo(t_shell *shell, t_elem *cur, int pid)
 		}
 	}
 	ft_print(shell, cur, i, no_ligne, pid);
-	if (cur->hd_name != NULL)
-		unlink(cur->hd_name);
 	if (pid == 0)
 		ft_exitbltn(shell, 0);
+	ft_parent_close_echo(cur, shell);
 }
 
 void	ft_exitbltn(t_shell *shell, int status)
